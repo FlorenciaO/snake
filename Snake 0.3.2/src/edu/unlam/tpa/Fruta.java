@@ -19,5 +19,8 @@ public class Fruta {
 	public boolean estasAhi(Posicion pos) {
 		return this.pos.equals(pos);
 	}
+
+	public void morir() {		
+	}
 	
 }

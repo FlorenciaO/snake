@@ -30,14 +30,32 @@ public class Mapa {
 		return false;
 	}
 	
-	public Snake hayVibora(Posicion pos) {
+	public boolean hayVibora(Posicion pos) {
+		Snake aux;
+		
 		for(Snake snake : snakes) {
-			if(snake.estasAhi(pos))
-				return snake;
+			if(vaAcrecer(snake)) {
+				aux = new Snake(snake);
+				aux.crecer();
+				if(aux.vasAestarAhi(pos))
+					return true;
+			}
+			else {
+				if(snake.vasAestarAhi(pos))
+					return true;
+			}
 		}
-		return null;
+		return false;
 	}
 	
+	private boolean vaAcrecer(Snake snake) {
+		Posicion nextPos = snake.getNextPos();		
+		if(hayFruta(nextPos) != null) {
+			return true;
+		}
+		return false;
+	}
+
 	public Fruta hayFruta(Posicion pos) {
 		for(Fruta fruta : frutas) {
 			if(fruta.estasAhi(pos))

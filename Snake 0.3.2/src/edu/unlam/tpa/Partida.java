@@ -23,8 +23,21 @@ public class Partida {
 	}
 	
 	public void actualizarPartida() {
+		
 		for(int i = 0; i < this.snakes.size(); i++) {
-			colisionador.verConflicto(this.mapa, this.snakes.get(i));
+			colisionador.resolverConflicto(this.mapa, this.snakes.get(i));
 		}
+		
+		for(Snake snake : this.snakes) {
+			if(snake.estaViva()) {
+				if(snake.verSiNoTieneConflictos()) {
+					snake.moverse();
+				}
+			}
+			else {
+				snakes.remove(snake);
+			}
+		}
+		
 	}
 }

@@ -11,6 +11,11 @@ public class CuerpoSnake {
 		this.cuerpo.add(new Posicion(x, y));
 	}
 	
+	public CuerpoSnake(CuerpoSnake cuerpo2) {
+		this.cuerpo = new ArrayList<>();
+		this.cuerpo.addAll(cuerpo2.cuerpo);
+	}
+
 	public Posicion moverYavisar(Posicion pos, int i) {
 		Posicion aux = new Posicion(this.cuerpo.get(i));
 		this.cuerpo.get(i).x = pos.x;
@@ -23,7 +28,6 @@ public class CuerpoSnake {
 		Posicion posAux = new Posicion(this.cuerpo.get(0));
 		
 		moverPos(this.cuerpo.get(0), dir);
-		
 		for(int i = 1; i < cuerpo.size(); i++) {
 			posAux = moverYavisar(posAux, i);
 		}
@@ -59,6 +63,21 @@ public class CuerpoSnake {
 
 	public ArrayList<Posicion> getCuerpo() {
 		return cuerpo;
+	}
+
+	
+	public Posicion getCabezaNextPos(Direccion dir) {
+		Posicion aux = new Posicion(getCabezaPos());
+		moverPos(aux, dir);
+		return aux;
+	}
+
+	public boolean estasAhi(Posicion pos) {
+		for(Posicion posCuerpo : cuerpo) {
+			if(pos.equals(posCuerpo))
+				return true;
+		}
+		return false;
 	}
 	
 	

@@ -25,15 +25,19 @@ public class Posicion {
 	public void setX(int x) {
 		this.x = x;
 	}
+	
 
 	public void setY(int y) {
 		this.y = y;
 	}
+	
 
 	@Override
 	public String toString() {
 		return "" + this.x + " " + this.y; 
 	}
 	
-	
+	public boolean equals(Posicion obj) {
+		return this.x == obj.x && this.y == obj.y;
+	}
 }
