@@ -1,6 +1,7 @@
 package edu.unlam.tpa;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 
 public class Partida {
 	private Mapa mapa;
@@ -24,20 +25,44 @@ public class Partida {
 	
 	public void actualizarPartida() {
 		
-		for(int i = 0; i < this.snakes.size(); i++) {
-			colisionador.resolverConflicto(this.mapa, this.snakes.get(i));
+		Iterator<Snake> snakesIterator = this.snakes.iterator();
+		while(snakesIterator.hasNext()) {
+			colisionador.resolverConflicto(this.mapa, snakesIterator.next());
 		}
 		
-		for(Snake snake : this.snakes) {
+		snakesIterator = this.snakes.iterator();
+		while(snakesIterator.hasNext()) {
+			Snake snake = snakesIterator.next();
 			if(snake.estaViva()) {
 				if(snake.verSiNoTieneConflictos()) {
 					snake.moverse();
 				}
 			}
 			else {
-				snakes.remove(snake);
+				snakesIterator.remove();
 			}
 		}
+	}
+	
+	public void actualizarPartida(boolean mostrar) {
+		if(mostrar)
+			mapa.mostrarMapa();
+		Iterator<Snake> snakesIterator = this.snakes.iterator();
+		while(snakesIterator.hasNext()) {
+			colisionador.resolverConflicto(this.mapa, snakesIterator.next());
+		}
 		
+		snakesIterator = this.snakes.iterator();
+		while(snakesIterator.hasNext()) {
+			Snake snake = snakesIterator.next();
+			if(snake.estaViva()) {
+				if(snake.verSiNoTieneConflictos()) {
+					snake.moverse();
+				}
+			}
+			else {
+				snakesIterator.remove();
+			}
+		}
 	}
 }
