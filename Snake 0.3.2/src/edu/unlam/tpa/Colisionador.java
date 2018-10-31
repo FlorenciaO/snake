@@ -10,7 +10,7 @@ public class Colisionador {
 		
 		if(mapa.estaFueraDelMapa(nextPos))
 			snake.morirse();		
-		else if(mapa.hayVibora(nextPos)) {
+		else if(mapa.hayVibora(nextPos, snake)) {
 			snake.morirse();
 		}
 		else if((frAux = mapa.hayFruta(nextPos)) != null){
