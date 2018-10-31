@@ -3,17 +3,29 @@ package edu.unlam.tpa;
 import java.util.ArrayList;
 
 public class CuerpoSnake {
-	
+
 	private ArrayList<Posicion> cuerpo;
 
 	public CuerpoSnake(int x, int y) {
 		this.cuerpo = new ArrayList<>();
 		this.cuerpo.add(new Posicion(x, y));
 	}
-	
+
 	public CuerpoSnake(CuerpoSnake cuerpo2) {
 		this.cuerpo = new ArrayList<>();
-		this.cuerpo.addAll(cuerpo2.cuerpo);
+		for(Posicion pos : cuerpo2.cuerpo) {
+			this.cuerpo.add(new Posicion(pos));
+		}
+		
+	}
+
+	public void mover(Direccion dir) {
+		Posicion posAux = new Posicion(getCabezaPos());
+
+		moverPos(getCabezaPos(), dir);
+		for (int i = 1; i < cuerpo.size(); i++) {
+			posAux = moverYavisar(posAux, i);
+		}
 	}
 
 	public Posicion moverYavisar(Posicion pos, int i) {
@@ -22,19 +34,9 @@ public class CuerpoSnake {
 		this.cuerpo.get(i).y = pos.y;
 		return aux;
 	}
-	
-	public void mover(Direccion dir) {
-		
-		Posicion posAux = new Posicion(this.cuerpo.get(0));
-		
-		moverPos(this.cuerpo.get(0), dir);
-		for(int i = 1; i < cuerpo.size(); i++) {
-			posAux = moverYavisar(posAux, i);
-		}
-	}
 
 	private void moverPos(Posicion pos, Direccion dir) {
-		switch(dir) {
+		switch (dir) {
 		case ARRIBA:
 			pos.x--;
 			break;
@@ -51,12 +53,12 @@ public class CuerpoSnake {
 	}
 
 	public void crecer(Direccion dir) {
-		Posicion pos = new Posicion(cuerpo.get(0));
+		Posicion pos = new Posicion(getCabezaPos());
 
 		moverPos(pos, dir);
 		this.cuerpo.add(0, pos);
 	}
-	
+
 	public Posicion getCabezaPos() {
 		return cuerpo.get(0);
 	}
@@ -65,7 +67,6 @@ public class CuerpoSnake {
 		return cuerpo;
 	}
 
-	
 	public Posicion getCabezaNextPos(Direccion dir) {
 		Posicion aux = new Posicion(getCabezaPos());
 		moverPos(aux, dir);
@@ -73,12 +74,54 @@ public class CuerpoSnake {
 	}
 
 	public boolean estasAhi(Posicion pos) {
-		for(Posicion posCuerpo : cuerpo) {
-			if(pos.equals(posCuerpo))
+		for (Posicion posCuerpo : cuerpo) {
+			if (pos.equals(posCuerpo))
 				return true;
 		}
 		return false;
 	}
 	
+	public boolean laCabezaEstaAhi(Posicion pos) {
+		return cuerpo.get(0).equals(pos);
+	}
 	
+	public boolean cuerpoSinCabezaEstaAhi(Posicion pos) {
+		for(int i = 1; i < cuerpo.size(); i++) {
+			if(pos.equals(cuerpo.get(i)))
+				return true;
+		}
+		return false;
+	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((cuerpo == null) ? 0 : cuerpo.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		CuerpoSnake other = (CuerpoSnake) obj;
+		if (cuerpo == null) {
+			if (other.cuerpo != null)
+				return false;
+		} else if (!cuerpo.equals(other.cuerpo))
+			return false;
+		return true;
+	}
+
+	
+
+	
+	
+	
+
 }
