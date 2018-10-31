@@ -36,8 +36,20 @@ public class Posicion {
 	public String toString() {
 		return "" + this.x + " " + this.y; 
 	}
-	
-	public boolean equals(Posicion obj) {
-		return this.x == obj.x && this.y == obj.y;
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Posicion other = (Posicion) obj;
+		if (x != other.x)
+			return false;
+		if (y != other.y)
+			return false;
+		return true;
 	}
 }
