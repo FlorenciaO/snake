@@ -1,5 +1,7 @@
 package edu.unlam.tpa;
 
+import java.awt.Color;
+import java.awt.Graphics2D;
 import java.util.ArrayList;
 
 public class CuerpoSnake {
@@ -38,16 +40,16 @@ public class CuerpoSnake {
 	private void moverPos(Posicion pos, Direccion dir) {
 		switch (dir) {
 		case ARRIBA:
-			pos.x--;
+			pos.y--;
 			break;
 		case ABAJO:
-			pos.x++;
-			break;
-		case DERECHA:
 			pos.y++;
 			break;
+		case DERECHA:
+			pos.x++;
+			break;
 		case IZQUIERDA:
-			pos.y--;
+			pos.x--;
 			break;
 		}
 	}
@@ -116,6 +118,13 @@ public class CuerpoSnake {
 		} else if (!cuerpo.equals(other.cuerpo))
 			return false;
 		return true;
+	}
+
+	public void paint(Graphics2D g2, Color color, int tileSize) {
+		for(Posicion parte : cuerpo) {
+			g2.setColor(color);
+			g2.fillRect(parte.x * tileSize, parte.y * tileSize, tileSize, tileSize);
+		}
 	}
 
 	
