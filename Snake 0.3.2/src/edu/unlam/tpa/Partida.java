@@ -40,6 +40,7 @@ public class Partida {
 			}
 			else {
 				snakesIterator.remove();
+				mapa.removeSnake(snake);
 			}
 		}
 	}
