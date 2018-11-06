@@ -45,6 +45,8 @@ public class PanelJuego extends JPanel implements Runnable {
 	private int puntos1 = 0;
 	private int puntos2 = 0;
 	
+	private boolean enJuego;
+	
 	public void setMovimiento(KeyEvent evento){
 		
 		if(evento.getKeyCode() == KeyEvent.VK_A) {
@@ -97,8 +99,9 @@ public class PanelJuego extends JPanel implements Runnable {
 			}
 		});
 
-		init();
-		repaint();
+		this.enJuego = false;
+//		init();
+//		repaint();
 	}
 
 	public void init() {
@@ -132,17 +135,20 @@ public class PanelJuego extends JPanel implements Runnable {
 		g2.setColor(Color.BLACK);		
 		g2.fillRect(tileSize, tileSize, this.getWidth() - 2 * tileSize, this.getHeight() - 2 * tileSize);
 		
-		fruta.paint(g2, tileSize);
-		if(snake.estaViva())
-			snake.paint(g2, Color.GREEN, tileSize);
-		if(snake2.estaViva())
-			snake2.paint(g2, Color.ORANGE, tileSize);
-
+		if(this.enJuego) {
+			fruta.paint(g2, tileSize);
+			if(snake.estaViva())
+				snake.paint(g2, Color.GREEN, tileSize);
+			if(snake2.estaViva())
+				snake2.paint(g2, Color.ORANGE, tileSize);
+		}
+		
 		g.drawImage(buffer, 0, 0, this);
 	}
 
 	@Override
 	public void run() {
+		this.enJuego = true;
 		while (snake.estaViva() || snake2.estaViva()) {
 //		while (snake.estaViva()) {	
 			snake.cambiarDireccion(dir);
@@ -164,6 +170,7 @@ public class PanelJuego extends JPanel implements Runnable {
 
 			repaint();
 		}
+		this.enJuego = false;
 		
 	}
 

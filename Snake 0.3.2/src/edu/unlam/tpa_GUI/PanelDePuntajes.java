@@ -3,6 +3,8 @@ package edu.unlam.tpa_GUI;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -27,7 +29,7 @@ public class PanelDePuntajes extends JPanel{
 		this.setPreferredSize(new Dimension(200, 300));
 
 		
-		this.setBackground(Color.BLACK);
+		this.setBackground(Color.RED);
 		this.setForeground(new Color(0, 0, 0));
 		this.setBorder(new EmptyBorder(5, 5, 5, 5));
 //		setContentPane(contentPane);
@@ -83,15 +85,18 @@ public class PanelDePuntajes extends JPanel{
 		snake4ScoreLabel.setBounds(120, 170, 46, 20);
 //		this.add(snake4ScoreLabel);
 		
-//		startButton.setPreferredSize(new Dimension(85, 40));
-//		startButton.setText("Play Again");
-//		btn.setRequestFocusEnabled(false);		//Cuando se agrega un boton sin esto no anda
-//		startButton.addActionListener(new ActionListener(){
-//			@Override
-//			public void actionPerformed(ActionEvent e) {
-//				mainPanel.init();
-//			}
-//		});
+//		startButton.setPreferredSize(new Dimension(60, 40));
+		startButton.setBounds(50, 250, 100, 40);
+		startButton.setText("Jugar");
+		startButton.setRequestFocusEnabled(false);		//Cuando se agrega un boton sin esto no anda
+		startButton.addActionListener(new ActionListener(){
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				panelJuego.init();
+			}
+		});
+		this.add(startButton);
+		
 //		scoreLabel.setPreferredSize(new Dimension(70, 40));
 //		scoreLabel.setText("000");
 //		scoreLabel.setFont(new Font("Verdana", Font.PLAIN, 30));
