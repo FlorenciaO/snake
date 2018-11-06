@@ -21,7 +21,7 @@ public class PanelJuego extends JPanel implements Runnable {
 	private BufferedImage buffer;
 	private Thread th;
 	
-	private VentanaJuego frame;
+	private VentanaJuego ventanaJuego;
 	
 	private Snake snake;
 	private Snake snake2;
@@ -75,16 +75,16 @@ public class PanelJuego extends JPanel implements Runnable {
 		
 		if(evento.getKeyCode() == KeyEvent.VK_R) {
 			init();
-			frame.getControlsPanel().setSnake1ScoreLabel("0");
-			frame.getControlsPanel().setSnake2ScoreLabel("0");
-			frame.getControlsPanel().setSnake3ScoreLabel("0");
-			frame.getControlsPanel().setSnake4ScoreLabel("0");
+			ventanaJuego.getControlsPanel().setSnake1ScoreLabel("0");
+			ventanaJuego.getControlsPanel().setSnake2ScoreLabel("0");
+			ventanaJuego.getControlsPanel().setSnake3ScoreLabel("0");
+			ventanaJuego.getControlsPanel().setSnake4ScoreLabel("0");
 		}
 		
 	}
 	
 	public PanelJuego(VentanaJuego frame) {
-		this.frame = frame;
+		this.ventanaJuego = frame;
 		this.setFocusable(true);
 		setSize(500 + tileSize, 500 + tileSize );
 		setPreferredSize(new Dimension(490 + tileSize, 490 + tileSize));
@@ -150,11 +150,11 @@ public class PanelJuego extends JPanel implements Runnable {
 			partida.actualizarPartida();
 			if("crecio".equalsIgnoreCase(snake.getEstado())){
 				puntos1 += 10;
-				frame.getControlsPanel().setSnake1ScoreLabel("" + puntos1);
+				ventanaJuego.getControlsPanel().setSnake1ScoreLabel("" + puntos1);
 			}
 			if("crecio".equalsIgnoreCase(snake2.getEstado())){
 				puntos2 += 10;
-				frame.getControlsPanel().setSnake2ScoreLabel("" + puntos2);
+				ventanaJuego.getControlsPanel().setSnake2ScoreLabel("" + puntos2);
 			}		
 			try {
 				Thread.sleep(1000 / speed);

@@ -15,7 +15,7 @@ public class PanelDePuntajes extends JPanel{
 	private JButton startButton = new JButton();
 	private JLabel scoreLabel = new JLabel();
 	
-	private PanelJuego mainPanel;
+	private PanelJuego panelJuego;
 	private JLabel snake1ScoreLabel;
 	private JLabel snake2ScoreLabel;
 	private JLabel snake3ScoreLabel;
@@ -23,7 +23,7 @@ public class PanelDePuntajes extends JPanel{
 	
 //	
 	public PanelDePuntajes(final PanelJuego panel){
-		this.mainPanel = panel;
+		this.panelJuego = panel;
 		this.setPreferredSize(new Dimension(200, 300));
 
 		

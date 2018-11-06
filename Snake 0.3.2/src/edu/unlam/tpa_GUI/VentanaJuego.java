@@ -17,15 +17,15 @@ import javax.swing.WindowConstants;
 public class VentanaJuego extends JFrame 
 {
 	private static final long serialVersionUID = 1L;
-	private PanelJuego mainPanel;
-	private PanelDePuntajes controlsPanel;
+	private PanelJuego panelJuego;
+	private PanelDePuntajes panelPuntajes;
 
 	public VentanaJuego() {
-		mainPanel = new PanelJuego(this);
-		controlsPanel = new PanelDePuntajes(mainPanel);
+		panelJuego = new PanelJuego(this);
+		panelPuntajes = new PanelDePuntajes(panelJuego);
 
-		getContentPane().add(controlsPanel, BorderLayout.EAST);
-		getContentPane().add(mainPanel, BorderLayout.CENTER);
+		getContentPane().add(panelPuntajes, BorderLayout.EAST);
+		getContentPane().add(panelJuego, BorderLayout.CENTER);
 		
 		pack();
 		setLocationRelativeTo(null);
@@ -33,12 +33,12 @@ public class VentanaJuego extends JFrame
 		setResizable(false);	
 		setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 		setVisible(true);
-		mainPanel.requestFocus();
+		panelJuego.requestFocus();
 		
 	}
 
 	public PanelDePuntajes getControlsPanel() {
-		return controlsPanel;
+		return panelPuntajes;
 	}
 	
 	public static void main(String[] args) {
