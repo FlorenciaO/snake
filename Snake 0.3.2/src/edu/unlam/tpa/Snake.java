@@ -1,48 +1,60 @@
 package edu.unlam.tpa;
 
+import java.awt.Color;
+import java.awt.Graphics2D;
 import java.util.ArrayList;
 
 public class Snake {
 
 	private CuerpoSnake cuerpo;
 	private Direccion dir;
-	private boolean viva;
+
 	private boolean sinConflictos;
+	private String estado;
 
 	public Snake(int x, int y, Direccion dir) {
 		this.cuerpo = new CuerpoSnake(x, y);
 		this.dir = dir;
-		this.viva = true;
-		
+
+		crecer();
+		this.estado = "viva";
 	}
 	
 	public Snake(Snake snake) {
 		this.cuerpo = new CuerpoSnake(snake.cuerpo);
 		this.dir = snake.dir;
-		this.viva = snake.viva;
-		
+
+		this.estado = snake.estado;
 	}
 
 	public void moverse() {
 		this.cuerpo.mover(this.dir);
+		this.estado = "viva";
 	}
 
 	public void crecer() {
-		if (!viva)
+
+		if("muerta".equalsIgnoreCase(this.estado))
 			return;
-		this.cuerpo.crecer(this.dir);		
+		this.cuerpo.crecer(this.dir);
+		this.estado = "crecio";
 	}
 
+	public void paint(Graphics2D g2, Color color, int tileSize) {
+		this.cuerpo.paint(g2 , color, tileSize);
+	}
+	
 	public ArrayList<Posicion> getCuerpo() {
 		return cuerpo.getCuerpo();
 	}
 
 	public void morirse() {
-		this.viva = false;
+		this.estado = "muerta";
+//		System.out.println("\n\tse cago muriendo");
 	}
 
 	public void cambiarDireccion(Direccion dir) {
-		if (!viva)
+		if(this.estado.equals("muerta"))
 			return;
 		switch (this.dir) {
 		case ARRIBA:
@@ -65,9 +77,14 @@ public class Snake {
 	}
 
 	public boolean estaViva() {
-		return viva;
+//		return viva;
+		return !"muerta".equalsIgnoreCase(this.estado);
 	}
 	
+	public String getEstado() {
+		return estado;
+	}
+
 	public boolean vasAestarAhi(Posicion pos) {
 		Snake aux = new Snake(this);
 		aux.moverse();
@@ -105,6 +122,7 @@ public class Snake {
 	}
 
 	public void tieneConflictos() {
+		this.estado = "viva";
 		this.sinConflictos = false;
 	}
 
@@ -115,7 +133,7 @@ public class Snake {
 		result = prime * result + ((cuerpo == null) ? 0 : cuerpo.hashCode());
 		result = prime * result + ((dir == null) ? 0 : dir.hashCode());
 		result = prime * result + (sinConflictos ? 1231 : 1237);
-		result = prime * result + (viva ? 1231 : 1237);
+//		result = prime * result + (viva ? 1231 : 1237);
 		return result;
 	}
 
@@ -137,13 +155,9 @@ public class Snake {
 			return false;
 		if (sinConflictos != other.sinConflictos)
 			return false;
-		if (viva != other.viva)
-			return false;
+//		if (viva != other.viva)
+//			return false;
 		return true;
 	}
-
-	
-
-
 
 }
