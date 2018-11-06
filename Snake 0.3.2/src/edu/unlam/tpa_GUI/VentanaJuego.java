@@ -14,15 +14,15 @@ import java.awt.BorderLayout;
 import javax.swing.JFrame;
 import javax.swing.WindowConstants;
 
-public class Frame extends JFrame 
+public class VentanaJuego extends JFrame 
 {
 	private static final long serialVersionUID = 1L;
-	private MainPanel mainPanel;
-	private ControlsPanel controlsPanel;
+	private PanelJuego mainPanel;
+	private PanelDePuntajes controlsPanel;
 
-	public Frame() {
-		mainPanel = new MainPanel(this);
-		controlsPanel = new ControlsPanel(mainPanel);
+	public VentanaJuego() {
+		mainPanel = new PanelJuego(this);
+		controlsPanel = new PanelDePuntajes(mainPanel);
 
 		getContentPane().add(controlsPanel, BorderLayout.EAST);
 		getContentPane().add(mainPanel, BorderLayout.CENTER);
@@ -37,8 +37,12 @@ public class Frame extends JFrame
 		
 	}
 
-	public ControlsPanel getControlsPanel() {
+	public PanelDePuntajes getControlsPanel() {
 		return controlsPanel;
+	}
+	
+	public static void main(String[] args) {
+		VentanaJuego frame = new VentanaJuego();
 	}
 
 }

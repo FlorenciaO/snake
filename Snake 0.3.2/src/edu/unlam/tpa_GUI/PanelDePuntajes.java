@@ -9,20 +9,20 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
-public class ControlsPanel extends JPanel{
+public class PanelDePuntajes extends JPanel{
 	
 	private static final long serialVersionUID = 1L;
 	private JButton startButton = new JButton();
 	private JLabel scoreLabel = new JLabel();
 	
-	private MainPanel mainPanel;
+	private PanelJuego mainPanel;
 	private JLabel snake1ScoreLabel;
 	private JLabel snake2ScoreLabel;
 	private JLabel snake3ScoreLabel;
 	private JLabel snake4ScoreLabel;
 	
 //	
-	public ControlsPanel(final MainPanel panel){
+	public PanelDePuntajes(final PanelJuego panel){
 		this.mainPanel = panel;
 		this.setPreferredSize(new Dimension(200, 300));
 

@@ -16,12 +16,12 @@ import edu.unlam.tpa.Mapa;
 import edu.unlam.tpa.Partida;
 import edu.unlam.tpa.Snake;
 
-public class MainPanel extends JPanel implements Runnable {
+public class PanelJuego extends JPanel implements Runnable {
 	private static final long serialVersionUID = 1L;
 	private BufferedImage buffer;
 	private Thread th;
 	
-	private Frame frame;
+	private VentanaJuego frame;
 	
 	private Snake snake;
 	private Snake snake2;
@@ -83,7 +83,7 @@ public class MainPanel extends JPanel implements Runnable {
 		
 	}
 	
-	public MainPanel(Frame frame) {
+	public PanelJuego(VentanaJuego frame) {
 		this.frame = frame;
 		this.setFocusable(true);
 		setSize(500 + tileSize, 500 + tileSize );
