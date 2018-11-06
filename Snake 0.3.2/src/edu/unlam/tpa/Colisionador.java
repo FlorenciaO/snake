@@ -15,7 +15,7 @@ public class Colisionador {
 		}
 		else if((frAux = mapa.hayFruta(nextPos)) != null){
 			snake.crecer();
-			frAux.morir();
+			frAux.morir(mapa);
 		}
 		else {
 			snake.noTieneConflictos();
