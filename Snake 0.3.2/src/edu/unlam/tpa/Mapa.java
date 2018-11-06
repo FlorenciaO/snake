@@ -18,8 +18,8 @@ public class Mapa {
 	public void mostrarMapa() {
 		boolean cabeza = false;
 		System.out.println("\n");
-		for (int i = 0; i < cantFil; i++) {
-			for (int j = 0; j < cantCol; j++) {
+		for (int j = 0; j < cantFil; j++) {
+			for (int i = 0; i < cantCol; i++) {
 				if (hayViboraParaMostrar(new Posicion(i, j))) {
 					for (Snake snake : snakes) {
 						if (snake.laCabezaEstaAhi(new Posicion(i, j))) {
@@ -59,7 +59,7 @@ public class Mapa {
 	}
 
 	public boolean estaFueraDelMapa(Posicion pos) {
-		if (pos.getX() < 0 || pos.getX() >= this.cantFil || pos.getY() < 0 || pos.getY() >= this.cantCol) {
+		if (pos.getX() <= 0 || pos.getX() >= this.cantFil || pos.getY() <= 0 || pos.getY() >= this.cantCol) {
 			return true;
 		}
 		return false;
@@ -111,5 +111,10 @@ public class Mapa {
 	public int getCol() {
 		return cantCol;
 	}
+
+	public void removeSnake(Snake snake) {
+		this.snakes.remove(snake);
+	}
+
 
 }
