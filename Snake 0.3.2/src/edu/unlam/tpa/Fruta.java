@@ -39,7 +39,7 @@ public class Fruta {
 	}
 
 	public void paint(Graphics2D g2, int tileSize) {
-		g2.setColor(Color.RED);
+		g2.setColor(Color.GREEN);
 		g2.fillRect(pos.x * tileSize, pos.y * tileSize, tileSize, tileSize);
 	}
 

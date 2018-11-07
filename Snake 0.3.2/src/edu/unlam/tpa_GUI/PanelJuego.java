@@ -27,7 +27,7 @@ public class PanelJuego extends JPanel implements Runnable {
 	
 	private VentanaJuego ventanaJuego;
 	
-	private Snake snake;
+	private Snake snake1;
 	private Snake snake2;
 	private Direccion dir;
 	private Direccion dir2;
@@ -35,8 +35,6 @@ public class PanelJuego extends JPanel implements Runnable {
 	private Fruta fruta;
 	private Mapa mapa;
 	private Partida partida;
-	
-	
 	
 	private int width_height = 500;
 	private int row_column = 50;
@@ -80,8 +78,8 @@ public class PanelJuego extends JPanel implements Runnable {
 			init();
 			ventanaJuego.getControlsPanel().setSnake1ScoreLabel("0");
 			ventanaJuego.getControlsPanel().setSnake2ScoreLabel("0");
-			ventanaJuego.getControlsPanel().setSnake3ScoreLabel("0");
-			ventanaJuego.getControlsPanel().setSnake4ScoreLabel("0");
+//			ventanaJuego.getControlsPanel().setSnake3ScoreLabel("0");
+//			ventanaJuego.getControlsPanel().setSnake4ScoreLabel("0");
 		}
 		
 	}
@@ -89,8 +87,8 @@ public class PanelJuego extends JPanel implements Runnable {
 	public PanelJuego(VentanaJuego frame) {
 		this.ventanaJuego = frame;
 		this.setFocusable(true);
-		setSize(500 + tileSize, 500 + tileSize );
-		setPreferredSize(new Dimension(490 + tileSize, 490 + tileSize));
+		this.setSize(500 + tileSize, 500 + tileSize );
+		this.setPreferredSize(new Dimension(490 + tileSize, 490 + tileSize));
 		buffer = new BufferedImage(getWidth(), getHeight(), BufferedImage.TYPE_INT_RGB);
 		
 		addKeyListener(new KeyAdapter() {
@@ -100,10 +98,7 @@ public class PanelJuego extends JPanel implements Runnable {
 			}
 		});
 
-		this.enJuego = false;
-//		init();
-//		repaint();
-	}
+		this.enJuego = false;	}
 
 	public void init() {
 		if(th != null)
@@ -112,12 +107,12 @@ public class PanelJuego extends JPanel implements Runnable {
 		puntos2 = 0;
 		dir = Direccion.DERECHA;
 		dir2 = Direccion.IZQUIERDA;
-		snake = new Snake(1, 1, dir);
+		snake1 = new Snake(1, 1, dir);
 		snake2 = new Snake(24, 24, dir2);
 		fruta = new Fruta(11, 11);
 		mapa = new Mapa(row_column, row_column);
 		partida = new Partida(mapa);
-		partida.addSnake(snake);
+		partida.addSnake(snake1);
 		partida.addSnake(snake2);
 		partida.addFruta(fruta);
 		
@@ -131,17 +126,17 @@ public class PanelJuego extends JPanel implements Runnable {
 		Graphics2D g2 = (Graphics2D) buffer.createGraphics();
 
 		// Paint background
-		g2.setColor(Color.RED);
+		g2.setColor(Color.WHITE);
 		g2.fillRect(0, 0, this.getWidth(), this.getHeight());		
 		g2.setColor(Color.BLACK);		
 		g2.fillRect(tileSize, tileSize, this.getWidth() - 2 * tileSize, this.getHeight() - 2 * tileSize);
 		
 		if(this.enJuego) {
 			fruta.paint(g2, tileSize);
-			if(snake.estaViva())
-				snake.paint(g2, Color.GREEN, tileSize);
+			if(snake1.estaViva())
+				snake1.paint(g2, Color.RED, tileSize);
 			if(snake2.estaViva())
-				snake2.paint(g2, Color.ORANGE, tileSize);
+				snake2.paint(g2, Color.MAGENTA, tileSize);
 		}
 		
 		g.drawImage(buffer, 0, 0, this);
@@ -150,11 +145,11 @@ public class PanelJuego extends JPanel implements Runnable {
 	@Override
 	public void run() {
 		this.enJuego = true;
-		while (snake.estaViva() || snake2.estaViva()) {
-			snake.cambiarDireccion(dir);
+		while (snake1.estaViva() || snake2.estaViva()) {
+			snake1.cambiarDireccion(dir);
 			snake2.cambiarDireccion(dir2);
 			partida.actualizarPartida();
-			if("crecio".equalsIgnoreCase(snake.getEstado())){
+			if("crecio".equalsIgnoreCase(snake1.getEstado())){
 				puntos1 += 10;
 				ventanaJuego.getControlsPanel().setSnake1ScoreLabel("" + puntos1);
 			}
