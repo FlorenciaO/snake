@@ -16,7 +16,10 @@ import javax.swing.WindowConstants;
 
 public class VentanaJuego extends JFrame 
 {
-	private static final long serialVersionUID = 1L;
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 5465548797480954343L;
 	private PanelJuego panelJuego;
 	private PanelDePuntajes panelPuntajes;
 

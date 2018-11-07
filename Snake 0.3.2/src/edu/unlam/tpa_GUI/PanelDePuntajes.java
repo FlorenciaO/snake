@@ -12,8 +12,10 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
 public class PanelDePuntajes extends JPanel{
-	
-	private static final long serialVersionUID = 1L;
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 2361773272360190852L;
 	private JButton startButton = new JButton();
 	private JLabel scoreLabel = new JLabel();
 	

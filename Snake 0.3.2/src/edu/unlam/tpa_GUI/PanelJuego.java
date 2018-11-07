@@ -17,7 +17,10 @@ import edu.unlam.tpa.Partida;
 import edu.unlam.tpa.Snake;
 
 public class PanelJuego extends JPanel implements Runnable {
-	private static final long serialVersionUID = 1L;
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -4351177139576585872L;
 	private BufferedImage buffer;
 	private Thread th;
 	
