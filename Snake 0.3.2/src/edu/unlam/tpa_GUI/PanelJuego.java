@@ -40,7 +40,7 @@ public class PanelJuego extends JPanel implements Runnable {
 	private int width_height = 500;
 	private int row_column = 50;
 	private int tileSize = width_height / row_column; 
-	private int speed = NORMAL;
+	private int speed = FACIL;
 	
 	private int puntos1 = 0;
 	private int puntos2 = 0;

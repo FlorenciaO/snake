@@ -101,6 +101,10 @@ public class Snake {
 		return false;
 	}
 	
+	public boolean laCabezaVaAEstarAhi(Posicion pos) {
+		return cuerpo.laCabezaVaAEstarAhi(pos,this.dir);
+	}
+	
 	public boolean laCabezaEstaAhi(Posicion pos) {
 		return cuerpo.laCabezaEstaAhi(pos);
 	}

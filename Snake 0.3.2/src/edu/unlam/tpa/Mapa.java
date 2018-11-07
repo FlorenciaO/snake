@@ -75,6 +75,9 @@ public class Mapa {
 				}
 			} else {
 				if (vaAcrecer(snake)) {
+					if(snake.laCabezaVaAEstarAhi(pos)) {
+						return true;
+					}
 					aux = new Snake(snake);
 					aux.crecer();
 					if (aux.estasAhi(pos))

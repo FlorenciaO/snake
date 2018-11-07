@@ -127,6 +127,10 @@ public class CuerpoSnake {
 		}
 	}
 
+	public boolean laCabezaVaAEstarAhi(Posicion pos, Direccion dir) {
+		return getCabezaNextPos(dir).equals(pos);
+	}
+
 	
 
 	
