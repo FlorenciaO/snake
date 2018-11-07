@@ -15,6 +15,7 @@ import edu.unlam.tpa.Fruta;
 import edu.unlam.tpa.Mapa;
 import edu.unlam.tpa.Partida;
 import edu.unlam.tpa.Snake;
+import edu.unlam.tpa_ENUMS.Velocidad;
 
 public class PanelJuego extends JPanel implements Runnable {
 	/**
@@ -35,15 +36,12 @@ public class PanelJuego extends JPanel implements Runnable {
 	private Mapa mapa;
 	private Partida partida;
 	
-	private static int MUY_FACIL = 3;
-	private static int FACIL = 5;
-	private static int NORMAL = 10;
-	private static int DIFICIL = 20;
+	
 	
 	private int width_height = 500;
 	private int row_column = 50;
 	private int tileSize = width_height / row_column; 
-	private int speed = FACIL;
+	private Velocidad speed = Velocidad.MUY_LENTO;
 	
 	private int puntos1 = 0;
 	private int puntos2 = 0;
@@ -153,7 +151,6 @@ public class PanelJuego extends JPanel implements Runnable {
 	public void run() {
 		this.enJuego = true;
 		while (snake.estaViva() || snake2.estaViva()) {
-//		while (snake.estaViva()) {	
 			snake.cambiarDireccion(dir);
 			snake2.cambiarDireccion(dir2);
 			partida.actualizarPartida();
@@ -166,7 +163,7 @@ public class PanelJuego extends JPanel implements Runnable {
 				ventanaJuego.getControlsPanel().setSnake2ScoreLabel("" + puntos2);
 			}		
 			try {
-				Thread.sleep(1000 / speed);
+				Thread.sleep(1000 / speed.getValor());
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}
