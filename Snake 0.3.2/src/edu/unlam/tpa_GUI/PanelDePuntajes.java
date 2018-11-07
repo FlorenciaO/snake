@@ -39,22 +39,35 @@ public class PanelDePuntajes extends JPanel{
 		
 		Font font = new Font("Tahoma", Font.PLAIN, 24);
 		
-//		lblPuntajes.setFont(font);
-//		lblPuntajes.setForeground(Color.BLACK);
-//		lblPuntajes.setBounds(x, y, width, height);
-//		this.add(lblPuntajes);
+		lblPuntajes.setText("PUNTAJES");
+		lblPuntajes.setFont(font);
+		lblPuntajes.setForeground(Color.LIGHT_GRAY);
+		lblPuntajes.setBounds(35, 40, 150, 20);
+		this.add(lblPuntajes);
 		
 		JLabel snake1Label = new JLabel("Snake");
 		snake1Label.setFont(font);
 		snake1Label.setForeground(Color.RED);
-		snake1Label.setBounds(10, 50, 100, 20);
+		snake1Label.setBounds(30, 90, 100, 20);
 		this.add(snake1Label);
 		
 		JLabel snake2Label = new JLabel("Snake");
 		snake2Label.setFont(font);
 		snake2Label.setForeground(Color.MAGENTA);
-		snake2Label.setBounds(10, 90, 100, 20);
+		snake2Label.setBounds(30, 130, 100, 20);
 		this.add(snake2Label);
+		
+		this.snake1ScoreLabel = new JLabel("0");
+		snake1ScoreLabel.setFont(font);
+		snake1ScoreLabel.setForeground(Color.RED);
+		snake1ScoreLabel.setBounds(140, 90, 46, 20);
+		this.add(snake1ScoreLabel);
+		
+		this.snake2ScoreLabel = new JLabel("0");
+		snake2ScoreLabel.setFont(font);
+		snake2ScoreLabel.setForeground(Color.MAGENTA);
+		snake2ScoreLabel.setBounds(140, 130, 46, 20);
+		this.add(snake2ScoreLabel);
 		
 //		JLabel snake3Label = new JLabel("Snake");
 //		snake3Label.setFont(font);
@@ -67,18 +80,6 @@ public class PanelDePuntajes extends JPanel{
 //		snake4Label.setForeground(Color.MAGENTA);
 //		snake4Label.setBounds(10, 170, 100, 20);
 //		this.add(snake4Label);
-		
-		this.snake1ScoreLabel = new JLabel("0");
-		snake1ScoreLabel.setFont(font);
-		snake1ScoreLabel.setForeground(Color.RED);
-		snake1ScoreLabel.setBounds(120, 50, 46, 20);
-		this.add(snake1ScoreLabel);
-		
-		this.snake2ScoreLabel = new JLabel("0");
-		snake2ScoreLabel.setFont(font);
-		snake2ScoreLabel.setForeground(Color.MAGENTA);
-		snake2ScoreLabel.setBounds(120, 90, 46, 20);
-		this.add(snake2ScoreLabel);
 		
 //		this.snake3ScoreLabel = new JLabel("0");
 //		snake3ScoreLabel.setFont(font);
