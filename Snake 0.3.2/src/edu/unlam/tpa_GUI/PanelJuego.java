@@ -29,8 +29,6 @@ public class PanelJuego extends JPanel implements Runnable {
 	
 	private Snake snake1;
 	private Snake snake2;
-	private Direccion dir;
-	private Direccion dir2;
 	
 	private Fruta fruta;
 	private Mapa mapa;
@@ -48,40 +46,41 @@ public class PanelJuego extends JPanel implements Runnable {
 	
 	public void setMovimiento(KeyEvent evento){
 		
-		if(evento.getKeyCode() == KeyEvent.VK_A) {
-			dir = Direccion.IZQUIERDA;
-		}
-		if(evento.getKeyCode() == KeyEvent.VK_D) {
-			dir = Direccion.DERECHA;		
-		}
-		if(evento.getKeyCode() == KeyEvent.VK_W) {
-			dir = Direccion.ARRIBA;
-		}
-		if(evento.getKeyCode() == KeyEvent.VK_S) {
-			dir = Direccion.ABAJO;
-		}
+		int tecla = evento.getKeyCode();
 		
-		if(evento.getKeyCode() == KeyEvent.VK_LEFT) {
-			dir2 = Direccion.IZQUIERDA;
-		}
-		if(evento.getKeyCode() == KeyEvent.VK_RIGHT) {
-			dir2 = Direccion.DERECHA;		
-		}
-		if(evento.getKeyCode() == KeyEvent.VK_UP) {
-			dir2 = Direccion.ARRIBA;
-		}
-		if(evento.getKeyCode() == KeyEvent.VK_DOWN) {
-			dir2 = Direccion.ABAJO;
-		}
-		
-		if(evento.getKeyCode() == KeyEvent.VK_R) {
+		switch(tecla) {
+		case KeyEvent.VK_A:
+			snake1.cambiarDireccion(Direccion.IZQUIERDA);
+			break;
+		case KeyEvent.VK_LEFT:
+			snake2.cambiarDireccion(Direccion.IZQUIERDA);
+			break;
+		case KeyEvent.VK_D:
+			snake1.cambiarDireccion(Direccion.DERECHA);
+			break;
+		case KeyEvent.VK_RIGHT:
+			snake2.cambiarDireccion(Direccion.DERECHA);
+			break;
+		case KeyEvent.VK_W:
+			snake1.cambiarDireccion(Direccion.ARRIBA);
+			break;
+		case KeyEvent.VK_UP:
+			snake2.cambiarDireccion(Direccion.ARRIBA);
+			break;
+		case KeyEvent.VK_S:
+			snake1.cambiarDireccion(Direccion.ABAJO);
+			break;
+		case KeyEvent.VK_DOWN:
+			snake2.cambiarDireccion(Direccion.ABAJO);
+			break;
+		case KeyEvent.VK_R:
 			init();
 			ventanaJuego.getControlsPanel().setSnake1ScoreLabel("0");
 			ventanaJuego.getControlsPanel().setSnake2ScoreLabel("0");
 //			ventanaJuego.getControlsPanel().setSnake3ScoreLabel("0");
 //			ventanaJuego.getControlsPanel().setSnake4ScoreLabel("0");
+			break;
 		}
-		
 	}
 	
 	public PanelJuego(VentanaJuego frame) {
@@ -100,15 +99,14 @@ public class PanelJuego extends JPanel implements Runnable {
 
 		this.enJuego = false;	}
 
+	@SuppressWarnings("deprecation")
 	public void init() {
 		if(th != null)
 			th.stop();
 		puntos1 = 0;
 		puntos2 = 0;
-		dir = Direccion.DERECHA;
-		dir2 = Direccion.IZQUIERDA;
-		snake1 = new Snake(1, 1, dir);
-		snake2 = new Snake(24, 24, dir2);
+		snake1 = new Snake(1, 1, Direccion.DERECHA);
+		snake2 = new Snake(24, 24, Direccion.IZQUIERDA);
 		fruta = new Fruta(11, 11);
 		mapa = new Mapa(row_column, row_column);
 		partida = new Partida(mapa);
@@ -146,8 +144,6 @@ public class PanelJuego extends JPanel implements Runnable {
 	public void run() {
 		this.enJuego = true;
 		while (snake1.estaViva() || snake2.estaViva()) {
-			snake1.cambiarDireccion(dir);
-			snake2.cambiarDireccion(dir2);
 			partida.actualizarPartida();
 			if("crecio".equalsIgnoreCase(snake1.getEstado())){
 				puntos1 += 10;
@@ -166,7 +162,6 @@ public class PanelJuego extends JPanel implements Runnable {
 			repaint();
 		}
 		this.enJuego = false;
-		
 	}
 
 }
