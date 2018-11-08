@@ -2,6 +2,7 @@ package edu.unlam.tpa_GUI;
 
 import javax.swing.JFrame;
 import javax.swing.JList;
+import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
 import javax.swing.JLabel;
 import javax.swing.SwingConstants;
@@ -23,10 +24,14 @@ public class VentanaLooby extends JFrame{
 	 */
 	private static final long serialVersionUID = 1759792510152830837L;
 	
+	private VentanaLogin vLogin;
 	private JList<VentanaSala> listaSalas;
 	
 
-	public VentanaLooby(String nombreUsario) {
+	public VentanaLooby(VentanaLogin ventanaLogin) {
+		
+		this.vLogin = ventanaLogin;
+		
 		setTitle("SNAKE");
 		setResizable(false);
 		setForeground(Color.LIGHT_GRAY);
@@ -72,13 +77,27 @@ public class VentanaLooby extends JFrame{
 		getContentPane().add(btnIngresarASala);
 		btnIngresarASala.setEnabled(false);
 		
-		JLabel lblBienvenida = new JLabel("Bienvenid@ " + nombreUsario + "!");
+		JLabel lblBienvenida = new JLabel("Bienvenid@ " + vLogin.txtUsuario.getText() + "!");
 		lblBienvenida.setBounds(24, 11, 203, 22);
 		getContentPane().add(lblBienvenida);
 		
 		setLocationRelativeTo(null);
 	}
 	
+	private void confirmarCierreVentana() {
+		int respuesta = JOptionPane.showConfirmDialog(this, "¿Desea cambiar de usuario?", "Confirmar Salida", JOptionPane.YES_NO_OPTION);
+		if(respuesta == JOptionPane.NO_OPTION) {
+			//Aca cerraria sesion
+			System.exit(0);
+		} else if (respuesta == JOptionPane.YES_OPTION){
+			volverAlLogin();
+		}
+	}
+
+	private void volverAlLogin() {
+		
+	}
+
 	private void abrirVentanaConfiguracion() {
 		setVisible(false);
 		new VentanaConfigurarSala(this).setVisible(true);
