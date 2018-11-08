@@ -45,7 +45,7 @@ public class VentanaJuego extends JFrame
 	}
 	
 	public static void main(String[] args) {
-		VentanaJuego frame = new VentanaJuego();
+		new VentanaJuego();
 	}
 
 }
