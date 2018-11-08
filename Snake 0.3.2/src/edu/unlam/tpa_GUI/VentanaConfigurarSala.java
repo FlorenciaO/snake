@@ -16,24 +16,45 @@ import javax.swing.SwingConstants;
 import edu.unlam.tpa_ENUMS.Dificultad;
 import edu.unlam.tpa_ENUMS.Modos;
 import edu.unlam.tpa_ENUMS.Velocidad;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 
 public class VentanaConfigurarSala extends JFrame {
-	private JTextField textFieldNombreSala;
 	
-	public VentanaConfigurarSala() {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -8632608467086017446L;
+	
+	private JTextField textFieldNombreSala;
+	private VentanaLooby ventanaLooby;
+	
+	public VentanaConfigurarSala(VentanaLooby ventanaLooby) {
+
+		this.ventanaLooby = ventanaLooby;
+		
+		setResizable(false);
 		setBounds(100, 100, 452, 230);
 		setForeground(Color.WHITE);
 		getContentPane().setForeground(Color.BLACK);
 		getContentPane().setLayout(null);
+		setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 		setTitle("Configuracion de la sala");
+		
+		addWindowListener(new WindowAdapter() {
+			@Override
+			public void windowClosing(WindowEvent arg0) {
+				confirmarCierreVentana();
+			}
+		});
+		
 		JButton btnConfirmar = new JButton("Confirmar");
 		btnConfirmar.setForeground(Color.BLACK);
 		btnConfirmar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				String nombreSala = textFieldNombreSala.getText();
 				if(!nombreSala.isEmpty()) {
-					setVisible(false);
-					new VentanaSala(textFieldNombreSala.getText()).setVisible(true);
+					abrirVentanaSala();
 				}
 				else {
 					mostrarWarning();
@@ -47,7 +68,8 @@ public class VentanaConfigurarSala extends JFrame {
 		JButton btnCancelar = new JButton("Cancelar");
 		btnCancelar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				//Vuelve a la pantalla anterior
+				//Vuelve al looby
+				volverAlLooby();
 			}
 		});
 		btnCancelar.setBounds(251, 117, 102, 23);
@@ -91,17 +113,35 @@ public class VentanaConfigurarSala extends JFrame {
 		textFieldNombreSala = new JTextField();
 		textFieldNombreSala.setBounds(134, 21, 86, 20);
 		getContentPane().add(textFieldNombreSala);
-		textFieldNombreSala.setColumns(10);
 		setLocationRelativeTo(null);
 	}
 	
+	protected void confirmarCierreVentana() {
+		int respuesta = JOptionPane.showConfirmDialog(this, "¿Desea volver a la sala de espera?", "Confirmar Salida", JOptionPane.YES_NO_OPTION);
+		if(respuesta == JOptionPane.NO_OPTION) {
+			System.exit(0);
+		} else if (respuesta == JOptionPane.YES_OPTION){
+			volverAlLooby();
+		}
+		
+	}
+
+	private void volverAlLooby() {
+		this.ventanaLooby.setVisible(true);
+		setVisible(false);
+	}
+
+	@SuppressWarnings("unused")
 	private void abrirVentanaSala() {
-		new VentanaSala(textFieldNombreSala.getText()).setVisible(true);				
+		setVisible(false);
+		VentanaSala salaNueva = new VentanaSala(textFieldNombreSala.getText());
+		salaNueva.setVisible(true);
+		this.ventanaLooby.addSala(salaNueva);
 	}
 	
-	public static void main(String args[]) {
-		new VentanaConfigurarSala().setVisible(true);
-	}
+//	public static void main(String args[]) {
+//		new VentanaConfigurarSala().setVisible(true);
+//	}
 	
 	private void mostrarWarning() {
 		JOptionPane.showConfirmDialog(this, "Debe ingresar un nombre de sala", "ADVERTENCIA", JOptionPane.CLOSED_OPTION);		

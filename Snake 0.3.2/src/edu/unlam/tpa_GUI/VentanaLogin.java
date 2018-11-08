@@ -22,6 +22,7 @@ public class VentanaLogin extends JFrame {
 	
 	private JTextField txtUsuario;
 	private JPasswordField pwdContraseña;
+	private final static int LENG_USUARIO_MAX = 15;
 	
 	public VentanaLogin() {
 		getContentPane().setLayout(null);
@@ -52,17 +53,22 @@ public class VentanaLogin extends JFrame {
 		pwdContraseña = new JPasswordField();
 		pwdContraseña.setBounds(186, 87, 170, 20);
 		getContentPane().add(pwdContraseña);
+		pwdContraseña.setEnabled(false);
 		
 		JButton btnIniciarSesion = new JButton("Iniciar sesi\u00F3n");
 		btnIniciarSesion.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				String nombreUsuario = txtUsuario.getText();
 				if(!nombreUsuario.isEmpty()) {
-					setVisible(false);
-					new VentanaLooby(txtUsuario.getText()).setVisible(true);
+					if(nombreUsuario.length() > LENG_USUARIO_MAX) {
+						mostrarWarning("Límite de nombre de usuario excedido");
+						txtUsuario.setText("");
+					} else {
+					abrirVentanaLooby();
+					}
 				}
 				else {
-					mostrarWarning();
+					mostrarWarning("Se debe ingresar un usuario");
 				}
 			}
 		});
@@ -77,8 +83,13 @@ public class VentanaLogin extends JFrame {
 		setLocationRelativeTo(null);
 	}
 
-	private void mostrarWarning() {
-		JOptionPane.showConfirmDialog(this, "Debe ingresar un usuario", "ADVERTENCIA", JOptionPane.CLOSED_OPTION);
+	private void mostrarWarning(String mensaje) {
+		JOptionPane.showConfirmDialog(this, mensaje, "ADVERTENCIA", JOptionPane.CLOSED_OPTION);
+	}
+	
+	private void abrirVentanaLooby() {
+		setVisible(false);
+		new VentanaLooby(txtUsuario.getText()).setVisible(true);
 	}
 	
 	public static void main(String args[]) {
