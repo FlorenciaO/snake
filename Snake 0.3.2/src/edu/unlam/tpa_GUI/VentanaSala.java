@@ -13,14 +13,20 @@ import javax.swing.JLabel;
 
 public class VentanaSala extends JFrame{
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -534624255468832225L;
+
 	public VentanaSala(String nombreSala) {
 		
 		getContentPane().setLayout(null);
 		setTitle("Esperando jugadores");
 		setBounds(100, 100, 450, 300);
-		JList listaJugadores = new JList();
-		listaJugadores.setBounds(321, 33, 103, 218);
-		getContentPane().add(listaJugadores);
+		JList listaUsuarios = new JList(); // La lista sera de usuarios, se creara la clase usuario, junto con la implementacion
+											// de cliente/servidor
+		listaUsuarios.setBounds(321, 33, 103, 218);
+		getContentPane().add(listaUsuarios);
 		
 		JButton btnIniciarJuego = new JButton("Iniciar Juego");
 		btnIniciarJuego.addActionListener(new ActionListener() {

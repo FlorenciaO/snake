@@ -89,10 +89,18 @@ public class VentanaLogin extends JFrame {
 	
 	private void abrirVentanaLooby() {
 		setVisible(false);
-		new VentanaLooby(txtUsuario.getText()).setVisible(true);
+		new VentanaLooby(this).setVisible(true);
 	}
 	
 	public static void main(String args[]) {
 		new VentanaLogin().setVisible(true);
+	}
+
+	public String obtenerNombreUsuario() {
+		return txtUsuario.getText();
+	}
+	
+	public void limpiarNombreUsuario() {
+		txtUsuario.setText("");
 	}
 }

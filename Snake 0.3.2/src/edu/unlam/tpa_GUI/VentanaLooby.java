@@ -4,9 +4,12 @@ import javax.swing.JFrame;
 import javax.swing.JList;
 import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
+import javax.swing.ScrollPaneConstants;
 import javax.swing.JLabel;
 import javax.swing.SwingConstants;
 import java.awt.Font;
+
+import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 import javax.swing.JDialog;
 
@@ -26,7 +29,7 @@ public class VentanaLooby extends JFrame{
 	
 	private VentanaLogin vLogin;
 	private JList<VentanaSala> listaSalas;
-	
+	DefaultListModel<VentanaSala> modelo;
 
 	public VentanaLooby(VentanaLogin ventanaLogin) {
 		
@@ -48,10 +51,13 @@ public class VentanaLooby extends JFrame{
 		});
 		
 		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(0, 258, 430, -513);
+		scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
+		scrollPane.setBounds(0, 269, 443, -524);
 		getContentPane().add(scrollPane);
 		
+		modelo = new DefaultListModel<VentanaSala>();
 		this.listaSalas = new JList<VentanaSala>();
+		this.listaSalas.setModel(modelo);
 		this.listaSalas.setBounds(283, 36, 141, 211);
 		getContentPane().add(this.listaSalas);
 		
@@ -77,11 +83,12 @@ public class VentanaLooby extends JFrame{
 		getContentPane().add(btnIngresarASala);
 		btnIngresarASala.setEnabled(false);
 		
-		JLabel lblBienvenida = new JLabel("Bienvenid@ " + vLogin.txtUsuario.getText() + "!");
+		JLabel lblBienvenida = new JLabel("Bienvenid@ " + vLogin.obtenerNombreUsuario() + "!");
 		lblBienvenida.setBounds(24, 11, 203, 22);
 		getContentPane().add(lblBienvenida);
 		
 		setLocationRelativeTo(null);
+		
 	}
 	
 	private void confirmarCierreVentana() {
@@ -95,7 +102,9 @@ public class VentanaLooby extends JFrame{
 	}
 
 	private void volverAlLogin() {
-		
+		setVisible(false);
+		this.vLogin.limpiarNombreUsuario();
+		this.vLogin.setVisible(true);
 	}
 
 	private void abrirVentanaConfiguracion() {
@@ -104,6 +113,7 @@ public class VentanaLooby extends JFrame{
 	}
 
 	public void addSala(VentanaSala salaNueva) {
-		this.listaSalas.add(salaNueva);
+		this.modelo.addElement(salaNueva);
+		this.listaSalas.setModel(modelo);
 	}
 }
