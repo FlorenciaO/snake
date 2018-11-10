@@ -2,8 +2,6 @@ package edu.unlam.tpa_GUI;
 
 import javax.swing.JFrame;
 import javax.swing.JButton;
-import java.awt.BorderLayout;
-import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JList;
 import java.awt.Font;
@@ -17,11 +15,14 @@ public class VentanaSala extends JFrame{
 	 * 
 	 */
 	private static final long serialVersionUID = -534624255468832225L;
+	
+	private VentanaConfigurarSala vConfiguracion;
 
-	public VentanaSala(String nombreSala) {
+	public VentanaSala(VentanaConfigurarSala configuracion) {
+		this.vConfiguracion = configuracion;
 		
 		getContentPane().setLayout(null);
-		setTitle("Esperando jugadores");
+		setTitle("Esperando jugadores...");
 		setBounds(100, 100, 450, 300);
 		JList listaUsuarios = new JList(); // La lista sera de usuarios, se creara la clase usuario, junto con la implementacion
 											// de cliente/servidor
@@ -44,8 +45,7 @@ public class VentanaSala extends JFrame{
 		JButton btnSalirSala = new JButton("Salir de la Sala");
 		btnSalirSala.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
-				//Volver a la sala de espera
+				volverAlLooby();
 			}
 		});
 		btnSalirSala.setFont(new Font("Times New Roman", Font.BOLD | Font.ITALIC, 13));
@@ -61,7 +61,7 @@ public class VentanaSala extends JFrame{
 		lblJugadores.setBounds(321, 8, 103, 14);
 		getContentPane().add(lblJugadores);
 		
-		JLabel lblNewLabel = new JLabel("Sala: " + nombreSala);
+		JLabel lblNewLabel = new JLabel("Sala: " + this.vConfiguracion.obtenerNombreSala());
 		lblNewLabel.setBounds(10, 11, 236, 25);
 		getContentPane().add(lblNewLabel);
 		setLocationRelativeTo(null);
@@ -69,6 +69,10 @@ public class VentanaSala extends JFrame{
 	
 	private void abrirVentanaJuego() {
 		new VentanaJuego();
-		
+	}
+	
+	private void volverAlLooby() {
+		setVisible(false);
+		this.vConfiguracion.volverAlLooby();
 	}
 }

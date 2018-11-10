@@ -35,7 +35,7 @@ public class VentanaLooby extends JFrame{
 		
 		this.vLogin = ventanaLogin;
 		
-		setTitle("SNAKE");
+		setTitle("¿Dónde quieres jugar hoy?");
 		setResizable(false);
 		setForeground(Color.LIGHT_GRAY);
 		setDefaultCloseOperation(JDialog.DO_NOTHING_ON_CLOSE);
@@ -50,16 +50,18 @@ public class VentanaLooby extends JFrame{
 			}
 		});
 		
-		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
-		scrollPane.setBounds(0, 269, 443, -524);
-		getContentPane().add(scrollPane);
-		
 		modelo = new DefaultListModel<VentanaSala>();
 		this.listaSalas = new JList<VentanaSala>();
 		this.listaSalas.setModel(modelo);
 		this.listaSalas.setBounds(283, 36, 141, 211);
+		
+		JScrollPane scrollPane = new JScrollPane(this.listaSalas);
+		scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
+		scrollPane.setBounds(0, 269, 443, -524);
+		getContentPane().add(scrollPane);
+		
 		getContentPane().add(this.listaSalas);
+		
 		
 		JLabel lblSalasDisponibles = new JLabel("Salas Disponibles");
 		lblSalasDisponibles.setFont(new Font("Times New Roman", Font.BOLD, 15));

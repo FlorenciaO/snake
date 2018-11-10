@@ -12,6 +12,8 @@ import javax.swing.JPasswordField;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 public class VentanaLogin extends JFrame {
 	
@@ -27,7 +29,7 @@ public class VentanaLogin extends JFrame {
 	public VentanaLogin() {
 		getContentPane().setLayout(null);
 		setResizable(false);
-		setBounds(100, 100, 450, 230);
+		setBounds(100, 100, 434, 231);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setTitle("Unite a nuestra comunidad...");
 		
@@ -36,26 +38,26 @@ public class VentanaLogin extends JFrame {
 		lblUsuario.setToolTipText("");
 		lblUsuario.setHorizontalAlignment(SwingConstants.CENTER);
 		lblUsuario.setFont(new Font("Sitka Small", Font.BOLD | Font.ITALIC, 15));
-		lblUsuario.setBounds(64, 37, 79, 33);
+		lblUsuario.setBounds(64, 11, 79, 33);
 		getContentPane().add(lblUsuario);
 		
 		JLabel lblContraseña = new JLabel("Contrase\u00F1a");
 		lblContraseña.setHorizontalAlignment(SwingConstants.CENTER);
 		lblContraseña.setFont(new Font("Sitka Small", Font.BOLD | Font.ITALIC, 15));
-		lblContraseña.setBounds(44, 81, 122, 33);
+		lblContraseña.setBounds(42, 55, 122, 33);
 		getContentPane().add(lblContraseña);
 		
 		txtUsuario = new JTextField();
-		txtUsuario.setBounds(186, 43, 170, 20);
+		txtUsuario.setBounds(186, 17, 170, 20);
 		getContentPane().add(txtUsuario);
 		txtUsuario.setColumns(10);
 		
 		pwdContraseña = new JPasswordField();
-		pwdContraseña.setBounds(186, 87, 170, 20);
+		pwdContraseña.setBounds(186, 61, 170, 20);
 		getContentPane().add(pwdContraseña);
 		pwdContraseña.setEnabled(false);
 		
-		JButton btnIniciarSesion = new JButton("Iniciar sesi\u00F3n");
+		JButton btnIniciarSesion = new JButton("Inicia sesi\u00F3n");
 		btnIniciarSesion.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				String nombreUsuario = txtUsuario.getText();
@@ -72,13 +74,27 @@ public class VentanaLogin extends JFrame {
 				}
 			}
 		});
-		btnIniciarSesion.setBounds(91, 161, 104, 23);
+		btnIniciarSesion.setBounds(132, 114, 122, 20);
 		getContentPane().add(btnIniciarSesion);
 		
-		JButton btnRegistrarse = new JButton("Registrarse");
-		btnRegistrarse.setBounds(235, 161, 104, 23);
-		btnRegistrarse.setEnabled(false); // Inicialmente no va a estar disponible
-		getContentPane().add(btnRegistrarse);
+		JLabel lblestasAquPor = new JLabel("\u00BFEst\u00E1s aqu\u00ED por primera vez?");
+		lblestasAquPor.setFont(new Font("Sitka Small", Font.BOLD | Font.ITALIC, 13));
+		lblestasAquPor.setHorizontalAlignment(SwingConstants.CENTER);
+		lblestasAquPor.setBounds(10, 164, 244, 27);
+		getContentPane().add(lblestasAquPor);
+		
+		JLabel lblRegistrate = new JLabel("Registrate");
+		lblRegistrate.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent arg0) {
+				
+			}
+		});
+		lblRegistrate.setHorizontalAlignment(SwingConstants.CENTER);
+		lblRegistrate.setForeground(Color.BLUE);
+		lblRegistrate.setFont(new Font("Sitka Small", Font.BOLD | Font.ITALIC, 13));
+		lblRegistrate.setBounds(264, 170, 79, 14);
+		getContentPane().add(lblRegistrate);
 		
 		setLocationRelativeTo(null);
 	}

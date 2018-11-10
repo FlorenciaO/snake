@@ -39,7 +39,7 @@ public class VentanaConfigurarSala extends JFrame {
 		getContentPane().setForeground(Color.BLACK);
 		getContentPane().setLayout(null);
 		setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
-		setTitle("Configuracion de la sala");
+		setTitle("Personalizá tu entorno!");
 		
 		addWindowListener(new WindowAdapter() {
 			@Override
@@ -126,7 +126,7 @@ public class VentanaConfigurarSala extends JFrame {
 		
 	}
 
-	private void volverAlLooby() {
+	public void volverAlLooby() {
 		this.ventanaLooby.setVisible(true);
 		setVisible(false);
 	}
@@ -134,14 +134,15 @@ public class VentanaConfigurarSala extends JFrame {
 	@SuppressWarnings("unused")
 	private void abrirVentanaSala() {
 		setVisible(false);
-		VentanaSala salaNueva = new VentanaSala(textFieldNombreSala.getText());
+		VentanaSala salaNueva = new VentanaSala(this);
 		salaNueva.setVisible(true);
 		this.ventanaLooby.addSala(salaNueva);
 	}
 	
-//	public static void main(String args[]) {
-//		new VentanaConfigurarSala().setVisible(true);
-//	}
+	
+	public String obtenerNombreSala() {
+		return textFieldNombreSala.getText();
+	}
 	
 	private void mostrarWarning() {
 		JOptionPane.showConfirmDialog(this, "Debe ingresar un nombre de sala", "ADVERTENCIA", JOptionPane.CLOSED_OPTION);		
