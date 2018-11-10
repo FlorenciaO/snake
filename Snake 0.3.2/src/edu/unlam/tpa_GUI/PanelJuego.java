@@ -78,8 +78,6 @@ public class PanelJuego extends JPanel implements Runnable {
 			init();
 			ventanaJuego.getControlsPanel().setSnake1ScoreLabel("0");
 			ventanaJuego.getControlsPanel().setSnake2ScoreLabel("0");
-//			ventanaJuego.getControlsPanel().setSnake3ScoreLabel("0");
-//			ventanaJuego.getControlsPanel().setSnake4ScoreLabel("0");
 			break;
 		}
 	}

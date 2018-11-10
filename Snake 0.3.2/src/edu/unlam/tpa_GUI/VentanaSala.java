@@ -5,6 +5,7 @@ import javax.swing.JButton;
 import javax.swing.JScrollPane;
 
 import edu.unlam.tpa_UTILES.ConfiguracionSala;
+import edu.unlam.tpa_UTILES.Jugador;
 import edu.unlam.tpa_UTILES.Sala;
 
 import javax.swing.JList;
@@ -28,7 +29,7 @@ public class VentanaSala extends JFrame{
 		getContentPane().setLayout(null);
 		setTitle("Esperando jugadores...");
 		setBounds(100, 100, 450, 300);
-		JList listaUsuarios = new JList(); // La lista sera de usuarios, se creara la clase usuario, junto con la implementacion
+		JList<Jugador> listaUsuarios = new JList(); // La lista sera de usuarios, se creara la clase usuario, junto con la implementacion
 											// de cliente/servidor
 		listaUsuarios.setBounds(321, 33, 103, 218);
 		getContentPane().add(listaUsuarios);

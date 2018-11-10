@@ -23,8 +23,6 @@ public class PanelDePuntajes extends JPanel{
 	private PanelJuego panelJuego;
 	private JLabel snake1ScoreLabel;
 	private JLabel snake2ScoreLabel;
-//	private JLabel snake3ScoreLabel;
-//	private JLabel snake4ScoreLabel;
 	
 	
 	public PanelDePuntajes(final PanelJuego panel){
@@ -68,30 +66,6 @@ public class PanelDePuntajes extends JPanel{
 		snake2ScoreLabel.setBounds(140, 130, 46, 20);
 		this.add(snake2ScoreLabel);
 		
-//		JLabel snake3Label = new JLabel("Snake");
-//		snake3Label.setFont(font);
-//		snake3Label.setForeground(Color.CYAN);
-//		snake3Label.setBounds(10, 130, 100, 20);
-//		this.add(snake3Label);
-		
-//		JLabel snake4Label = new JLabel("Snake");
-//		snake4Label.setFont(font);
-//		snake4Label.setForeground(Color.MAGENTA);
-//		snake4Label.setBounds(10, 170, 100, 20);
-//		this.add(snake4Label);
-		
-//		this.snake3ScoreLabel = new JLabel("0");
-//		snake3ScoreLabel.setFont(font);
-//		snake3ScoreLabel.setForeground(Color.CYAN);
-//		snake3ScoreLabel.setBounds(120, 130, 46, 20);
-//		this.add(snake3ScoreLabel);
-		
-//		this.snake4ScoreLabel = new JLabel("0");
-//		snake4ScoreLabel.setFont(font);
-//		snake4ScoreLabel.setForeground(Color.MAGENTA);
-//		snake4ScoreLabel.setBounds(120, 170, 46, 20);
-//		this.add(snake4ScoreLabel);
-		
 		btnJugar.setBounds(50, 250, 100, 40);
 		btnJugar.setText("Jugar");
 		btnJugar.setRequestFocusEnabled(false);		//Cuando se agrega un boton sin esto no anda
@@ -111,10 +85,4 @@ public class PanelDePuntajes extends JPanel{
 	public void setSnake2ScoreLabel(String puntos) {
 		this.snake2ScoreLabel.setText(puntos);
 	}
-//	public void setSnake3ScoreLabel(String puntos) {
-//		this.snake3ScoreLabel.setText(puntos);
-//	}
-//	public void setSnake4ScoreLabel(String puntos) {
-//		this.snake4ScoreLabel.setText(puntos);
-//	}
 }
