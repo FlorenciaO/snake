@@ -14,6 +14,8 @@ import java.awt.BorderLayout;
 import javax.swing.JFrame;
 import javax.swing.WindowConstants;
 
+import edu.unlam.tpa_UTILES.Sala;
+
 public class VentanaJuego extends JFrame 
 {
 	/**
@@ -23,8 +25,8 @@ public class VentanaJuego extends JFrame
 	private PanelJuego panelJuego;
 	private PanelDePuntajes panelPuntajes;
 
-	public VentanaJuego() {
-		panelJuego = new PanelJuego(this);
+	public VentanaJuego(Sala sala) {
+		panelJuego = new PanelJuego(this, sala);
 		panelPuntajes = new PanelDePuntajes(panelJuego);
 
 		getContentPane().add(panelPuntajes, BorderLayout.EAST);
@@ -42,10 +44,6 @@ public class VentanaJuego extends JFrame
 
 	public PanelDePuntajes getControlsPanel() {
 		return panelPuntajes;
-	}
-	
-	public static void main(String[] args) {
-		new VentanaJuego();
 	}
 
 }

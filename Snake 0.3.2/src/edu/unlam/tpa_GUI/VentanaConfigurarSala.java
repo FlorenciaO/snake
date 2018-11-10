@@ -14,8 +14,10 @@ import java.awt.Color;
 import javax.swing.SwingConstants;
 
 import edu.unlam.tpa_ENUMS.Dificultad;
-import edu.unlam.tpa_ENUMS.Modos;
+import edu.unlam.tpa_ENUMS.Modo;
 import edu.unlam.tpa_ENUMS.Velocidad;
+import edu.unlam.tpa_UTILES.ConfiguracionSala;
+
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
@@ -28,6 +30,9 @@ public class VentanaConfigurarSala extends JFrame {
 	
 	private JTextField textFieldNombreSala;
 	private VentanaLooby ventanaLooby;
+	private JComboBox<Velocidad> comboBoxVelocidad;
+	private JComboBox<Dificultad> comboBoxDificultad;
+	private JComboBox<Modo> comboBoxModo;
 	
 	public VentanaConfigurarSala(VentanaLooby ventanaLooby) {
 
@@ -41,6 +46,8 @@ public class VentanaConfigurarSala extends JFrame {
 		setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 		setTitle("Personalizá tu entorno!");
 		
+		
+//		Confirmar cierre
 		addWindowListener(new WindowAdapter() {
 			@Override
 			public void windowClosing(WindowEvent arg0) {
@@ -48,6 +55,7 @@ public class VentanaConfigurarSala extends JFrame {
 			}
 		});
 		
+//		Boton confirmacion
 		JButton btnConfirmar = new JButton("Confirmar");
 		btnConfirmar.setForeground(Color.BLACK);
 		btnConfirmar.addActionListener(new ActionListener() {
@@ -61,10 +69,11 @@ public class VentanaConfigurarSala extends JFrame {
 				}
 			}
 		});
-		
 		btnConfirmar.setBounds(102, 117, 102, 23);
 		getContentPane().add(btnConfirmar);
 		
+		
+//		Boton Cancelar
 		JButton btnCancelar = new JButton("Cancelar");
 		btnCancelar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
@@ -75,36 +84,44 @@ public class VentanaConfigurarSala extends JFrame {
 		btnCancelar.setBounds(251, 117, 102, 23);
 		getContentPane().add(btnCancelar);
 		
+//		LABELS DE CONFIGURACIONES
 		JLabel lblVelocidad = new JLabel("Velocidad");
 		lblVelocidad.setFont(new Font("Times New Roman", Font.ITALIC, 11));
 		lblVelocidad.setBounds(10, 73, 46, 14);
 		getContentPane().add(lblVelocidad);
+		
 		
 		JLabel lblDificultad = new JLabel("Dificultad");
 		lblDificultad.setFont(new Font("Times New Roman", Font.ITALIC, 11));
 		lblDificultad.setBounds(165, 73, 46, 14);
 		getContentPane().add(lblDificultad);
 		
+		
 		JLabel lblModo = new JLabel("Modo");
 		lblModo.setFont(new Font("Times New Roman", Font.ITALIC, 11));
 		lblModo.setBounds(289, 73, 46, 14);
 		getContentPane().add(lblModo);
 		
-		JComboBox<Velocidad> comboBoxVelocidad = new JComboBox<Velocidad>();
+		
+//		COMBOBOX'S DE CONFIGURACIONES
+		this.comboBoxVelocidad = new JComboBox<Velocidad>();
 		comboBoxVelocidad.setModel(new DefaultComboBoxModel<Velocidad>(Velocidad.values()));
 		comboBoxVelocidad.setBounds(66, 70, 89, 20);
 		getContentPane().add(comboBoxVelocidad);
 		
-		JComboBox<Dificultad> comboBoxDificultad = new JComboBox<Dificultad>();
+		this.comboBoxDificultad = new JComboBox<Dificultad>();
 		comboBoxDificultad.setModel(new DefaultComboBoxModel<Dificultad>(Dificultad.values()));
 		comboBoxDificultad.setBounds(221, 70, 58, 20);
+		comboBoxDificultad.setEnabled(false); // Implementar
 		getContentPane().add(comboBoxDificultad);
 		
-		JComboBox<Modos> comboBoxModo = new JComboBox<Modos>();
-		comboBoxModo.setEnabled(false);
+		this.comboBoxModo = new JComboBox<Modo>();
+		comboBoxModo.setEnabled(false); // Implementar
 		comboBoxModo.setBounds(345, 70, 61, 20);
 		getContentPane().add(comboBoxModo);
 		
+		
+//		LABEL DEL NOMBRE DE LA SALA
 		JLabel lblNombreSala = new JLabel("Nombre de la sala");
 		lblNombreSala.setVerticalAlignment(SwingConstants.TOP);
 		lblNombreSala.setBounds(10, 24, 102, 14);
@@ -134,7 +151,10 @@ public class VentanaConfigurarSala extends JFrame {
 	@SuppressWarnings("unused")
 	private void abrirVentanaSala() {
 		setVisible(false);
-		VentanaSala salaNueva = new VentanaSala(this);
+		ConfiguracionSala config = new ConfiguracionSala((Velocidad)this.comboBoxVelocidad.getSelectedItem()
+														, (Modo)this.comboBoxModo.getSelectedItem(), 
+														(Dificultad)this.comboBoxDificultad.getSelectedItem());
+		VentanaSala salaNueva = new VentanaSala(this, config, this.textFieldNombreSala.getText());
 		salaNueva.setVisible(true);
 		this.ventanaLooby.addSala(salaNueva);
 	}

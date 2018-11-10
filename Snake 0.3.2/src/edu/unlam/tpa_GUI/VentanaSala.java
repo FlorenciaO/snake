@@ -3,6 +3,10 @@ package edu.unlam.tpa_GUI;
 import javax.swing.JFrame;
 import javax.swing.JButton;
 import javax.swing.JScrollPane;
+
+import edu.unlam.tpa_UTILES.ConfiguracionSala;
+import edu.unlam.tpa_UTILES.Sala;
+
 import javax.swing.JList;
 import java.awt.Font;
 import java.awt.event.ActionListener;
@@ -18,7 +22,7 @@ public class VentanaSala extends JFrame{
 	
 	private VentanaConfigurarSala vConfiguracion;
 
-	public VentanaSala(VentanaConfigurarSala configuracion) {
+	public VentanaSala(VentanaConfigurarSala configuracion, ConfiguracionSala configSala, String nombreSala) {
 		this.vConfiguracion = configuracion;
 		
 		getContentPane().setLayout(null);
@@ -35,7 +39,7 @@ public class VentanaSala extends JFrame{
 				
 				//Aparece la pantalla del juego
 				setVisible(false);
-				abrirVentanaJuego();
+				abrirVentanaJuego(configSala, nombreSala);
 			}
 		});
 		btnIniciarJuego.setFont(new Font("Times New Roman", Font.BOLD | Font.ITALIC, 13));
@@ -67,9 +71,9 @@ public class VentanaSala extends JFrame{
 		setLocationRelativeTo(null);
 	}
 	
-	private void abrirVentanaJuego() {
-		
-		new VentanaJuego();
+	private void abrirVentanaJuego(ConfiguracionSala config, String nombre) {
+		Sala nuevaSala = new Sala(config, nombre);
+		new VentanaJuego(nuevaSala);
 	}
 	
 	private void volverAlLooby() {

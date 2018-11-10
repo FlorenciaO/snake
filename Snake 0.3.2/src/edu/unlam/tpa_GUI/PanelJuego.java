@@ -16,6 +16,7 @@ import edu.unlam.tpa_JUEGO.Fruta;
 import edu.unlam.tpa_JUEGO.Mapa;
 import edu.unlam.tpa_JUEGO.Partida;
 import edu.unlam.tpa_JUEGO.Snake;
+import edu.unlam.tpa_UTILES.Sala;
 
 public class PanelJuego extends JPanel implements Runnable {
 	/**
@@ -37,7 +38,7 @@ public class PanelJuego extends JPanel implements Runnable {
 	private int width_height = 500;
 	private int row_column = 50;
 	private int tileSize = width_height / row_column; 
-	private Velocidad speed = Velocidad.LENTO;
+	private Velocidad speed;
 	
 	private int puntos1 = 0;
 	private int puntos2 = 0;
@@ -83,7 +84,7 @@ public class PanelJuego extends JPanel implements Runnable {
 		}
 	}
 	
-	public PanelJuego(VentanaJuego frame) {
+	public PanelJuego(VentanaJuego frame, Sala sala) {
 		this.ventanaJuego = frame;
 		this.setFocusable(true);
 		this.setSize(500 + tileSize, 500 + tileSize );
@@ -97,7 +98,10 @@ public class PanelJuego extends JPanel implements Runnable {
 			}
 		});
 
-		this.enJuego = false;	}
+		this.enJuego = false;
+		
+		this.speed = sala.getConfiguracion().getVelocidad();
+	}
 
 	@SuppressWarnings("deprecation")
 	public void init() {
