@@ -1,4 +1,4 @@
-package edu.unlam.tpa;
+package edu.unlam.tpa_JUEGO;
 
 public class Posicion {
 	int x;

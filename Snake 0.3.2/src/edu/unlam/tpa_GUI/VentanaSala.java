@@ -68,6 +68,7 @@ public class VentanaSala extends JFrame{
 	}
 	
 	private void abrirVentanaJuego() {
+		
 		new VentanaJuego();
 	}
 	

@@ -10,12 +10,12 @@ import java.awt.image.BufferedImage;
 
 import javax.swing.JPanel;
 
-import edu.unlam.tpa.Direccion;
-import edu.unlam.tpa.Fruta;
-import edu.unlam.tpa.Mapa;
-import edu.unlam.tpa.Partida;
-import edu.unlam.tpa.Snake;
 import edu.unlam.tpa_ENUMS.Velocidad;
+import edu.unlam.tpa_JUEGO.Direccion;
+import edu.unlam.tpa_JUEGO.Fruta;
+import edu.unlam.tpa_JUEGO.Mapa;
+import edu.unlam.tpa_JUEGO.Partida;
+import edu.unlam.tpa_JUEGO.Snake;
 
 public class PanelJuego extends JPanel implements Runnable {
 	/**

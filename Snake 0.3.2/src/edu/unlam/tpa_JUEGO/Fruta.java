@@ -1,4 +1,4 @@
-package edu.unlam.tpa;
+package edu.unlam.tpa_JUEGO;
 
 import java.awt.Color;
 import java.awt.Graphics2D;
