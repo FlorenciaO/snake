@@ -43,6 +43,9 @@ public class PanelJuego extends JPanel implements Runnable {
 	private int puntos1 = 0;
 	private int puntos2 = 0;
 	
+	private Direccion dir = Direccion.DERECHA;
+	private Direccion dir2 = Direccion.IZQUIERDA;
+	
 	private boolean enJuego;
 	
 	public void setMovimiento(KeyEvent evento){
@@ -51,28 +54,28 @@ public class PanelJuego extends JPanel implements Runnable {
 		
 		switch(tecla) {
 		case KeyEvent.VK_A:
-			snake1.cambiarDireccion(Direccion.IZQUIERDA);
+			dir = Direccion.IZQUIERDA;
 			break;
 		case KeyEvent.VK_LEFT:
-			snake2.cambiarDireccion(Direccion.IZQUIERDA);
+			dir2 = Direccion.IZQUIERDA;
 			break;
 		case KeyEvent.VK_D:
-			snake1.cambiarDireccion(Direccion.DERECHA);
+			dir = Direccion.DERECHA;
 			break;
 		case KeyEvent.VK_RIGHT:
-			snake2.cambiarDireccion(Direccion.DERECHA);
+			dir2 = Direccion.DERECHA;
 			break;
 		case KeyEvent.VK_W:
-			snake1.cambiarDireccion(Direccion.ARRIBA);
+			dir = Direccion.ARRIBA;
 			break;
 		case KeyEvent.VK_UP:
-			snake2.cambiarDireccion(Direccion.ARRIBA);
+			dir2 = Direccion.ARRIBA;
 			break;
 		case KeyEvent.VK_S:
-			snake1.cambiarDireccion(Direccion.ABAJO);
+			dir = Direccion.ABAJO;
 			break;
 		case KeyEvent.VK_DOWN:
-			snake2.cambiarDireccion(Direccion.ABAJO);
+			dir2 = Direccion.ABAJO;
 			break;
 		case KeyEvent.VK_R:
 			init();
@@ -107,8 +110,8 @@ public class PanelJuego extends JPanel implements Runnable {
 			th.stop();
 		puntos1 = 0;
 		puntos2 = 0;
-		snake1 = new Snake(1, 1, Direccion.DERECHA);
-		snake2 = new Snake(24, 24, Direccion.IZQUIERDA);
+		snake1 = new Snake(1, 1, dir);
+		snake2 = new Snake(24, 24, dir2);
 		fruta = new Fruta(11, 11);
 		mapa = new Mapa(row_column, row_column);
 		partida = new Partida(mapa);
@@ -146,6 +149,8 @@ public class PanelJuego extends JPanel implements Runnable {
 	public void run() {
 		this.enJuego = true;
 		while (snake1.estaViva() || snake2.estaViva()) {
+			snake1.cambiarDireccion(dir);
+			snake2.cambiarDireccion(dir2);
 			partida.actualizarPartida();
 			if("crecio".equalsIgnoreCase(snake1.getEstado())){
 				puntos1 += 10;
