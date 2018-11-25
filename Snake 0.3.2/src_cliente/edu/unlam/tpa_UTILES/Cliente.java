@@ -2,8 +2,17 @@ package edu.unlam.tpa_UTILES;
 
 public class Cliente {
 	
-//	public int enviarTecla(int tecla, int jugador) {
-//		
-//	}
+	private String nombreJugador;
+	private Jugador jugador;
+
+	public Cliente(String nombre) {
+		this.nombreJugador = nombre;
+	}
+	
+	public boolean solicitarConexion() {
+		
+		
+		return true;
+	}
 	
 }

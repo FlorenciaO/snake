@@ -7,6 +7,9 @@ import javax.swing.JScrollPane;
 import javax.swing.ScrollPaneConstants;
 import javax.swing.JLabel;
 import javax.swing.SwingConstants;
+
+import edu.unlam.tpa_UTILES.Cliente;
+
 import java.awt.Font;
 
 import javax.swing.DefaultListModel;

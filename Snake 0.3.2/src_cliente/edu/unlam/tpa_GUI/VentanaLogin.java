@@ -6,6 +6,9 @@ import javax.swing.JOptionPane;
 
 import java.awt.Font;
 import javax.swing.SwingConstants;
+
+import edu.unlam.tpa_UTILES.Cliente;
+
 import java.awt.Color;
 import javax.swing.JTextField;
 import javax.swing.JPasswordField;
@@ -60,18 +63,7 @@ public class VentanaLogin extends JFrame {
 		JButton btnIniciarSesion = new JButton("Inicia sesi\u00F3n");
 		btnIniciarSesion.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				String nombreUsuario = txtUsuario.getText();
-				if(!nombreUsuario.isEmpty()) {
-					if(nombreUsuario.length() > LENG_USUARIO_MAX) {
-						mostrarWarning("Límite de nombre de usuario excedido");
-						txtUsuario.setText("");
-					} else {
-					abrirVentanaLooby();
-					}
-				}
-				else {
-					mostrarWarning("Se debe ingresar un usuario");
-				}
+				verificarUsuario();
 			}
 		});
 		btnIniciarSesion.setBounds(132, 114, 122, 20);
@@ -118,5 +110,33 @@ public class VentanaLogin extends JFrame {
 	
 	public void limpiarNombreUsuario() {
 		txtUsuario.setText("");
+	}
+	
+	private void verificarUsuario() {
+		String nombreUsuario = txtUsuario.getText();
+		if(!nombreUsuario.isEmpty()) {
+			if(nombreUsuario.length() > LENG_USUARIO_MAX) {
+				mostrarWarning("Límite de nombre de usuario excedido");
+				txtUsuario.setText("");
+			} else {
+//			Ver si existe usuario en la bd
+				Cliente cliente = new Cliente(txtUsuario.getText());
+				if(cliente.solicitarConexion()) {
+					abrirVentanaLooby();
+				} else {
+					JOptionPane.showMessageDialog(this, "No se ha podido realizar la conexion, vuelva a intentar", "ERROR DE CONEXION", JOptionPane.CLOSED_OPTION);
+					try {
+						Thread.sleep(1000);
+					} catch (InterruptedException e) {
+						e.printStackTrace();
+					}
+					System.exit(-1);
+				}
+				
+			}
+		}
+		else {
+			mostrarWarning("Se debe ingresar un usuario");
+		}
 	}
 }
