@@ -10,72 +10,75 @@ import java.awt.image.BufferedImage;
 
 import javax.swing.JPanel;
 
-import edu.unlam.tpa_ENUMS.Velocidad;
-import edu.unlam.tpa_JUEGO.Direccion;
-import edu.unlam.tpa_JUEGO.Fruta;
-import edu.unlam.tpa_JUEGO.Mapa;
-import edu.unlam.tpa_JUEGO.Partida;
-import edu.unlam.tpa_JUEGO.Snake;
-import edu.unlam.tpa_UTILES.Sala;
+import edu.unlam.tpa_PAINTER.FrutaPainter;
+import edu.unlam.tpa_PAINTER.MapaPainter;
+import edu.unlam.tpa_PAINTER.SnakePainter;
+//import edu.unlam.tpa_UTILES.Cliente;
+import edu.unlam.tpa_UTILES.Servidor;
 
-public class PanelJuego extends JPanel implements Runnable {
+public class PanelJuego extends JPanel {
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = -4351177139576585872L;
 	private BufferedImage buffer;
-	private Thread th;
 	
 	private VentanaJuego ventanaJuego;
+	private int width_height;
+	private int row_column;
+	private int tileSize;
 	
-	private Snake snake1;
-	private Snake snake2;
+	private Servidor servidor; // Por ahora se comunica con el servidor directamente
+//	private Cliente cliente; // El cliente que inicia el juego
 	
-	private Fruta fruta;
-	private Mapa mapa;
-	private Partida partida;
+	private MapaPainter mapaPainter;
+	private FrutaPainter frutaPainter;
+	private SnakePainter snakePainter;
 	
-	private int width_height = 500;
-	private int row_column = 20;
-	private int tileSize = width_height / row_column; 
-	private Velocidad speed;
-	
-	private int puntos1 = 0;
-	private int puntos2 = 0;
-	
-	private Direccion dir = Direccion.DERECHA;
-	private Direccion dir2 = Direccion.IZQUIERDA;
-	
-	private boolean enJuego;
-	
-	public void setMovimiento(KeyEvent evento){
+	public PanelJuego(VentanaJuego frame, Servidor servidor) {
 		
-		int tecla = evento.getKeyCode();
+		width_height = 500;
+		row_column = 50; // Cuantas filas y columnas
+		tileSize = width_height / row_column; // Tiene que dar numero entero sino rompe todo
 		
-		switch(tecla) {
+		this.setFocusable(true);
+		setBounds(0, 0, width_height, width_height);
+//		this.setSize(500 + tileSize, 500 + tileSize );
+//		this.setPreferredSize(new Dimension(490 + tileSize, 490 + tileSize));
+		this.ventanaJuego = frame;
+		
+		this.buffer = new BufferedImage(getWidth(), getHeight(), BufferedImage.TYPE_INT_RGB);
+		
+		addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyPressed(KeyEvent arg0) {
+				guardarTeclaPresionada(arg0);
+			}
+		});
+		
+		this.servidor = servidor;
+		this.servidor.setColumnas(row_column - 1);
+		
+		this.mapaPainter = new MapaPainter(width_height, width_height, tileSize);
+		this.frutaPainter = new FrutaPainter(tileSize, Color.GREEN);
+		this.snakePainter = new SnakePainter(tileSize);
+	}
+	
+	
+	public void guardarTeclaPresionada(KeyEvent evento) {
+		int aux = evento.getKeyCode();
+		switch(aux) {
 		case KeyEvent.VK_A:
-			dir = Direccion.IZQUIERDA;
-			break;
-		case KeyEvent.VK_LEFT:
-			dir2 = Direccion.IZQUIERDA;
-			break;
-		case KeyEvent.VK_D:
-			dir = Direccion.DERECHA;
-			break;
-		case KeyEvent.VK_RIGHT:
-			dir2 = Direccion.DERECHA;
-			break;
-		case KeyEvent.VK_W:
-			dir = Direccion.ARRIBA;
-			break;
-		case KeyEvent.VK_UP:
-			dir2 = Direccion.ARRIBA;
-			break;
 		case KeyEvent.VK_S:
-			dir = Direccion.ABAJO;
+		case KeyEvent.VK_D:
+		case KeyEvent.VK_W:
+			servidor.enviarTecla(aux, 1);			
 			break;
 		case KeyEvent.VK_DOWN:
-			dir2 = Direccion.ABAJO;
+		case KeyEvent.VK_UP:
+		case KeyEvent.VK_LEFT:
+		case KeyEvent.VK_RIGHT:
+			servidor.enviarTecla(aux, 2);
 			break;
 		case KeyEvent.VK_R:
 			init();
@@ -83,92 +86,25 @@ public class PanelJuego extends JPanel implements Runnable {
 			ventanaJuego.getControlsPanel().setSnake2ScoreLabel("0");
 			break;
 		}
-	}
-	
-	public PanelJuego(VentanaJuego frame, Sala sala) {
-		this.ventanaJuego = frame;
-		this.setFocusable(true);
-		this.setSize(500 + tileSize, 500 + tileSize );
-		this.setPreferredSize(new Dimension(490 + tileSize, 490 + tileSize));
-		buffer = new BufferedImage(getWidth(), getHeight(), BufferedImage.TYPE_INT_RGB);
 		
-		addKeyListener(new KeyAdapter() {
-			@Override
-			public void keyPressed(KeyEvent arg0) {
-				setMovimiento(arg0);
-			}
-		});
-
-		this.enJuego = false;
-		
-		this.speed = sala.getConfiguracion().getVelocidad();
 	}
 
-	@SuppressWarnings("deprecation")
 	public void init() {
-		if(th != null)
-			th.stop();
-		puntos1 = 0;
-		puntos2 = 0;
-		snake1 = new Snake(1, 1, dir);
-		snake2 = new Snake(24, 24, dir2);
-		fruta = new Fruta(11, 11);
-		mapa = new Mapa(row_column, row_column);
-		partida = new Partida(mapa);
-		partida.addSnake(snake1);
-		partida.addSnake(snake2);
-		partida.addFruta(fruta);
-		
-		th = new Thread(this); // Run se ejecuta en el thread
-		th.start();
-		
+		this.servidor.init();
 	}
 
 	public void paint(Graphics g) {
 
 		Graphics2D g2 = (Graphics2D) buffer.createGraphics();
-
-		// Paint background
-		g2.setColor(Color.WHITE);
-		g2.fillRect(0, 0, this.getWidth(), this.getHeight());		
-		g2.setColor(Color.BLACK);		
-		g2.fillRect(tileSize, tileSize, this.getWidth() - 2 * tileSize, this.getHeight() - 2 * tileSize);
+		mapaPainter.paint(g2);
 		
-		if(this.enJuego) {
-			fruta.paint(g2, tileSize);
-			if(snake1.estaViva())
-				snake1.paint(g2, Color.RED, tileSize);
-			if(snake2.estaViva())
-				snake2.paint(g2, Color.MAGENTA, tileSize);
+		if(servidor.enJuego()) {
+			frutaPainter.paint(g2, this.servidor.obtenerFrutas());
+			snakePainter.paint(g2, this.servidor.obtenerSnakes());
 		}
-		
 		g.drawImage(buffer, 0, 0, this);
 	}
 
-	@Override
-	public void run() {
-		this.enJuego = true;
-		while (snake1.estaViva() || snake2.estaViva()) {
-			snake1.cambiarDireccion(dir);
-			snake2.cambiarDireccion(dir2);
-			partida.actualizarPartida();
-			if("crecio".equalsIgnoreCase(snake1.getEstado())){
-				puntos1 += 10;
-				ventanaJuego.getControlsPanel().setSnake1ScoreLabel("" + puntos1);
-			}
-			if("crecio".equalsIgnoreCase(snake2.getEstado())){
-				puntos2 += 10;
-				ventanaJuego.getControlsPanel().setSnake2ScoreLabel("" + puntos2);
-			}		
-			try {
-				Thread.sleep(1000 / speed.getValor());
-			} catch (InterruptedException e) {
-				e.printStackTrace();
-			}
 
-			repaint();
-		}
-		this.enJuego = false;
-	}
 
 }

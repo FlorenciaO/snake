@@ -19,8 +19,20 @@ public class Partida {
 		this.snakes.add(sn);
 	}
 	
+	public void addSnakes(ArrayList<Snake> snakes) {
+		for(Snake snake: snakes) {
+			this.mapa.addSnake(snake);
+			this.snakes.add(snake);		}
+	}
+	
 	public void addFruta(Fruta fruta) {
 		this.mapa.addFruta(fruta);
+	}
+	
+	public void addFrutas(ArrayList<Fruta> frutas) {
+		for(Fruta fruta: frutas) {
+			this.mapa.addFruta(fruta);
+		}
 	}
 	
 	public void actualizarPartida() {

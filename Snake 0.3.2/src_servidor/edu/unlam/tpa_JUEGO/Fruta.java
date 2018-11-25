@@ -1,7 +1,4 @@
 package edu.unlam.tpa_JUEGO;
-
-import java.awt.Color;
-import java.awt.Graphics2D;
 import java.util.Random;
 
 public class Fruta {
@@ -30,7 +27,7 @@ public class Fruta {
 		while (!ok) {
 			int x = rand.nextInt(mapa.getFil() - 1) + 1;
 			int y = rand.nextInt(mapa.getCol() - 1) + 1;
-			if (!mapa.hayVibora(new Posicion(x, y), null)) {
+			if (!mapa.hayVibora(new Posicion(x, y), null) ) { //&& mapa.hayFruta(new Posicion(x,y)) == null
 				this.pos.x = x;
 				this.pos.y = y;
 				ok = true;
@@ -38,9 +35,5 @@ public class Fruta {
 		}
 	}
 
-	public void paint(Graphics2D g2, int tileSize) {
-		g2.setColor(Color.GREEN);
-		g2.fillRect(pos.x * tileSize, pos.y * tileSize, tileSize, tileSize);
-	}
 
 }

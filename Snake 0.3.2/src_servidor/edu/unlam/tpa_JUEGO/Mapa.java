@@ -18,7 +18,7 @@ public class Mapa {
 	public void mostrarMapa() {
 		boolean cabeza = false;
 		System.out.println("\n");
-		for (int j = 0; j < cantFil; j++) {
+		for (int j = 0; j < cantFil - 1; j++) {
 			for (int i = 0; i < cantCol; i++) {
 				if (hayViboraParaMostrar(new Posicion(i, j))) {
 					for (Snake snake : snakes) {
@@ -120,4 +120,13 @@ public class Mapa {
 	}
 
 
+	public ArrayList<Snake> getSnakes() {
+		return this.snakes;
+	}
+	
+	public ArrayList<Fruta> getFrutas() {
+		return this.frutas;
+	}
+	
+	
 }

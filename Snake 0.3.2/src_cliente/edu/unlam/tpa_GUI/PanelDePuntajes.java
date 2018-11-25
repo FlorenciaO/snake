@@ -1,7 +1,6 @@
 package edu.unlam.tpa_GUI;
 
 import java.awt.Color;
-import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -24,10 +23,13 @@ public class PanelDePuntajes extends JPanel{
 	private JLabel snake1ScoreLabel;
 	private JLabel snake2ScoreLabel;
 	
+	private int width = 200;
+	private int height = 500;
+	
 	
 	public PanelDePuntajes(final PanelJuego panel){
 		this.panelJuego = panel;
-		this.setPreferredSize(new Dimension(200, 300));
+		setBounds(500, 0, width, height);
 		this.setBackground(Color.DARK_GRAY);
 		Border raisedbevel = BorderFactory.createRaisedBevelBorder();
 		Border loweredbevel = BorderFactory.createLoweredBevelBorder();

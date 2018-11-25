@@ -1,10 +1,10 @@
 package edu.unlam.tpa_JUEGO;
 
 import java.awt.Color;
-import java.awt.Graphics2D;
 import java.util.ArrayList;
 
 public class Snake {
+	private Color color;
 
 	private CuerpoSnake cuerpo;
 	private Direccion dir;
@@ -12,10 +12,17 @@ public class Snake {
 	private boolean sinConflictos;
 	private String estado;
 
+	public Snake(int x, int y, Direccion dir, Color color) {
+		this.cuerpo = new CuerpoSnake(x, y);
+		this.dir = dir;
+		this.color = color;
+		crecer();
+		this.estado = "viva";
+	}
+	
 	public Snake(int x, int y, Direccion dir) {
 		this.cuerpo = new CuerpoSnake(x, y);
 		this.dir = dir;
-
 		crecer();
 		this.estado = "viva";
 	}
@@ -38,10 +45,6 @@ public class Snake {
 			return;
 		this.cuerpo.crecer(this.dir);
 		this.estado = "crecio";
-	}
-
-	public void paint(Graphics2D g2, Color color, int tileSize) {
-		this.cuerpo.paint(g2 , color, tileSize);
 	}
 	
 	public ArrayList<Posicion> getCuerpo() {
@@ -162,6 +165,10 @@ public class Snake {
 //		if (viva != other.viva)
 //			return false;
 		return true;
+	}
+	
+	public Color getColor() {
+		return this.color;
 	}
 
 }

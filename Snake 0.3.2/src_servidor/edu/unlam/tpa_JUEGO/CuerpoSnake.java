@@ -120,12 +120,7 @@ public class CuerpoSnake {
 		return true;
 	}
 
-	public void paint(Graphics2D g2, Color color, int tileSize) {
-		for(Posicion parte : cuerpo) {
-			g2.setColor(color);
-			g2.fillRect(parte.x * tileSize, parte.y * tileSize, tileSize, tileSize);
-		}
-	}
+	
 
 	public boolean laCabezaVaAEstarAhi(Posicion pos, Direccion dir) {
 		return getCabezaNextPos(dir).equals(pos);

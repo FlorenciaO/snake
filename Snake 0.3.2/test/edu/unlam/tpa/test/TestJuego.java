@@ -17,7 +17,7 @@ public class TestJuego {
 	
 	Snake snake;
 	
-//	@Test
+	@Test
 	public void crece() {
 		snake = new Snake(0, 0, Direccion.DERECHA);
 		
@@ -35,7 +35,7 @@ public class TestJuego {
 		assertEquals(cuerpo, snake.getCuerpo());
 	}
 		
-//	@Test
+	@Test
 	public void seMueveCuerpo() {
 		snake = new Snake(0, 0, Direccion.DERECHA);
 		
@@ -72,7 +72,7 @@ public class TestJuego {
 		assertEquals(false, snake.estaViva());
 	}
 	
-//	@Test
+	@Test
 	public void muereBordeIzquierdo() {
 		snake = new Snake(1, 2, Direccion.ABAJO);
 		partida = new Partida(new Mapa(10, 10));
@@ -85,7 +85,7 @@ public class TestJuego {
 		assertEquals(false, snake.estaViva());
 	}
 	
-//	@Test
+	@Test
 	public void muereBordeAbajo() {
 		snake = new Snake(1, 9, Direccion.DERECHA);
 		partida = new Partida(new Mapa(10, 10));
@@ -112,7 +112,7 @@ public class TestJuego {
 	}
 	
 	Fruta fruta;
-//	@Test
+	@Test
 	public void comeYcrece() {
 		snake = new Snake(1, 1, Direccion.DERECHA);
 		fruta = new Fruta(3, 1);
@@ -131,7 +131,7 @@ public class TestJuego {
 		assertEquals(cuerpo, snake.getCuerpo());
 	}
 	
-//	@Test
+	@Test
 	public void noChocaConsigoMismaLoop() {
 		snake = new Snake(3, 3, Direccion.DERECHA);
 		partida = new Partida(new Mapa(10, 10));
@@ -139,7 +139,7 @@ public class TestJuego {
 		
 		snake.crecer();
 		snake.crecer();
-//		snake.crecer();
+		snake.crecer();
 		snake.cambiarDireccion(Direccion.ABAJO);
 		partida.actualizarPartida(true);
 		
@@ -177,7 +177,7 @@ public class TestJuego {
 		assertEquals(false, snake2.estaViva());
 	}
 	
-//	@Test
+	@Test
 	public void casiChocanmuereUnaDelasDos() {
 		snake = new Snake(2, 1, Direccion.DERECHA);
 		snake2 = new Snake(5, 1, Direccion.IZQUIERDA);
@@ -195,7 +195,7 @@ public class TestJuego {
 		assertEquals(false, snake2.estaViva());
 	}
 	
-//	@Test
+	@Test
 	public void loopean() {
 		snake = new Snake(1, 1, Direccion.DERECHA);
 		snake2 = new Snake(3, 1, Direccion.DERECHA);
@@ -210,7 +210,7 @@ public class TestJuego {
 		partida.actualizarPartida(true);
 	}
 	
-//	@Test
+	@Test
 	public void loopeanYunoCome() {
 		snake = new Snake(1, 1, Direccion.DERECHA);
 		snake2 = new Snake(3, 1, Direccion.DERECHA);
@@ -227,7 +227,7 @@ public class TestJuego {
 		partida.actualizarPartida(true);
 	}
 	
-//	@Test
+	@Test
 	public void loopeanCola() {
 		snake = new Snake(4, 2, Direccion.DERECHA);
 		snake2 = new Snake(6, 4, Direccion.IZQUIERDA);
@@ -255,7 +255,7 @@ public class TestJuego {
 		partida.actualizarPartida(true);
 	}
 	
-//	@Test
+	@Test
 	public void chocanCabezasPerpendicularmente()  {
 		snake = new Snake(2, 1, Direccion.DERECHA);
 		snake2 = new Snake(4, 3, Direccion.ARRIBA);
