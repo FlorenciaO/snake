@@ -14,6 +14,8 @@ import java.awt.BorderLayout;
 import javax.swing.JFrame;
 import javax.swing.WindowConstants;
 
+import edu.unlam.tpa_ENUMS.Velocidad;
+import edu.unlam.tpa_UTILES.ConfiguracionSala;
 import edu.unlam.tpa_UTILES.Sala;
 
 public class VentanaJuego extends JFrame 
@@ -44,6 +46,10 @@ public class VentanaJuego extends JFrame
 
 	public PanelDePuntajes getControlsPanel() {
 		return panelPuntajes;
+	}
+	
+	public static void main(String args[]) {
+		new VentanaJuego(new Sala(new ConfiguracionSala(Velocidad.NORMAL, null, null),"pepito")).setVisible(true);
 	}
 
 }
