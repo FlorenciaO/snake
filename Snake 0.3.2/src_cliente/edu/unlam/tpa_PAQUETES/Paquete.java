@@ -1,4 +1,4 @@
-package paqueteEnvios;
+package edu.unlam.tpa_PAQUETES;
 
 import java.io.Serializable;
 
