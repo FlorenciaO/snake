@@ -3,8 +3,8 @@ package edu.unlam.tpa_COMANDOSCLIENTE;
 import java.io.IOException;
 
 import edu.unlam.tpa_COMUNICACION.Cliente;
-import edu.unlam.tpa_PAQUETES.Comando;
-import edu.unlam.tpa_PAQUETES.PaqueteUsuario;
+import edu.unlam.tpa_PAQUETESCLIENTE.Comando;
+import edu.unlam.tpa_PAQUETESCLIENTE.PaqueteUsuario;
 
 
 public class Desconectar extends ComandoCliente {

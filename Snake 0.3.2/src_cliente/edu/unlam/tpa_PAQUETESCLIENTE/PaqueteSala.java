@@ -1,7 +1,9 @@
-package edu.unlam.tpa_PAQUETES;
+package edu.unlam.tpa_PAQUETESCLIENTE;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+
+import edu.unlam.tpa_PAQUETES.Paquete;
 
 
 public class PaqueteSala extends Paquete implements Serializable, Cloneable {

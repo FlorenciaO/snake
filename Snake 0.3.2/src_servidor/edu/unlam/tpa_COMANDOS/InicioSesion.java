@@ -5,10 +5,10 @@ import java.io.IOException;
 import com.google.gson.JsonSyntaxException;
 
 import edu.unlam.tpa_COMUNICACION.Servidor;
-import edu.unlam.tpa_PAQUETES.Comando;
-import edu.unlam.tpa_PAQUETES.Paquete;
-import edu.unlam.tpa_PAQUETES.PaqueteDeUsuariosYSalas;
-import edu.unlam.tpa_PAQUETES.PaqueteUsuario;
+import edu.unlam.tpa_PAQUETESCLIENTE.Comando;
+import edu.unlam.tpa_PAQUETESCLIENTE.Paquete;
+import edu.unlam.tpa_PAQUETESCLIENTE.PaqueteDeUsuariosYSalas;
+import edu.unlam.tpa_PAQUETESCLIENTE.PaqueteUsuario;
 
 
 public class InicioSesion extends ComandoServer {

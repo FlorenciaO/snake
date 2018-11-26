@@ -4,6 +4,9 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Map;
 
+import edu.unlam.tpa_PAQUETESCLIENTE.Paquete;
+import edu.unlam.tpa_PAQUETESCLIENTE.PaqueteUsuario;
+
 public class PaqueteDeUsuariosYSalas extends Paquete implements Serializable, Cloneable {
 
 	

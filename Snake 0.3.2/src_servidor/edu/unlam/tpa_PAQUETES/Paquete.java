@@ -2,6 +2,8 @@ package edu.unlam.tpa_PAQUETES;
 
 import java.io.Serializable;
 
+import edu.unlam.tpa_PAQUETESCLIENTE.Comando;
+
 public class Paquete implements Serializable, Cloneable {
 
 	

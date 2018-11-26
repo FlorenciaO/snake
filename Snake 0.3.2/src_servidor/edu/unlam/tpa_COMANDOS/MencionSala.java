@@ -7,9 +7,9 @@ import org.omg.CORBA.portable.ResponseHandler;
 
 import edu.unlam.tpa_COMUNICACION.EscuchaCliente;
 import edu.unlam.tpa_COMUNICACION.Servidor;
-import edu.unlam.tpa_PAQUETES.Comando;
-import edu.unlam.tpa_PAQUETES.Paquete;
 import edu.unlam.tpa_PAQUETES.PaqueteMensaje;
+import edu.unlam.tpa_PAQUETESCLIENTE.Comando;
+import edu.unlam.tpa_PAQUETESCLIENTE.Paquete;
 
 
 public class MencionSala extends ComandoServer {

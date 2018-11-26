@@ -11,9 +11,9 @@ import javax.swing.JOptionPane;
 import com.google.gson.Gson;
 
 import edu.unlam.tpa_COMANDOSESCUCHASERVER.ComandoEscuchaServer;
-import edu.unlam.tpa_PAQUETES.Comando;
-import edu.unlam.tpa_PAQUETES.Paquete;
-import edu.unlam.tpa_PAQUETES.PaqueteSala;
+import edu.unlam.tpa_PAQUETESCLIENTE.Comando;
+import edu.unlam.tpa_PAQUETESCLIENTE.Paquete;
+import edu.unlam.tpa_PAQUETESCLIENTE.PaqueteSala;
 
 public class EscuchaServer extends Thread {
 

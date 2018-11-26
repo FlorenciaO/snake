@@ -3,9 +3,9 @@ package edu.unlam.tpa_COMANDOS;
 import java.io.IOException;
 
 import edu.unlam.tpa_COMUNICACION.Servidor;
-import edu.unlam.tpa_PAQUETES.Comando;
-import edu.unlam.tpa_PAQUETES.Paquete;
-import edu.unlam.tpa_PAQUETES.PaqueteSala;
+import edu.unlam.tpa_PAQUETESCLIENTE.Comando;
+import edu.unlam.tpa_PAQUETESCLIENTE.Paquete;
+import edu.unlam.tpa_PAQUETESCLIENTE.PaqueteSala;
 
 
 public class EntrarSala extends ComandoServer {

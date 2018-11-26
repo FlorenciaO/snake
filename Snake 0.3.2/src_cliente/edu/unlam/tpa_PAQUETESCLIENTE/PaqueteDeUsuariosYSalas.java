@@ -1,8 +1,11 @@
-package edu.unlam.tpa_PAQUETES;
+package edu.unlam.tpa_PAQUETESCLIENTE;
 
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Map;
+
+import edu.unlam.tpa_PAQUETES.Paquete;
+import edu.unlam.tpa_PAQUETES.PaqueteUsuario;
 
 public class PaqueteDeUsuariosYSalas extends Paquete implements Serializable, Cloneable {
 

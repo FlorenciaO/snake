@@ -4,8 +4,8 @@ import java.util.ArrayList;
 
 import javax.swing.JOptionPane;
 
-import edu.unlam.tpa_PAQUETES.Paquete;
-import edu.unlam.tpa_PAQUETES.PaqueteDeUsuariosYSalas;
+import edu.unlam.tpa_PAQUETESCLIENTE.Paquete;
+import edu.unlam.tpa_PAQUETESCLIENTE.PaqueteDeUsuariosYSalas;
 
 
 public class InicioSesion extends ComandoEscuchaServer {

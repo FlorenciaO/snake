@@ -3,6 +3,8 @@ package edu.unlam.tpa_PAQUETES;
 import java.io.Serializable;
 import java.util.List;
 
+import edu.unlam.tpa_PAQUETESCLIENTE.Paquete;
+
 
 public class PaqueteUsuario extends Paquete implements Serializable, Cloneable {
 
