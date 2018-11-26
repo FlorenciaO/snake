@@ -7,7 +7,6 @@ import javax.swing.JOptionPane;
 import java.awt.Font;
 import javax.swing.SwingConstants;
 
-import edu.unlam.tpa_UTILES.Cliente;
 
 import java.awt.Color;
 import javax.swing.JTextField;
@@ -119,19 +118,7 @@ public class VentanaLogin extends JFrame {
 				mostrarWarning("Límite de nombre de usuario excedido");
 				txtUsuario.setText("");
 			} else {
-//			Ver si existe usuario en la bd
-				Cliente cliente = new Cliente(txtUsuario.getText());
-				if(cliente.solicitarConexion()) {
-					abrirVentanaLooby();
-				} else {
-					JOptionPane.showMessageDialog(this, "No se ha podido realizar la conexion, vuelva a intentar", "ERROR DE CONEXION", JOptionPane.CLOSED_OPTION);
-					try {
-						Thread.sleep(1000);
-					} catch (InterruptedException e) {
-						e.printStackTrace();
-					}
-					System.exit(-1);
-				}
+				abrirVentanaLooby();
 				
 			}
 		}
