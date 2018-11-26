@@ -1,6 +1,5 @@
 package edu.unlam.tpa_COMUNICACION;
 
-
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
@@ -10,6 +9,12 @@ import java.util.Map;
 
 import javax.swing.JOptionPane;
 
+import edu.unlam.tpa_COMANDOSCLIENTE.ComandoCliente;
+import edu.unlam.tpa_PAQUETES.Paquete;
+import edu.unlam.tpa_PAQUETES.PaqueteSala;
+import edu.unlam.tpa_PAQUETES.PaqueteUsuario;
+import edu.unlam.tpa_UTILES.Sala;
+
 public class Cliente extends Thread {
 	private Socket cliente;
 	private static String miIp;
@@ -18,11 +23,8 @@ public class Cliente extends Thread {
 	private ObjectOutputStream salida;
 	
 	private PaqueteUsuario paqueteUsuario = new PaqueteUsuario();
-	private PaqueteMensaje paqueteMensaje = new PaqueteMensaje();
 	private PaqueteSala paqueteSala = new PaqueteSala();
 
-	
-	private Map<String, Chat> chatsActivos = new HashMap<>();
 	private Map<String, Sala> salasActivas = new HashMap<>();
 
 	private int accion; 
@@ -119,25 +121,9 @@ public class Cliente extends Thread {
 		return paqueteUsuario;
 	}
 
-	public PaqueteMensaje getPaqueteMensaje() {
-		return paqueteMensaje;
-	}
-
-	public void setPaqueteMensaje(PaqueteMensaje paqueteMensaje) {
-		this.paqueteMensaje = paqueteMensaje;
-	}
-
-
-	public Map<String, Chat> getChatsActivos() {
-		return chatsActivos;
-	}
 
 	public Map<String, Sala> getSalasActivas() {
 		return salasActivas;
-	}
-
-	public void setChatsActivos(Map<String, Chat> chatsActivos) {
-		this.chatsActivos = chatsActivos;
 	}
 
 	public PaqueteSala getPaqueteSala() {
@@ -148,8 +134,5 @@ public class Cliente extends Thread {
 		this.paqueteSala = paqueteSala;
 	}
 
-	public void eliminarChatActivo(String clave) {
-		this.chatsActivos.remove(clave);
-	}
 
 }

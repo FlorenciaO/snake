@@ -1,4 +1,4 @@
-package paqueteEnvios;
+package edu.unlam.tpa_PAQUETES;
 
 import com.google.gson.Gson;
 
