@@ -20,8 +20,10 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JScrollPane;
 
-import edu.unlam.tpa_PAQUETES.PaqueteMensaje;
 import edu.unlam.tpa_PAQUETESCLIENTE.PaqueteSala;
+
+
+
 
 public class Servidor extends Thread {
 
@@ -304,34 +306,6 @@ public class Servidor extends Thread {
 
 	public static void setNombresSalasDisponibles(ArrayList<String> salasDisponibles) {
 		Servidor.salasNombresDisponibles = salasDisponibles;
-	}
-
-	public static boolean mensajeAUsuario(PaqueteMensaje pqm) {
-		boolean result = true;
-		if(!UsuariosConectados.contains(pqm.getUserReceptor())) {
-			result = false;
-		}
-		if (result) {
-			Servidor.getLog().append(pqm.getUserEmisor() + " envió mensaje a " + pqm.getUserReceptor() + System.lineSeparator());
-			return true;
-		} else {
-			Servidor.getLog().append("El mensaje para " + pqm.getUserReceptor() + " no se ha podido enviar, usario inexistente/desconectado." + System.lineSeparator());
-			return false;
-		}
-	}
-
-	public static boolean mencionUsuario(PaqueteMensaje paqueteMensaje) {
-		boolean result = true;
-		if(!UsuariosConectados.contains(paqueteMensaje.getUserReceptor())) {
-			result = false;
-		}
-		if (result) {
-			Servidor.getLog().append(paqueteMensaje.getUserEmisor() + " mencionó " + paqueteMensaje.getUserReceptor() + System.lineSeparator());
-			return true;
-		} else {
-			Servidor.getLog().append("La mención para el usuario " + paqueteMensaje.getUserReceptor() + " no se ha podido enviar, usario inexistente/desconectado." + System.lineSeparator());
-			return false;
-		}
 	}
 
 	public static boolean mensajeAAll(int contador) {

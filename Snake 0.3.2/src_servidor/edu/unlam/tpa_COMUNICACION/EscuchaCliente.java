@@ -8,12 +8,13 @@ import java.net.Socket;
 import com.google.gson.Gson;
 
 import edu.unlam.tpa_COMANDOS.ComandoServer;
+import edu.unlam.tpa_PAQUETESCLIENTE.Comando;
+import edu.unlam.tpa_PAQUETESCLIENTE.Paquete;
+import edu.unlam.tpa_PAQUETESCLIENTE.PaqueteDeUsuariosYSalas;
+import edu.unlam.tpa_PAQUETESCLIENTE.PaqueteSala;
+import edu.unlam.tpa_PAQUETESCLIENTE.PaqueteUsuario;
 
-import edu.unlam.tpa_PAQUETES.Comando;
-import edu.unlam.tpa_PAQUETES.Paquete;
-import edu.unlam.tpa_PAQUETES.PaqueteDeUsuariosYSalas;
-import edu.unlam.tpa_PAQUETES.PaqueteSala;
-import edu.unlam.tpa_PAQUETES.PaqueteUsuario;
+
 
 public class EscuchaCliente extends Thread {
 
@@ -37,14 +38,15 @@ public class EscuchaCliente extends Thread {
 
 	public void run() {
 		try {
-			ComandoServer comando;
+			ComandoServer comando;			
 			Paquete paquete;
 			
 			String cadenaLeida = (String) entrada.readObject();
 
 			while (!((paquete = gson.fromJson(cadenaLeida, Paquete.class)).getComando() == Comando.DESCONECTAR)) {							
 
-				comando = (ComandoServer) paquete.getObjeto("comandos");
+//				comando = (ComandoServer) paquete.getObjeto("comandos");
+				comando = (ComandoServer) paquete.getObjeto("edu.unlam.tpa_COMANDOS");
 				comando.setCadena(cadenaLeida);
 				comando.setEscuchaCliente(this);
 				comando.ejecutar();
