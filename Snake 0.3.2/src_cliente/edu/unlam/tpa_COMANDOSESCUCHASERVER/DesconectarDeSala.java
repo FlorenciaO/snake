@@ -1,7 +1,7 @@
 package edu.unlam.tpa_COMANDOSESCUCHASERVER;
 
 import edu.unlam.tpa_COMUNICACION.Cliente;
-import edu.unlam.tpa_PAQUETES.PaqueteSala;
+import edu.unlam.tpa_PAQUETESCLIENTE.PaqueteSala;
 
 public class DesconectarDeSala extends ComandoEscuchaServer {
 

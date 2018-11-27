@@ -4,8 +4,8 @@ import java.io.IOException;
 import java.net.Socket;
 
 import edu.unlam.tpa_COMUNICACION.Servidor;
-import edu.unlam.tpa_PAQUETES.Comando;
 import edu.unlam.tpa_PAQUETES.PaqueteMensaje;
+import edu.unlam.tpa_PAQUETESCLIENTE.Comando;
 
 
 public class MP  extends ComandoServer{

@@ -21,7 +21,7 @@ import javax.swing.JFrame;
 import javax.swing.JScrollPane;
 
 import edu.unlam.tpa_PAQUETES.PaqueteMensaje;
-import edu.unlam.tpa_PAQUETES.PaqueteSala;
+import edu.unlam.tpa_PAQUETESCLIENTE.PaqueteSala;
 
 public class Servidor extends Thread {
 

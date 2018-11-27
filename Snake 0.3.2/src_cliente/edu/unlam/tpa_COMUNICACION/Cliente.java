@@ -10,9 +10,9 @@ import java.util.Map;
 import javax.swing.JOptionPane;
 
 import edu.unlam.tpa_COMANDOSCLIENTE.ComandoCliente;
-import edu.unlam.tpa_PAQUETES.Paquete;
-import edu.unlam.tpa_PAQUETES.PaqueteSala;
-import edu.unlam.tpa_PAQUETES.PaqueteUsuario;
+import edu.unlam.tpa_PAQUETESCLIENTE.Paquete;
+import edu.unlam.tpa_PAQUETESCLIENTE.PaqueteSala;
+import edu.unlam.tpa_PAQUETESCLIENTE.PaqueteUsuario;
 import edu.unlam.tpa_UTILES.Sala;
 
 public class Cliente extends Thread {

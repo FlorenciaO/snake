@@ -3,8 +3,8 @@ package edu.unlam.tpa_COMANDOSESCUCHASERVER;
 import javax.swing.JOptionPane;
 
 import edu.unlam.tpa_COMUNICACION.Cliente;
-import edu.unlam.tpa_PAQUETES.Paquete;
-import edu.unlam.tpa_PAQUETES.PaqueteSala;
+import edu.unlam.tpa_PAQUETESCLIENTE.Paquete;
+import edu.unlam.tpa_PAQUETESCLIENTE.PaqueteSala;
 import edu.unlam.tpa_UTILES.Sala;
 
 
