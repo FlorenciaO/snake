@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 import edu.unlam.tpa_PAQUETESCLIENTE.PaqueteDeUsuariosYSalas;
 
-public class Conexión extends ComandoEscuchaServer {
+public class Conexion extends ComandoEscuchaServer {
 
 	@Override
 	public void ejecutar() {

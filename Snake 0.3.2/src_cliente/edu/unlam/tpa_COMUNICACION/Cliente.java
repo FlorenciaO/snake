@@ -137,7 +137,7 @@ public class Cliente extends Thread {
 	}
 
 	public static void main(String args[]) {
-		new Cliente("192.168.56.1", 1234).start();
+		new Cliente("localHost", 1234).start();
 	}
 
 }
