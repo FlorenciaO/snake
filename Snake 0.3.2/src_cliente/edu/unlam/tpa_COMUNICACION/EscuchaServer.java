@@ -63,61 +63,61 @@ protected static ArrayList<String> usuariosConectados = new ArrayList<String>();
 		this.cliente = cliente;
 	}
 
-	public void actualizarListaConectadosSala(PaqueteSala paqueteSala) {
-		DefaultListModel<String> modelo = new DefaultListModel<String>();
-		synchronized (cliente) {
-
-			cliente.getSalasActivas().get(paqueteSala.getNombreSala()).eliminarConectados();
-
-			if (paqueteSala.getUsuariosConectados() != null) {
-				paqueteSala.eliminarUsuario(cliente.getPaqueteUsuario().getUsername());
-				for (String cad : paqueteSala.getUsuariosConectados()) {
-					modelo.addElement(cad);
-				}
-				cliente.getSalasActivas().get(paqueteSala.getNombreSala()).cambiarModelo(modelo);
-			}
-		}
-	}
-
-	public void actualizarLista() {
-		DefaultListModel<String> modelo = new DefaultListModel<String>();
-		synchronized (cliente) {
-
-			VentanaPrincipal.eliminarConectados();
-
-			if (cliente.getPaqueteUsuario().getListaDeConectados() != null) {
-				cliente.getPaqueteUsuario().eliminarUsuario(cliente.getPaqueteUsuario().getUsername());
-
-				for (String cad : cliente.getPaqueteUsuario().getListaDeConectados()) {
-					modelo.addElement(cad);
-				}
-				
-				VentanaPrincipal.cambiarModelo(modelo);
-			}
-		}
-	}
-
-	public void actualizarListaSalas() {
-		DefaultListModel<String> modelo = new DefaultListModel<String>();
-		synchronized (cliente) {
-			
-			VentanaPrincipal.eliminarSalas();
-			
-			if (cliente.getPaqueteUsuario().getListaDeSalas() != null) {
-				for (String cad : cliente.getPaqueteUsuario().getListaDeSalas()) {
-					modelo.addElement(cad);
-				}
-				
-				VentanaPrincipal.cambiarModeloSalas(modelo);
-			}
-			
-			if (cliente.getPaqueteUsuario().getListaDeSalasPrivadas() != null) {
-				for (String cad : cliente.getPaqueteUsuario().getListaDeSalasPrivadas()) {
-					modelo.addElement(cad);
-				}
-				
-				VentanaPrincipal.cambiarModeloSalas(modelo);
-			}
-		}
-	}
+//	public void actualizarListaConectadosSala(PaqueteSala paqueteSala) {
+//		DefaultListModel<String> modelo = new DefaultListModel<String>();
+//		synchronized (cliente) {
+//
+//			cliente.getSalasActivas().get(paqueteSala.getNombreSala()).eliminarConectados();
+//
+//			if (paqueteSala.getUsuariosConectados() != null) {
+//				paqueteSala.eliminarUsuario(cliente.getPaqueteUsuario().getUsername());
+//				for (String cad : paqueteSala.getUsuariosConectados()) {
+//					modelo.addElement(cad);
+//				}
+//				cliente.getSalasActivas().get(paqueteSala.getNombreSala()).cambiarModelo(modelo);
+//			}
+//		}
+//	}
+//
+//	public void actualizarLista() {
+//		DefaultListModel<String> modelo = new DefaultListModel<String>();
+//		synchronized (cliente) {
+//
+//			VentanaPrincipal.eliminarConectados();
+//
+//			if (cliente.getPaqueteUsuario().getListaDeConectados() != null) {
+//				cliente.getPaqueteUsuario().eliminarUsuario(cliente.getPaqueteUsuario().getUsername());
+//
+//				for (String cad : cliente.getPaqueteUsuario().getListaDeConectados()) {
+//					modelo.addElement(cad);
+//				}
+//				
+//				VentanaPrincipal.cambiarModelo(modelo);
+//			}
+//		}
+//	}
+//
+//	public void actualizarListaSalas() {
+//		DefaultListModel<String> modelo = new DefaultListModel<String>();
+//		synchronized (cliente) {
+//			
+//			VentanaPrincipal.eliminarSalas();
+//			
+//			if (cliente.getPaqueteUsuario().getListaDeSalas() != null) {
+//				for (String cad : cliente.getPaqueteUsuario().getListaDeSalas()) {
+//					modelo.addElement(cad);
+//				}
+//				
+//				VentanaPrincipal.cambiarModeloSalas(modelo);
+//			}
+//			
+//			if (cliente.getPaqueteUsuario().getListaDeSalasPrivadas() != null) {
+//				for (String cad : cliente.getPaqueteUsuario().getListaDeSalasPrivadas()) {
+//					modelo.addElement(cad);
+//				}
+//				
+//				VentanaPrincipal.cambiarModeloSalas(modelo);
+//			}
+//		}
+//	}
 }

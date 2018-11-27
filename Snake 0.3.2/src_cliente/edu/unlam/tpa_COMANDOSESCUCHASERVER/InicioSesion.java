@@ -15,12 +15,13 @@ public class InicioSesion extends ComandoEscuchaServer {
 		PaqueteDeUsuariosYSalas paqueteUS = gson.fromJson(cadenaLeida, PaqueteDeUsuariosYSalas.class);
 
 		if (paqueteUS.getMsj().equals(Paquete.msjExito)) {
-			ArrayList<String> salas = paqueteUS.getSalas();
-			escuchaServer.getCliente().getPaqueteUsuario().setListaDeSalas(salas);
-			ArrayList<String> salasp = paqueteUS.getSalasprivadas();//VER
-			escuchaServer.getCliente().getPaqueteUsuario().setListaDeSalasPrivadas(salasp);//VER
-			new VentanaPrincipal(escuchaServer.getCliente());
-			escuchaServer.actualizarListaSalas();
+//			ArrayList<String> salas = paqueteUS.getSalas();
+//			escuchaServer.getCliente().getPaqueteUsuario().setListaDeSalas(salas);
+//			ArrayList<String> salasp = paqueteUS.getSalasprivadas();//VER
+//			escuchaServer.getCliente().getPaqueteUsuario().setListaDeSalasPrivadas(salasp);//VER
+//			new VentanaPrincipal(escuchaServer.getCliente());
+//			escuchaServer.actualizarListaSalas();
+			System.out.println("Entre");
 		} else {
 		
 			if (paqueteUS.getMsj().equals(Paquete.msjFracaso)) {
@@ -29,7 +30,7 @@ public class InicioSesion extends ComandoEscuchaServer {
 				JOptionPane.showMessageDialog(null, "Ya existe una sesión iniciada con ese usuario.");
 			}
 			escuchaServer.getCliente().getPaqueteUsuario().setUsername(null);
-			new MenuInicio(escuchaServer.getCliente());
+//			new MenuInicio(escuchaServer.getCliente());
 		}
 	}
 
