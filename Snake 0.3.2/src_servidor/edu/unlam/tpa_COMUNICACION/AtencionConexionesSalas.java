@@ -2,9 +2,8 @@ package edu.unlam.tpa_COMUNICACION;
 
 import com.google.gson.Gson;
 
-
-import edu.unlam.tpa_PAQUETES.Comando;
-import edu.unlam.tpa_PAQUETES.PaqueteSala;
+import edu.unlam.tpa_PAQUETESCLIENTE.Comando;
+import edu.unlam.tpa_PAQUETESCLIENTE.PaqueteSala;
 
 
 public class AtencionConexionesSalas extends Thread {
