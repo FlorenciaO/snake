@@ -2,9 +2,10 @@ package edu.unlam.tpa_COMUNICACION;
 
 import com.google.gson.Gson;
 
-import paqueteEnvios.Comando;
-import paqueteEnvios.Paquete;
-import paqueteEnvios.PaqueteDeUsuariosYSalas;
+import edu.unlam.tpa_PAQUETES.Comando;
+import edu.unlam.tpa_PAQUETES.Paquete;
+import edu.unlam.tpa_PAQUETES.PaqueteDeUsuariosYSalas;
+
 
 public class AtencionNuevasSalasPrivadas extends Thread {
 
