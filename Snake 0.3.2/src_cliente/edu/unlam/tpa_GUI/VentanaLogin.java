@@ -132,6 +132,7 @@ public class VentanaLogin extends JFrame {
 		getContentPane().add(lblRegistrate);
 		
 		setLocationRelativeTo(null);
+		setVisible(true);
 	}
 	
 //	public static void main(String args[]) {

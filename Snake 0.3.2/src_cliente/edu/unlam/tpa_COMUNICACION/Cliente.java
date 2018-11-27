@@ -34,12 +34,13 @@ public class Cliente extends Thread {
 
 		try {
 			cliente = new Socket(newIp, newPort);
-			miIp = cliente.getInetAddress().getHostAddress(); 
+			miIp = cliente.getInetAddress().getHostAddress();
 			entrada = new ObjectInputStream(cliente.getInputStream()); 
 			salida = new ObjectOutputStream(cliente.getOutputStream()); 
 		} catch (IOException e) {
 			JOptionPane.showMessageDialog(null,
 					"Error al iniciar la app, chequee la conexión al Server" );
+			System.out.println("Hola");
 			System.exit(1);
 			e.printStackTrace();
 		}
@@ -61,7 +62,7 @@ public class Cliente extends Thread {
 				
 				while (true) {
 					paquete.setComando(accion);
-					comando = (ComandoCliente) paquete.getObjeto("comandosCliente");
+					comando = (ComandoCliente) paquete.getObjeto("edu.unlam.tpa_COMANDOSCLIENTE");
 					comando.setCliente(this);
 					comando.ejecutar();
 
@@ -135,5 +136,8 @@ public class Cliente extends Thread {
 		this.paqueteSala = paqueteSala;
 	}
 
+	public static void main(String args[]) {
+		new Cliente("192.168.56.1", 1234).start();
+	}
 
 }

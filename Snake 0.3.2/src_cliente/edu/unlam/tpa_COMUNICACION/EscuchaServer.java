@@ -39,7 +39,7 @@ protected static ArrayList<String> usuariosConectados = new ArrayList<String>();
 			String cadenaLeida = (String) entrada.readObject();
 			while (!((paquete = gson.fromJson(cadenaLeida, Paquete.class)).getComando() == Comando.DESCONECTAR)) {
 
-				comando = (ComandoEscuchaServer) paquete.getObjeto("comandosEscuchaServer");
+				comando = (ComandoEscuchaServer) paquete.getObjeto("edu.unlam.tpa_COMANDOSESCUCHASERVER");
 				comando.setCadena(cadenaLeida);
 				comando.setEscuchaServer(this);
 				comando.ejecutar();
