@@ -2,11 +2,12 @@ package edu.unlam.tpa_GUI;
 
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
 
 import java.awt.Font;
 import javax.swing.SwingConstants;
 
+import edu.unlam.tpa_COMUNICACION.Cliente;
+import edu.unlam.tpa_PAQUETESCLIENTE.Comando;
 
 import java.awt.Color;
 import javax.swing.JTextField;
@@ -16,6 +17,8 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 
 public class VentanaLogin extends JFrame {
 	
@@ -26,14 +29,13 @@ public class VentanaLogin extends JFrame {
 	
 	private JTextField txtUsuario;
 	private JPasswordField pwdContraseña;
-	private final static int LENG_USUARIO_MAX = 15;
 	
-	public VentanaLogin() {
+	public VentanaLogin(Cliente cliente) {
+		setTitle("Unite a nuestra comunidad...");
 		getContentPane().setLayout(null);
 		setResizable(false);
 		setBounds(100, 100, 434, 231);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setTitle("Unite a nuestra comunidad...");
 		
 		JLabel lblUsuario = new JLabel("Usuario");
 		lblUsuario.setBackground(Color.GRAY);
@@ -56,13 +58,48 @@ public class VentanaLogin extends JFrame {
 		
 		pwdContraseña = new JPasswordField();
 		pwdContraseña.setBounds(186, 61, 170, 20);
+		pwdContraseña.addActionListener(new ActionListener() {
+			@SuppressWarnings("deprecation")
+			public void actionPerformed(ActionEvent e) {
+				if(!txtUsuario.getText().equals("") && !pwdContraseña.getText().equals("")){
+					synchronized(cliente){
+						cliente.setAccion(Comando.INICIOSESION);
+						cliente.getPaqueteUsuario().setUsername(txtUsuario.getText());
+						cliente.getPaqueteUsuario().setPassword(pwdContraseña.getText());
+						cliente.notify();
+						dispose();
+					}
+				}
+			}
+		});
 		getContentPane().add(pwdContraseña);
-		pwdContraseña.setEnabled(false);
+//		pwdContraseña.setEnabled(false);
+		
+		addWindowListener(new WindowAdapter() {
+			@Override
+			public void windowClosing(WindowEvent arg0) {
+					synchronized (cliente) {
+						cliente.setAccion(Comando.DESCONECTAR);
+						cliente.notify();
+					}
+					dispose();
+			}
+		});
+		
 		
 		JButton btnIniciarSesion = new JButton("Inicia sesi\u00F3n");
 		btnIniciarSesion.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				verificarUsuario();
+			@SuppressWarnings("deprecation")
+			public void actionPerformed(ActionEvent e) {
+				if(!txtUsuario.getText().equals("") && !pwdContraseña.getText().equals("")){
+					synchronized(cliente){
+						cliente.setAccion(Comando.INICIOSESION);
+						cliente.getPaqueteUsuario().setUsername(txtUsuario.getText());
+						cliente.getPaqueteUsuario().setPassword(pwdContraseña.getText());
+						cliente.notify();
+						dispose();
+					}
+				}
 			}
 		});
 		btnIniciarSesion.setBounds(132, 114, 122, 20);
@@ -78,6 +115,13 @@ public class VentanaLogin extends JFrame {
 		lblRegistrate.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
+				synchronized(cliente){
+					cliente.getPaqueteUsuario().setUsername(txtUsuario.getText());
+					cliente.getPaqueteUsuario().setPassword(pwdContraseña.getText());
+					cliente.setAccion(Comando.REGISTRO);
+					cliente.notify();
+					dispose();
+				}
 				
 			}
 		});
@@ -89,19 +133,10 @@ public class VentanaLogin extends JFrame {
 		
 		setLocationRelativeTo(null);
 	}
-
-	private void mostrarWarning(String mensaje) {
-		JOptionPane.showConfirmDialog(this, mensaje, "ADVERTENCIA", JOptionPane.CLOSED_OPTION);
-	}
 	
-	private void abrirVentanaLooby() {
-		setVisible(false);
-		new VentanaLooby(this).setVisible(true);
-	}
-	
-	public static void main(String args[]) {
-		new VentanaLogin().setVisible(true);
-	}
+//	public static void main(String args[]) {
+//		new VentanaLogin().setVisible(true);
+//	}
 
 	public String obtenerNombreUsuario() {
 		return txtUsuario.getText();
@@ -110,20 +145,5 @@ public class VentanaLogin extends JFrame {
 	public void limpiarNombreUsuario() {
 		txtUsuario.setText("");
 	}
-	
-	private void verificarUsuario() {
-		String nombreUsuario = txtUsuario.getText();
-		if(!nombreUsuario.isEmpty()) {
-			if(nombreUsuario.length() > LENG_USUARIO_MAX) {
-				mostrarWarning("Límite de nombre de usuario excedido");
-				txtUsuario.setText("");
-			} else {
-				abrirVentanaLooby();
-				
-			}
-		}
-		else {
-			mostrarWarning("Se debe ingresar un usuario");
-		}
-	}
+
 }
