@@ -366,12 +366,12 @@ public class Servidor extends Thread {
 		salas.remove(nombreSala);
 	}
 
-//	public static void conectarUsuario(String username) {
-//		UsuariosConectados.add(username);
+	public static void conectarUsuario(String username) {
+		UsuariosConectados.add(username);
 //		ConsultasDB.levantarSalasPrivadas(username);
-//		int index = Servidor.getUsuariosConectados().indexOf(username);
-//		mapConectados.put(username, SocketsConectados.get(index));
-//	}
+		int index = Servidor.getUsuariosConectados().indexOf(username);
+		mapConectados.put(username, SocketsConectados.get(index));
+	}
 
 	public static void agregarSalaDisponible(PaqueteSala paqueteSala) {
 		salasNombresDisponibles.add(paqueteSala.getNombreSala());
