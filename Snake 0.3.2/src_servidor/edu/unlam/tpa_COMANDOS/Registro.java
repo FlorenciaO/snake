@@ -14,6 +14,7 @@ import edu.unlam.tpa_PAQUETESCLIENTE.PaqueteUsuario;
 
 public class Registro extends ComandoServer {
 
+	@SuppressWarnings("unused")
 	@Override
 	public void ejecutar() {
 		PaqueteUsuario paqueteUsuario = (PaqueteUsuario) (gson.fromJson(cadenaLeida, PaqueteUsuario.class));
@@ -28,7 +29,7 @@ public class Registro extends ComandoServer {
 					pus.setComando(Comando.REGISTRO);
 					pus.setMsj(Paquete.msjExito);
 
-//					Servidor.conectarUsuario(paqueteUsuario.getUsername());
+					Servidor.conectarUsuario(paqueteUsuario.getUsername());
 					
 					escuchaCliente.getSalida().writeObject(gson.toJson(pus));
 

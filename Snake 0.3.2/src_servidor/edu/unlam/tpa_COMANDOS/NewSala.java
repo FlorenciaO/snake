@@ -10,6 +10,7 @@ import edu.unlam.tpa_PAQUETESCLIENTE.PaqueteSala;
 
 public class NewSala extends ComandoServer{
 
+	@SuppressWarnings("unused")
 	@Override
 	public void ejecutar() {
 		PaqueteSala paqueteSala = (PaqueteSala) (gson.fromJson(cadenaLeida, PaqueteSala.class));

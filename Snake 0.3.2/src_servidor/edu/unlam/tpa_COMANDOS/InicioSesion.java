@@ -13,7 +13,7 @@ import edu.unlam.tpa_PAQUETESCLIENTE.PaqueteUsuario;
 
 public class InicioSesion extends ComandoServer {
 
-	@SuppressWarnings("static-access")
+	@SuppressWarnings({ "static-access", "unused" })
 	@Override
 	public void ejecutar() {
 
@@ -30,7 +30,7 @@ public class InicioSesion extends ComandoServer {
 					pus.setComando(Comando.INICIOSESION);
 					pus.setMsj(Paquete.msjExito);
 
-//					Servidor.conectarUsuario(paqueteUsuario.getUsername());
+					Servidor.conectarUsuario(paqueteUsuario.getUsername());
 					
 					escuchaCliente.getSalida().writeObject(gson.toJson(pus));
 
