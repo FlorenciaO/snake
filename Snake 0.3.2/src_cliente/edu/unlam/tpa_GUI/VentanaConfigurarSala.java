@@ -13,9 +13,11 @@ import java.awt.Font;
 import java.awt.Color;
 import javax.swing.SwingConstants;
 
+import edu.unlam.tpa_COMUNICACION.Cliente;
 import edu.unlam.tpa_ENUMS.Dificultad;
 import edu.unlam.tpa_ENUMS.Modo;
 import edu.unlam.tpa_ENUMS.Velocidad;
+import edu.unlam.tpa_PAQUETESCLIENTE.Comando;
 import edu.unlam.tpa_UTILES.ConfiguracionSala;
 
 import java.awt.event.WindowAdapter;
@@ -29,21 +31,27 @@ public class VentanaConfigurarSala extends JFrame {
 	private static final long serialVersionUID = -8632608467086017446L;
 	
 	private JTextField textFieldNombreSala;
-	private VentanaLooby ventanaLooby;
+
 	private JComboBox<Velocidad> comboBoxVelocidad;
 	private JComboBox<Dificultad> comboBoxDificultad;
 	private JComboBox<Modo> comboBoxModo;
+	private String name;
+	private Cliente cliente;
 	
-	public VentanaConfigurarSala(VentanaLooby ventanaLooby) {
+	public VentanaConfigurarSala(Cliente cliente) {
 
-		this.ventanaLooby = ventanaLooby;
+		this.cliente = cliente;
 		
 		setResizable(false);
 		setBounds(100, 100, 452, 230);
 		setForeground(Color.WHITE);
-		getContentPane().setForeground(Color.BLACK);
-		getContentPane().setLayout(null);
-		setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+		getContentPane().setForeground(Color.BLACK);		
+		getContentPane().setLayout(null);addWindowListener(new WindowAdapter() {
+			@Override
+			public void windowClosing(WindowEvent e) {
+				dispose();
+			}
+		});
 		setTitle("Personalizá tu entorno!");
 		
 		
@@ -59,13 +67,17 @@ public class VentanaConfigurarSala extends JFrame {
 		JButton btnConfirmar = new JButton("Confirmar");
 		btnConfirmar.setForeground(Color.BLACK);
 		btnConfirmar.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				String nombreSala = textFieldNombreSala.getText();
-				if(!nombreSala.isEmpty()) {
-					abrirVentanaSala();
-				}
-				else {
-					mostrarWarning();
+			public void actionPerformed(ActionEvent e) {
+				if(!textFieldNombreSala.getText().equals("")){
+					name = textFieldNombreSala.getText();
+					cliente.getPaqueteSala().setNombreSala(name);
+					cliente.getPaqueteSala().setOwnerSala(cliente.getPaqueteUsuario().getUsername());
+					cliente.getPaqueteSala().setTipo(0); 					
+					cliente.setAccion(Comando.NEWSALA);
+					synchronized (cliente) {
+						cliente.notify();
+					}
+					dispose();
 				}
 			}
 		});
@@ -78,7 +90,7 @@ public class VentanaConfigurarSala extends JFrame {
 		btnCancelar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				//Vuelve al looby
-				volverAlLooby();
+				dispose();
 			}
 		});
 		btnCancelar.setBounds(251, 117, 102, 23);
@@ -131,6 +143,7 @@ public class VentanaConfigurarSala extends JFrame {
 		textFieldNombreSala.setBounds(134, 21, 86, 20);
 		getContentPane().add(textFieldNombreSala);
 		setLocationRelativeTo(null);
+		setVisible(true);
 	}
 	
 	protected void confirmarCierreVentana() {
@@ -138,26 +151,12 @@ public class VentanaConfigurarSala extends JFrame {
 		if(respuesta == JOptionPane.NO_OPTION) {
 			System.exit(0);
 		} else if (respuesta == JOptionPane.YES_OPTION){
-			volverAlLooby();
+			dispose();
 		}
 		
 	}
 
-	public void volverAlLooby() {
-		this.ventanaLooby.setVisible(true);
-		setVisible(false);
-	}
 
-	@SuppressWarnings("unused")
-	private void abrirVentanaSala() {
-		setVisible(false);
-		ConfiguracionSala config = new ConfiguracionSala((Velocidad)this.comboBoxVelocidad.getSelectedItem()
-														, (Modo)this.comboBoxModo.getSelectedItem(), 
-														(Dificultad)this.comboBoxDificultad.getSelectedItem());
-		VentanaSala salaNueva = new VentanaSala(this, config, this.textFieldNombreSala.getText());
-		salaNueva.setVisible(true);
-		this.ventanaLooby.addSala(salaNueva);
-	}
 	
 	
 	public String obtenerNombreSala() {

@@ -128,7 +128,7 @@ public class Servidor extends Thread {
 					}
 					serverSocket.close();
 					getLog().append("El servidor se ha detenido." + System.lineSeparator());
-				} catch (IOException e1) {
+				} catch (Exception e1) {
 					getLog().append("Fallo al intentar detener el servidor." + System.lineSeparator());
 					e1.printStackTrace();
 				}
@@ -146,7 +146,7 @@ public class Servidor extends Thread {
 			@SuppressWarnings("deprecation")
 			public void windowClosing(WindowEvent evt) {
 				if (serverSocket != null) {
-					try {
+					try {				
 						estadoServer = false;
 						UsuariosConectados = new ArrayList<String>();
 						server.stop();

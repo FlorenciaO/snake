@@ -10,7 +10,7 @@ public class ConexionSala extends ComandoEscuchaServer {
 		PaqueteSala paqueteSala = gson.fromJson(cadenaLeida, PaqueteSala.class);
 		Cliente cliente = escuchaServer.getCliente();
 		if(cliente.getSalasActivas().containsKey(paqueteSala.getNombreSala())) {
-//			escuchaServer.actualizarListaConectadosSala(paqueteSala);
+			escuchaServer.actualizarListaConectadosSala(paqueteSala);
 		}
 	}
 

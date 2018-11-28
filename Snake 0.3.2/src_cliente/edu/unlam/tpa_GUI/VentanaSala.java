@@ -1,46 +1,79 @@
 package edu.unlam.tpa_GUI;
 
 import javax.swing.JFrame;
+import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 import javax.swing.JScrollPane;
 
+import edu.unlam.tpa_COMUNICACION.Cliente;
+import edu.unlam.tpa_PAQUETESCLIENTE.Comando;
+import edu.unlam.tpa_PAQUETESCLIENTE.PaqueteSala;
 import edu.unlam.tpa_UTILES.ConfiguracionSala;
 import edu.unlam.tpa_UTILES.Jugador;
 import edu.unlam.tpa_UTILES.Sala;
 
 import javax.swing.JList;
+import javax.swing.JOptionPane;
+
+import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.awt.event.ActionEvent;
 import javax.swing.JLabel;
 
 public class VentanaSala extends JFrame{
 	
-	/**
-	 * 
-	 */
+
 	private static final long serialVersionUID = -534624255468832225L;
 	
-	private VentanaConfigurarSala vConfiguracion;
+	private JList<String> listaConectadosSala = new JList<String>();
+	private String nombreSala;	
+	private String ownerSala;
+	private Cliente cli;
 
-	public VentanaSala(VentanaConfigurarSala configuracion, ConfiguracionSala configSala, String nombreSala) {
-		this.vConfiguracion = configuracion;
+	public VentanaSala(Cliente cliente) {
+		
+		this.cli = cliente;
+
+		this.nombreSala = cli.getPaqueteSala().getNombreSala();
+		this.ownerSala = cli.getPaqueteSala().getOwnerSala();
 		
 		getContentPane().setLayout(null);
 		setTitle("Esperando jugadores...");
 		setBounds(100, 100, 450, 300);
-		JList<Jugador> listaUsuarios = new JList(); // La lista sera de usuarios, se creara la clase usuario, junto con la implementacion
-											// de cliente/servidor
-		listaUsuarios.setBounds(321, 33, 103, 218);
-		getContentPane().add(listaUsuarios);
+		
+		addWindowListener(new WindowAdapter() {
+			@Override
+			public void windowClosing(WindowEvent arg0) {
+				if (abrirVentanaConfirmaSalir()) {
+					synchronized (cli) {
+						PaqueteSala paqueteSala = new PaqueteSala(nombreSala, cli.getPaqueteUsuario().getUsername());
+						cli.setPaqueteSala(paqueteSala);
+						cli.setAccion(Comando.DESCONECTARDESALA);
+						cli.notify();
+					}
+					dispose();
+				}
+			}
+		});
+		
+		JScrollPane scrollPaneConectados = new JScrollPane();
+		scrollPaneConectados.setViewportView(listaConectadosSala);
+		listaConectadosSala.setForeground(Color.BLACK);
+		listaConectadosSala.setBackground(Color.WHITE);
+		
+		listaConectadosSala.setBounds(321, 33, 103, 218);
+		getContentPane().add(listaConectadosSala);
 		
 		JButton btnIniciarJuego = new JButton("Iniciar Juego");
 		btnIniciarJuego.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
 				//Aparece la pantalla del juego
-				setVisible(false);
-				abrirVentanaJuego(configSala, nombreSala);
+//				setVisible(false);
+//				abrirVentanaJuego(configSala, nombreSala);
 			}
 		});
 		btnIniciarJuego.setFont(new Font("Times New Roman", Font.BOLD | Font.ITALIC, 13));
@@ -49,8 +82,16 @@ public class VentanaSala extends JFrame{
 		
 		JButton btnSalirSala = new JButton("Salir de la Sala");
 		btnSalirSala.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				volverAlLooby();
+			public void actionPerformed(ActionEvent arg0) {
+				if (abrirVentanaConfirmaSalir()) {
+					synchronized (cli) {
+						PaqueteSala paqueteSala = new PaqueteSala(nombreSala, cli.getPaqueteUsuario().getUsername());
+						cli.setPaqueteSala(paqueteSala);
+						cli.setAccion(Comando.DESCONECTARDESALA);
+						cli.notify();
+					}
+					dispose();	
+				}
 			}
 		});
 		btnSalirSala.setFont(new Font("Times New Roman", Font.BOLD | Font.ITALIC, 13));
@@ -66,19 +107,50 @@ public class VentanaSala extends JFrame{
 		lblJugadores.setBounds(321, 8, 103, 14);
 		getContentPane().add(lblJugadores);
 		
-		JLabel lblNewLabel = new JLabel("Sala: " + this.vConfiguracion.obtenerNombreSala());
+		JLabel lblNewLabel = new JLabel("Sala: " + nombreSala);
 		lblNewLabel.setBounds(10, 11, 236, 25);
 		getContentPane().add(lblNewLabel);
 		setLocationRelativeTo(null);
+		setVisible(true);
 	}
 	
-	private void abrirVentanaJuego(ConfiguracionSala config, String nombre) {
-		Sala nuevaSala = new Sala(config, nombre);
-		new VentanaJuego(nuevaSala);
+	public String getName() {
+		return nombreSala;
+	}
+
+	public void setName(String name) {
+		this.nombreSala = name;
 	}
 	
-	private void volverAlLooby() {
-		setVisible(false);
-		this.vConfiguracion.volverAlLooby();
+	public JList<String> getListaConectadosSala() {
+		return listaConectadosSala;
+	}
+	public  void setListaConectadosSala(JList<String> listaConectadosSala) {
+		this.listaConectadosSala = listaConectadosSala;
+	}
+
+	private boolean abrirVentanaConfirmaSalir() {
+		int opcion = JOptionPane.showConfirmDialog(this, "¿Desea salir de la sala?", "Confirmación",
+				JOptionPane.YES_NO_OPTION);
+		if (opcion == JOptionPane.YES_OPTION) {
+			return true;
+		}
+		return false;
+	}
+	
+	public void cambiarModelo(DefaultListModel<String> modelo) {
+		this.listaConectadosSala.setModel(modelo);
+	}
+	
+	public String getOwnerSala() {
+		return ownerSala;
+	}
+
+	public void setOwnerSala(String ownerSala) {
+		this.ownerSala = ownerSala;
+	}
+	
+	public void eliminarConectados() {
+		this.listaConectadosSala.removeAll();
 	}
 }

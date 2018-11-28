@@ -11,6 +11,7 @@ import javax.swing.JOptionPane;
 
 import edu.unlam.tpa_COMANDOSCLIENTE.ComandoCliente;
 import edu.unlam.tpa_GUI.VentanaLogin;
+import edu.unlam.tpa_GUI.VentanaSala;
 import edu.unlam.tpa_PAQUETESCLIENTE.Paquete;
 import edu.unlam.tpa_PAQUETESCLIENTE.PaqueteSala;
 import edu.unlam.tpa_PAQUETESCLIENTE.PaqueteUsuario;
@@ -26,7 +27,7 @@ public class Cliente extends Thread {
 	private PaqueteUsuario paqueteUsuario = new PaqueteUsuario();
 	private PaqueteSala paqueteSala = new PaqueteSala();
 
-	private Map<String, Sala> salasActivas = new HashMap<>();
+	private Map<String, VentanaSala> salasActivas = new HashMap<>();
 
 	private int accion; 
 
@@ -39,8 +40,7 @@ public class Cliente extends Thread {
 			salida = new ObjectOutputStream(cliente.getOutputStream()); 
 		} catch (IOException e) {
 			JOptionPane.showMessageDialog(null,
-					"Error al iniciar la app, chequee la conexión al Server" );
-			System.out.println("Hola");
+					"Error al iniciar la app, chequee la conexion al Server" );
 			System.exit(1);
 			e.printStackTrace();
 		}
@@ -71,8 +71,8 @@ public class Cliente extends Thread {
 					this.wait();
 				}
 
-			} catch (IOException | InterruptedException  e) {
-				JOptionPane.showMessageDialog(null, "Fallo la conexión del Cliente.");
+			} catch (Exception  e) {
+				JOptionPane.showMessageDialog(null, "Fallo la conexion del Cliente.");
 				e.printStackTrace();
 				System.exit(1);
 			} 
@@ -124,7 +124,7 @@ public class Cliente extends Thread {
 	}
 
 
-	public Map<String, Sala> getSalasActivas() {
+	public Map<String, VentanaSala> getSalasActivas() {
 		return salasActivas;
 	}
 

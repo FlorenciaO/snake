@@ -22,9 +22,6 @@ import java.awt.event.WindowEvent;
 
 public class VentanaLogin extends JFrame {
 	
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 2110542286099254457L;
 	
 	private JTextField txtUsuario;
@@ -134,10 +131,7 @@ public class VentanaLogin extends JFrame {
 		setLocationRelativeTo(null);
 		setVisible(true);
 	}
-	
-//	public static void main(String args[]) {
-//		new VentanaLogin().setVisible(true);
-//	}
+
 
 	public String obtenerNombreUsuario() {
 		return txtUsuario.getText();

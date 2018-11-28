@@ -6,7 +6,6 @@ import com.google.gson.Gson;
 import edu.unlam.tpa_PAQUETESCLIENTE.Comando;
 import edu.unlam.tpa_PAQUETESCLIENTE.PaqueteDeUsuariosYSalas;
 
-
 public class AtencionConexiones extends Thread {
 
 	private final Gson gson = new Gson();
@@ -20,8 +19,9 @@ public class AtencionConexiones extends Thread {
 				while (true) {
 
 					wait();
-					PaqueteDeUsuariosYSalas pdu = (PaqueteDeUsuariosYSalas) new PaqueteDeUsuariosYSalas(Servidor.getUsuariosConectados(), Servidor.getNombresSalasDisponibles(),Servidor.getSalasPrivadasNombresDisponibles())
-							.clone();
+					PaqueteDeUsuariosYSalas pdu = (PaqueteDeUsuariosYSalas) new PaqueteDeUsuariosYSalas(
+							Servidor.getUsuariosConectados(), Servidor.getNombresSalasDisponibles(),
+							Servidor.getSalasPrivadasNombresDisponibles()).clone();
 					pdu.setComando(Comando.CONEXION);
 					String s = gson.toJson(pdu);
 					for (EscuchaCliente conectado : Servidor.getClientesConectados())
