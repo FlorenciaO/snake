@@ -8,6 +8,9 @@ import javax.swing.ScrollPaneConstants;
 import javax.swing.JLabel;
 import javax.swing.SwingConstants;
 
+import edu.unlam.tpa_COMUNICACION.Cliente;
+import edu.unlam.tpa_PAQUETESCLIENTE.Comando;
+
 import java.awt.Font;
 
 import javax.swing.DefaultListModel;
@@ -27,14 +30,11 @@ public class VentanaLooby extends JFrame{
 	 * 
 	 */
 	private static final long serialVersionUID = 1759792510152830837L;
-	
-	private VentanaLogin vLogin;
 	private JList<VentanaSala> listaSalas;
 	DefaultListModel<VentanaSala> modelo;
 
-	public VentanaLooby(VentanaLogin ventanaLogin) {
+	public VentanaLooby(Cliente cliente) {
 		
-		this.vLogin = ventanaLogin;
 		
 		setTitle("¿Dónde quieres jugar hoy?");
 		setResizable(false);
@@ -47,7 +47,13 @@ public class VentanaLooby extends JFrame{
 		addWindowListener(new WindowAdapter() {
 			@Override
 			public void windowClosing(WindowEvent arg0) {
-				confirmarCierreVentana();
+				if (abrirVentanaConfirmaSalir()) {
+					synchronized (cliente) {
+						cliente.setAccion(Comando.DESCONECTAR);
+						cliente.notify();
+					}
+					dispose();
+				}
 			}
 		});
 		
@@ -73,7 +79,7 @@ public class VentanaLooby extends JFrame{
 		JButton btnCrearSala = new JButton("Crear Sala");
 		btnCrearSala.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				abrirVentanaConfiguracion();
+				new VentanaConfigurarSala(cliente);
 			}
 		});
 		btnCrearSala.setFont(new Font("Bahnschrift", Font.BOLD, 16));
@@ -86,7 +92,7 @@ public class VentanaLooby extends JFrame{
 		getContentPane().add(btnIngresarASala);
 		btnIngresarASala.setEnabled(false);
 		
-		JLabel lblBienvenida = new JLabel("Bienvenid@ " + vLogin.obtenerNombreUsuario() + "!");
+		JLabel lblBienvenida = new JLabel("Bienvenid@!");
 		lblBienvenida.setBounds(24, 11, 203, 22);
 		getContentPane().add(lblBienvenida);
 		
@@ -94,29 +100,13 @@ public class VentanaLooby extends JFrame{
 		
 	}
 	
-	private void confirmarCierreVentana() {
-		int respuesta = JOptionPane.showConfirmDialog(this, "¿Desea cambiar de usuario?", "Confirmar Salida", JOptionPane.YES_NO_OPTION);
-		if(respuesta == JOptionPane.NO_OPTION) {
-			//Aca cerraria sesion
-			System.exit(0);
-		} else if (respuesta == JOptionPane.YES_OPTION){
-			volverAlLogin();
+	private boolean abrirVentanaConfirmaSalir() {
+		int opcion = JOptionPane.showConfirmDialog(this, "Â¿Desea salir del Chat?", "ConfirmaciÃ³n",
+				JOptionPane.YES_NO_OPTION);
+		if (opcion == JOptionPane.YES_OPTION) {
+			return true;
 		}
-	}
+		return false;
+	}	
 
-	private void volverAlLogin() {
-		setVisible(false);
-		this.vLogin.limpiarNombreUsuario();
-		this.vLogin.setVisible(true);
-	}
-
-	private void abrirVentanaConfiguracion() {
-		setVisible(false);
-		new VentanaConfigurarSala(this).setVisible(true);
-	}
-
-	public void addSala(VentanaSala salaNueva) {
-		this.modelo.addElement(salaNueva);
-		this.listaSalas.setModel(modelo);
-	}
 }

@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import javax.swing.JOptionPane;
 
+import edu.unlam.tpa_GUI.VentanaLooby;
 import edu.unlam.tpa_PAQUETESCLIENTE.Paquete;
 import edu.unlam.tpa_PAQUETESCLIENTE.PaqueteDeUsuariosYSalas;
 
@@ -21,7 +22,7 @@ public class InicioSesion extends ComandoEscuchaServer {
 //			escuchaServer.getCliente().getPaqueteUsuario().setListaDeSalasPrivadas(salasp);//VER
 //			new VentanaPrincipal(escuchaServer.getCliente());
 //			escuchaServer.actualizarListaSalas();
-			System.out.println("Entre");
+			new VentanaLooby(escuchaServer.getCliente());
 		} else {
 		
 			if (paqueteUS.getMsj().equals(Paquete.msjFracaso)) {

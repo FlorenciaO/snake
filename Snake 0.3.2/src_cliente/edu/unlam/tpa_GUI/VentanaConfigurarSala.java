@@ -13,6 +13,7 @@ import java.awt.Font;
 import java.awt.Color;
 import javax.swing.SwingConstants;
 
+import edu.unlam.tpa_COMUNICACION.Cliente;
 import edu.unlam.tpa_ENUMS.Dificultad;
 import edu.unlam.tpa_ENUMS.Modo;
 import edu.unlam.tpa_ENUMS.Velocidad;
@@ -29,14 +30,11 @@ public class VentanaConfigurarSala extends JFrame {
 	private static final long serialVersionUID = -8632608467086017446L;
 	
 	private JTextField textFieldNombreSala;
-	private VentanaLooby ventanaLooby;
 	private JComboBox<Velocidad> comboBoxVelocidad;
 	private JComboBox<Dificultad> comboBoxDificultad;
 	private JComboBox<Modo> comboBoxModo;
 	
-	public VentanaConfigurarSala(VentanaLooby ventanaLooby) {
-
-		this.ventanaLooby = ventanaLooby;
+	public VentanaConfigurarSala(Cliente cliente) {
 		
 		setResizable(false);
 		setBounds(100, 100, 452, 230);
@@ -46,12 +44,10 @@ public class VentanaConfigurarSala extends JFrame {
 		setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 		setTitle("Personalizá tu entorno!");
 		
-		
-//		Confirmar cierre
 		addWindowListener(new WindowAdapter() {
 			@Override
 			public void windowClosing(WindowEvent arg0) {
-				confirmarCierreVentana();
+				dispose();
 			}
 		});
 		
@@ -72,17 +68,6 @@ public class VentanaConfigurarSala extends JFrame {
 		btnConfirmar.setBounds(102, 117, 102, 23);
 		getContentPane().add(btnConfirmar);
 		
-		
-//		Boton Cancelar
-		JButton btnCancelar = new JButton("Cancelar");
-		btnCancelar.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				//Vuelve al looby
-				volverAlLooby();
-			}
-		});
-		btnCancelar.setBounds(251, 117, 102, 23);
-		getContentPane().add(btnCancelar);
 		
 //		LABELS DE CONFIGURACIONES
 		JLabel lblVelocidad = new JLabel("Velocidad");
@@ -132,31 +117,9 @@ public class VentanaConfigurarSala extends JFrame {
 		getContentPane().add(textFieldNombreSala);
 		setLocationRelativeTo(null);
 	}
-	
-	protected void confirmarCierreVentana() {
-		int respuesta = JOptionPane.showConfirmDialog(this, "¿Desea volver a la sala de espera?", "Confirmar Salida", JOptionPane.YES_NO_OPTION);
-		if(respuesta == JOptionPane.NO_OPTION) {
-			System.exit(0);
-		} else if (respuesta == JOptionPane.YES_OPTION){
-			volverAlLooby();
-		}
-		
-	}
-
-	public void volverAlLooby() {
-		this.ventanaLooby.setVisible(true);
-		setVisible(false);
-	}
 
 	@SuppressWarnings("unused")
 	private void abrirVentanaSala() {
-		setVisible(false);
-		ConfiguracionSala config = new ConfiguracionSala((Velocidad)this.comboBoxVelocidad.getSelectedItem()
-														, (Modo)this.comboBoxModo.getSelectedItem(), 
-														(Dificultad)this.comboBoxDificultad.getSelectedItem());
-		VentanaSala salaNueva = new VentanaSala(this, config, this.textFieldNombreSala.getText());
-		salaNueva.setVisible(true);
-		this.ventanaLooby.addSala(salaNueva);
 	}
 	
 	
