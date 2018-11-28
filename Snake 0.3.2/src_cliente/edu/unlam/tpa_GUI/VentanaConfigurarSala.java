@@ -31,7 +31,6 @@ public class VentanaConfigurarSala extends JFrame {
 	private static final long serialVersionUID = -8632608467086017446L;
 	
 	private JTextField textFieldNombreSala;
-
 	private JComboBox<Velocidad> comboBoxVelocidad;
 	private JComboBox<Dificultad> comboBoxDificultad;
 	private JComboBox<Modo> comboBoxModo;
@@ -39,6 +38,7 @@ public class VentanaConfigurarSala extends JFrame {
 	private Cliente cliente;
 	
 	public VentanaConfigurarSala(Cliente cliente) {
+
 
 		this.cliente = cliente;
 		
@@ -54,12 +54,10 @@ public class VentanaConfigurarSala extends JFrame {
 		});
 		setTitle("Personalizá tu entorno!");
 		
-		
-//		Confirmar cierre
 		addWindowListener(new WindowAdapter() {
 			@Override
 			public void windowClosing(WindowEvent arg0) {
-				confirmarCierreVentana();
+				dispose();
 			}
 		});
 		
@@ -84,7 +82,7 @@ public class VentanaConfigurarSala extends JFrame {
 		btnConfirmar.setBounds(102, 117, 102, 23);
 		getContentPane().add(btnConfirmar);
 		
-		
+	
 //		Boton Cancelar
 		JButton btnCancelar = new JButton("Cancelar");
 		btnCancelar.addActionListener(new ActionListener() {
@@ -145,6 +143,7 @@ public class VentanaConfigurarSala extends JFrame {
 		setLocationRelativeTo(null);
 		setVisible(true);
 	}
+
 	
 	protected void confirmarCierreVentana() {
 		int respuesta = JOptionPane.showConfirmDialog(this, "¿Desea volver a la sala de espera?", "Confirmar Salida", JOptionPane.YES_NO_OPTION);
@@ -155,7 +154,6 @@ public class VentanaConfigurarSala extends JFrame {
 		}
 		
 	}
-
 
 	
 	
