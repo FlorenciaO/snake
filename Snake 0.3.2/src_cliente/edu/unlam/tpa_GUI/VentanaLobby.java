@@ -82,21 +82,12 @@ public class VentanaLobby extends JFrame{
 				if (arg0.getClickCount() == 2) {
 					if (listaSalas.getSelectedValue() != null) {
 						if (!cliente.getSalasActivas().containsKey(listaSalas.getSelectedValue())) {
-							if(listaSalas.getSelectedValue().contains("Privada")) {
-								
-//								new IngresoSalaPrivada(listaSalas.getSelectedValue(),cliente);									
-								
-							}								
-							else {
-								PaqueteSala paqueteSala = new PaqueteSala(listaSalas.getSelectedValue(),cliente.getPaqueteUsuario().getUsername());
-								cliente.setPaqueteSala(paqueteSala);
-								synchronized (cliente) {
-									cliente.setAccion(Comando.ENTRARSALA);
-									cliente.notify();
-								}
-								
+							PaqueteSala paqueteSala = new PaqueteSala(listaSalas.getSelectedValue(),cliente.getPaqueteUsuario().getUsername());
+							cliente.setPaqueteSala(paqueteSala);
+							synchronized (cliente) {
+								cliente.setAccion(Comando.ENTRARSALA);
+								cliente.notify();
 							}
-							
 						} else {
 							JOptionPane.showMessageDialog(null, "Ya se encuentra en esta sala.");
 						}
@@ -119,14 +110,8 @@ public class VentanaLobby extends JFrame{
 			}
 		});
 		btnCrearSala.setFont(new Font("Bahnschrift", Font.BOLD, 16));
-		btnCrearSala.setBounds(62, 72, 124, 35);
+		btnCrearSala.setBounds(65, 113, 124, 35);
 		getContentPane().add(btnCrearSala);
-		
-		JButton btnIngresarASala = new JButton("Unirse a la Sala");
-		btnIngresarASala.setFont(new Font("Bahnschrift", Font.BOLD, 15));
-		btnIngresarASala.setBounds(39, 136, 173, 35);
-		getContentPane().add(btnIngresarASala);
-		btnIngresarASala.setEnabled(false);
 		
 		JLabel lblBienvenida = new JLabel("Bienvenidx " + this.user + "!");
 		lblBienvenida.setBounds(24, 11, 203, 22);
