@@ -8,9 +8,6 @@ import javax.swing.JScrollPane;
 import edu.unlam.tpa_COMUNICACION.Cliente;
 import edu.unlam.tpa_PAQUETESCLIENTE.Comando;
 import edu.unlam.tpa_PAQUETESCLIENTE.PaqueteSala;
-import edu.unlam.tpa_UTILES.ConfiguracionSala;
-import edu.unlam.tpa_UTILES.Jugador;
-import edu.unlam.tpa_UTILES.Sala;
 
 import javax.swing.JList;
 import javax.swing.JOptionPane;
@@ -33,6 +30,7 @@ public class VentanaSala extends JFrame{
 	private String ownerSala;
 	private Cliente cli;
 
+	
 	public VentanaSala(Cliente cliente) {
 		
 		this.cli = cliente;
@@ -64,7 +62,7 @@ public class VentanaSala extends JFrame{
 		listaConectadosSala.setForeground(Color.BLACK);
 		listaConectadosSala.setBackground(Color.WHITE);
 		
-		listaConectadosSala.setBounds(321, 33, 103, 218);
+		listaConectadosSala.setBounds(267, 33, 157, 218);
 		getContentPane().add(listaConectadosSala);
 		
 		JButton btnIniciarJuego = new JButton("Iniciar Juego");
@@ -80,23 +78,18 @@ public class VentanaSala extends JFrame{
 		btnIniciarJuego.setBounds(67, 81, 123, 35);
 		getContentPane().add(btnIniciarJuego);
 		
-		JButton btnSalirSala = new JButton("Salir de la Sala");
-		btnSalirSala.addActionListener(new ActionListener() {
+		JButton btnEliminarSala = new JButton("Eliminar Sala");
+		btnEliminarSala.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				if (abrirVentanaConfirmaSalir()) {
-					synchronized (cli) {
-						PaqueteSala paqueteSala = new PaqueteSala(nombreSala, cli.getPaqueteUsuario().getUsername());
-						cli.setPaqueteSala(paqueteSala);
-						cli.setAccion(Comando.DESCONECTARDESALA);
-						cli.notify();
-					}
-					dispose();	
-				}
+				
 			}
 		});
-		btnSalirSala.setFont(new Font("Times New Roman", Font.BOLD | Font.ITALIC, 13));
-		btnSalirSala.setBounds(67, 148, 123, 35);
-		getContentPane().add(btnSalirSala);
+		btnEliminarSala.setFont(new Font("Times New Roman", Font.BOLD | Font.ITALIC, 13));
+		btnEliminarSala.setBounds(67, 148, 123, 35);
+		if(!ownerSala.equals(cli.getPaqueteUsuario().getUsername())) {
+			btnEliminarSala.setEnabled(false);
+		}
+		getContentPane().add(btnEliminarSala);
 		
 		JScrollPane scrollPane = new JScrollPane();
 		scrollPane.setBounds(533, 0, -9, 376);
@@ -104,12 +97,19 @@ public class VentanaSala extends JFrame{
 		
 		JLabel lblJugadores = new JLabel("Jugadores Conectados");
 		lblJugadores.setFont(new Font("Tahoma", Font.PLAIN, 10));
-		lblJugadores.setBounds(321, 8, 103, 14);
+		lblJugadores.setBounds(294, 8, 103, 14);
 		getContentPane().add(lblJugadores);
 		
-		JLabel lblNewLabel = new JLabel("Sala: " + nombreSala);
-		lblNewLabel.setBounds(10, 11, 236, 25);
-		getContentPane().add(lblNewLabel);
+		JLabel lblNameSala = new JLabel("Sala: " + nombreSala);
+		lblNameSala.setBounds(10, 11, 236, 25);
+		getContentPane().add(lblNameSala);
+		
+		JLabel lblNameCreadorSala = new JLabel("Creador de la sala: " + ownerSala);
+		lblNameCreadorSala.setBounds(10, 36, 236, 25);
+		getContentPane().add(lblNameCreadorSala);
+		
+		
+		
 		setLocationRelativeTo(null);
 		setVisible(true);
 	}

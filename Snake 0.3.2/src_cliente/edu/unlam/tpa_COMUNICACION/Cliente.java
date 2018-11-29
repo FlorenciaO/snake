@@ -15,7 +15,6 @@ import edu.unlam.tpa_GUI.VentanaSala;
 import edu.unlam.tpa_PAQUETESCLIENTE.Paquete;
 import edu.unlam.tpa_PAQUETESCLIENTE.PaqueteSala;
 import edu.unlam.tpa_PAQUETESCLIENTE.PaqueteUsuario;
-import edu.unlam.tpa_UTILES.Sala;
 
 public class Cliente extends Thread {
 	private Socket cliente;
