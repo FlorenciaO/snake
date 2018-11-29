@@ -13,10 +13,11 @@ package edu.unlam.tpa_GUI;
 import javax.swing.JFrame;
 import javax.swing.WindowConstants;
 
+import edu.unlam.tpa_COMUNICACION.Cliente;
 import edu.unlam.tpa_ENUMS.Velocidad;
 import edu.unlam.tpa_UTILES.ConfiguracionSala;
 import edu.unlam.tpa_UTILES.Sala;
-import edu.unlam.tpa_UTILES.Servidor;
+import edu.unlam.tpa_UTILES.HiloPartida;
 
 public class VentanaJuego extends JFrame 
 {
@@ -26,12 +27,14 @@ public class VentanaJuego extends JFrame
 	private static final long serialVersionUID = 5465548797480954343L;
 	private PanelJuego panelJuego;
 	private PanelDePuntajes panelPuntajes;
-	private Servidor servidor;
+	private HiloPartida servidor;
+	private Cliente cliente;
 
-	public VentanaJuego(Sala sala) {
-		this.servidor  = new Servidor(this,sala);
+	public VentanaJuego(Cliente cliente) {
+		this.cliente = cliente;
+//		this.servidor  = new HiloPartida(this,cliente);
 		
-		panelJuego = new PanelJuego(this, servidor);
+		panelJuego = new PanelJuego(this);
 		panelPuntajes = new PanelDePuntajes(panelJuego);
 
 		getContentPane().setLayout(null);
@@ -55,9 +58,4 @@ public class VentanaJuego extends JFrame
 	public PanelDePuntajes getControlsPanel() {
 		return panelPuntajes;
 	}
-	
-	public static void main(String args[]) {
-		new VentanaJuego(new Sala(new ConfiguracionSala(Velocidad.NORMAL, null, null),"pepito")).setVisible(true);
-	}
-
 }

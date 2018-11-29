@@ -6,7 +6,7 @@ import javax.swing.JOptionPane;
 
 
 import edu.unlam.tpa_GUI.VentanaLobby;
-
+import edu.unlam.tpa_GUI.VentanaLogin;
 import edu.unlam.tpa_PAQUETESCLIENTE.Paquete;
 import edu.unlam.tpa_PAQUETESCLIENTE.PaqueteDeUsuariosYSalas;
 
@@ -33,8 +33,8 @@ public class InicioSesion extends ComandoEscuchaServer {
 			} else {
 				JOptionPane.showMessageDialog(null, "Ya existe una sesion iniciada con ese usuario.");
 			}
-			escuchaServer.getCliente().getPaqueteUsuario().setUsername(null);
-			new VentanaLobby(escuchaServer.getCliente());
+//			escuchaServer.getCliente().getPaqueteUsuario().setUsername(null);
+			new VentanaLogin(escuchaServer.getCliente());
 		}
 	}
 

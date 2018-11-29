@@ -18,9 +18,8 @@ public class EliminarSala extends ComandoServer {
 					&& Servidor.getSalas().get(paqueteSala.getNombreSala()).getUsuariosConectados().contains(paqueteSala.getCliente())) {
 				
 				for(EscuchaCliente cliente : Servidor.getClientesConectados()) {
-						paqueteSala = Servidor.getSalas().get(paqueteSala.getNombreSala());
+						paqueteSala = Servidor.getSalas().get(paqueteSala.getNombreSala());	
 						paqueteSala.setComando(Comando.ELIMINARSALA);
-						
 						cliente.getSalida().writeObject(gson.toJson(paqueteSala));
 				}
 				
@@ -34,7 +33,7 @@ public class EliminarSala extends ComandoServer {
 
 			}
 		} catch (IOException e) {
-			Servidor.getLog().append("Error al intentar informar al usuario " + escuchaCliente.getPaqueteUsuario().getUsername() + " sobre su intento de desconectarse de la sala " + paqueteSala.getNombreSala() + System.lineSeparator() );
+			Servidor.getLog().append("Error al intentar eliminar sala" + escuchaCliente.getPaqueteUsuario().getUsername() + " sobre su intento de desconectarse de la sala " + paqueteSala.getNombreSala() + System.lineSeparator() );
 		}		
 		
 	}
