@@ -81,7 +81,13 @@ public class VentanaSala extends JFrame{
 		JButton btnEliminarSala = new JButton("Eliminar Sala");
 		btnEliminarSala.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				
+				synchronized (cli) {
+					PaqueteSala paqueteSala = new PaqueteSala(nombreSala, cli.getPaqueteUsuario().getUsername());
+					cli.setPaqueteSala(paqueteSala);
+					cli.setAccion(Comando.ELIMINARSALA);
+					cli.notify();
+				}
+				dispose();
 			}
 		});
 		btnEliminarSala.setFont(new Font("Times New Roman", Font.BOLD | Font.ITALIC, 13));
