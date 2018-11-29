@@ -130,7 +130,7 @@ public class VentanaSala extends JFrame{
 	}
 
 	private boolean abrirVentanaConfirmaSalir() {
-		int opcion = JOptionPane.showConfirmDialog(this, "Â¿Desea salir de la sala?", "ConfirmaciÃ³n",
+		int opcion = JOptionPane.showConfirmDialog(this, "¿Desea salir de la sala?", "Confirmación",
 				JOptionPane.YES_NO_OPTION);
 		if (opcion == JOptionPane.YES_OPTION) {
 			return true;
