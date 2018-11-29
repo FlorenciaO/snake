@@ -22,6 +22,8 @@ import edu.unlam.tpa_UTILES.ConfiguracionSala;
 
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 
 public class VentanaConfigurarSala extends JFrame {
 	
@@ -38,8 +40,6 @@ public class VentanaConfigurarSala extends JFrame {
 	private Cliente cliente;
 	
 	public VentanaConfigurarSala(Cliente cliente) {
-
-
 		this.cliente = cliente;
 		
 		setResizable(false);
@@ -138,8 +138,28 @@ public class VentanaConfigurarSala extends JFrame {
 		getContentPane().add(lblNombreSala);
 		
 		textFieldNombreSala = new JTextField();
+		textFieldNombreSala.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyPressed(KeyEvent e) {
+				if(e.getKeyCode() == KeyEvent.VK_ENTER) {
+					if(!textFieldNombreSala.getText().equals("")){
+						name = textFieldNombreSala.getText();
+						cliente.getPaqueteSala().setNombreSala(name);
+						cliente.getPaqueteSala().setOwnerSala(cliente.getPaqueteUsuario().getUsername());
+						cliente.getPaqueteSala().setTipo(0); 					
+						cliente.setAccion(Comando.NEWSALA);
+						synchronized (cliente) {
+							cliente.notify();
+						}
+						dispose();
+					}
+				}
+			}
+		});
 		textFieldNombreSala.setBounds(134, 21, 86, 20);
 		getContentPane().add(textFieldNombreSala);
+		
+		
 		setLocationRelativeTo(null);
 		setVisible(true);
 	}
