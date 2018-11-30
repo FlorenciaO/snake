@@ -149,8 +149,18 @@ public class HiloPartida extends Thread {
 					}
 				}				
 			}
-			// Avisaar que termino
-			System.out.println("murio");
+			
+			paquetePartida.setPaquete(jugadores, obtenerFrutas(), obtenerSnakes());
+			paquetePartida.setComando(Comando.TERMINARPARTIDA);
+
+			for (EscuchaCliente conectado : clientes) {
+				try {
+					conectado.getSalida().writeObject(gson.toJson(paquetePartida));
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			}
+			
 		}
 	}
 

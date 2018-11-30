@@ -18,6 +18,7 @@ import edu.unlam.tpa_PAQUETESCLIENTE.PaquetePartida;
 import edu.unlam.tpa_PAQUETESCLIENTE.PaqueteSala;
 import edu.unlam.tpa_PAQUETESCLIENTE.PaqueteTecla;
 import edu.unlam.tpa_PAQUETESCLIENTE.PaqueteUsuario;
+import edu.unlam.tpa_UTILES.Jugador;
 
 public class Cliente extends Thread {
 	private Socket cliente;
@@ -175,6 +176,12 @@ public class Cliente extends Thread {
 
 	public void setPaqueteTecla(PaqueteTecla paqueteTecla) {
 		this.paqueteTecla = paqueteTecla;
+	}
+
+	public Jugador obtenerGanador() {
+		
+		// implementar
+		return null;
 	}
 
 	
