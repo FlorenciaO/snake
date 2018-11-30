@@ -2,36 +2,33 @@ package edu.unlam.tpa_GUI;
 
 import java.awt.Color;
 import java.awt.Font;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 import javax.swing.BorderFactory;
-import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.border.Border;
 
 import edu.unlam.tpa_COMUNICACION.Cliente;
-import edu.unlam.tpa_PAQUETESCLIENTE.PaquetePartida;
+import edu.unlam.tpa_UTILES.Jugador;
 
 public class PanelDePuntajes extends JPanel{
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 2361773272360190852L;
-	private JButton btnJugar = new JButton();
+	
+	private Cliente cliente;
 	private JLabel lblPuntajes = new JLabel();
 	
-	private PanelJuego panelJuego;
-	private JLabel snake1ScoreLabel;
-	private JLabel snake2ScoreLabel;
+	private ArrayList<JLabel> labelsPuntajes;
 	
 	private int width = 200;
 	private int height = 500;
 	
 	
 	public PanelDePuntajes(Cliente cliente){
-
+		this.cliente = cliente;
 		setBounds(500, 0, width, height);
 		this.setBackground(Color.DARK_GRAY);
 		Border raisedbevel = BorderFactory.createRaisedBevelBorder();
@@ -44,41 +41,32 @@ public class PanelDePuntajes extends JPanel{
 		lblPuntajes.setText("PUNTAJES");
 		lblPuntajes.setFont(font);
 		lblPuntajes.setForeground(Color.LIGHT_GRAY);
-		lblPuntajes.setBounds(35, 40, 150, 20);
+		lblPuntajes.setBounds(46, 15, 114, 20);
 		this.add(lblPuntajes);
 		
-		JLabel snake1Label = new JLabel("Snake");
-		snake1Label.setFont(font);
-		snake1Label.setForeground(Color.RED);
-		snake1Label.setBounds(30, 90, 100, 20);
-		this.add(snake1Label);
+		labelsPuntajes = new ArrayList<>();
+		int indice = 0;
+		int y = 50;
+		for(Jugador jugador: cliente.getPaquetePartida().getJugadores()) {
+			labelsPuntajes.add(new JLabel(jugador.getUserName() + " " + jugador.getPuntos()));
+			labelsPuntajes.get(indice).setFont(font);
+			labelsPuntajes.get(indice).setForeground(jugador.getColor());
+			labelsPuntajes.get(indice).setBounds(30, y, 100, 20);
+			this.add(labelsPuntajes.get(indice));
+			indice++;
+			y += 30;
+		}
 		
-		JLabel snake2Label = new JLabel("Snake");
-		snake2Label.setFont(font);
-		snake2Label.setForeground(Color.MAGENTA);
-		snake2Label.setBounds(30, 130, 100, 20);
-		this.add(snake2Label);
-		
-		this.snake1ScoreLabel = new JLabel("0");
-		snake1ScoreLabel.setFont(font);
-		snake1ScoreLabel.setForeground(Color.RED);
-		snake1ScoreLabel.setBounds(140, 90, 46, 20);
-		this.add(snake1ScoreLabel);
-		
-		this.snake2ScoreLabel = new JLabel("0");
-		snake2ScoreLabel.setFont(font);
-		snake2ScoreLabel.setForeground(Color.MAGENTA);
-		snake2ScoreLabel.setBounds(140, 130, 46, 20);
-		this.add(snake2ScoreLabel);
-		
+	}
+	
+	
+	// Alguien va a tener que llamar a este metodo para actualizar cada label, luego de que se le setee
+	// un nuevo paquete partida a cliente
+	public void actualizarPuntajes() {
+		int indice = 0;
+		for(Jugador jugador: cliente.getPaquetePartida().getJugadores()) {
+			labelsPuntajes.get(indice).setText(jugador.getUserName() + " " + jugador.getPuntos());
+		}
+	}
 
-	}
-	
-	
-	public void setSnake1ScoreLabel(String puntos) {
-		this.snake1ScoreLabel.setText(puntos);
-	}
-	public void setSnake2ScoreLabel(String puntos) {
-		this.snake2ScoreLabel.setText(puntos);
-	}
 }
