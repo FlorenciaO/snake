@@ -13,6 +13,8 @@ import edu.unlam.tpa_COMUNICACION.Cliente;
 import edu.unlam.tpa_PAINTER.FrutaPainter;
 import edu.unlam.tpa_PAINTER.MapaPainter;
 import edu.unlam.tpa_PAINTER.SnakePainter;
+import edu.unlam.tpa_PAQUETESCLIENTE.Comando;
+import edu.unlam.tpa_PAQUETESCLIENTE.PaqueteSala;
 
 public class PanelJuego extends JPanel {
 	/**
@@ -70,7 +72,12 @@ public class PanelJuego extends JPanel {
 		case KeyEvent.VK_S:
 		case KeyEvent.VK_D:
 		case KeyEvent.VK_W:
-			// enviar tecla
+			synchronized (cliente) {
+//				PaqueteSala paqueteSala = new PaqueteSala(nombreSala, cli.getPaqueteUsuario().getUsername());
+//				cli.setPaqueteSala(paqueteSala);
+//				cli.setAccion(Comando.INICIARPARTIDA);
+//				cli.notify();
+			}
 			
 			break;
 		}
