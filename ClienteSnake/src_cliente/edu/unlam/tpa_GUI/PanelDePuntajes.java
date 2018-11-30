@@ -65,7 +65,7 @@ public class PanelDePuntajes extends JPanel{
 	public void actualizarPuntajes() {
 		int indice = 0;
 		for(Jugador jugador: cliente.getPaquetePartida().getJugadores()) {
-			labelsPuntajes.get(indice).setText(jugador.getUserName() + " " + jugador.getPuntos());
+			labelsPuntajes.get(indice++).setText(jugador.getUserName() + " " + jugador.getPuntos());
 		}
 	}
 
