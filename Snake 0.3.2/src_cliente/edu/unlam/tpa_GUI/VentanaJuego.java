@@ -34,8 +34,8 @@ public class VentanaJuego extends JFrame
 		this.cliente = cliente;
 //		this.servidor  = new HiloPartida(this,cliente);
 		
-		panelJuego = new PanelJuego(this);
-		panelPuntajes = new PanelDePuntajes(panelJuego);
+		panelJuego = new PanelJuego();
+		panelPuntajes = new PanelDePuntajes(cliente);
 
 		getContentPane().setLayout(null);
 		getContentPane().add(panelPuntajes);

@@ -30,7 +30,7 @@ public class PanelJuego extends JPanel {
 	private int width_height;
 	private int tileSize;
 
-	private HiloPartida servidor; // Por ahora se comunica con el servidor directamente
+	private HiloPartida servidor;
 
 	private MapaPainter mapaPainter;
 	private FrutaPainter frutaPainter;
@@ -39,7 +39,7 @@ public class PanelJuego extends JPanel {
 	private List<Posicion> frutas;
 	private Map<Color, Posicion> snakes;
 
-	public PanelJuego(VentanaJuego ventanaJuego) {
+	public PanelJuego() {
 
 		/**
 		 * Tengo que recibir info del servidor ya
