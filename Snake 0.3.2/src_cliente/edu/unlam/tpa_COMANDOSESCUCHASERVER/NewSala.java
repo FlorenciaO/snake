@@ -16,7 +16,7 @@ public class NewSala extends ComandoEscuchaServer {
 		Cliente cliente = escuchaServer.getCliente();
 		PaqueteDeUsuariosYSalas paqueteDUS = gson.fromJson(cadenaLeida, PaqueteDeUsuariosYSalas.class);
 
-		if( paqueteDUS.getMsj().equals(Paquete.msjExito)) {
+		if(paqueteDUS.getMsj().equals(Paquete.msjExito)) {
 			ArrayList<String> listadoSalas = paqueteDUS.getSalas();
 			cliente.getPaqueteUsuario().setListaDeSalas(listadoSalas);
 			escuchaServer.actualizarListaSalas();

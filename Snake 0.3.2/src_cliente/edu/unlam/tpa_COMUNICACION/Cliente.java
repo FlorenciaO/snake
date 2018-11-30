@@ -141,6 +141,10 @@ public class Cliente extends Thread {
 		return paquetePartida;
 	}
 
+	public void setPaquetePartida(PaquetePartida paquetePartida) {
+		this.paquetePartida = paquetePartida;
+	}
+
 	public static void main(String args[]) {
 		new Cliente("localHost", 1234).start();
 	}

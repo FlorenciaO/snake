@@ -54,7 +54,6 @@ public class PanelJuego extends JPanel {
 		int row_column = 50;
 		tileSize = width_height / row_column;
 		
-		this.ventanaJuego = ventanaJuego;
 		this.setFocusable(true);
 		
 		this.buffer = new BufferedImage(getWidth(), getHeight(), BufferedImage.TYPE_INT_RGB);

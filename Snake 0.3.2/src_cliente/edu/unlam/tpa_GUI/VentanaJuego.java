@@ -28,10 +28,8 @@ public class VentanaJuego extends JFrame
 	private PanelJuego panelJuego;
 	private PanelDePuntajes panelPuntajes;
 	private HiloPartida servidor;
-	private Cliente cliente;
 
 	public VentanaJuego(Cliente cliente) {
-		this.cliente = cliente;
 //		this.servidor  = new HiloPartida(this,cliente);
 		
 		panelJuego = new PanelJuego();
@@ -49,6 +47,7 @@ public class VentanaJuego extends JFrame
 		setVisible(true);
 		panelJuego.requestFocus();
 		
+		setVisible(true);
 	}
 
 	public PanelJuego getPanelJuego() {

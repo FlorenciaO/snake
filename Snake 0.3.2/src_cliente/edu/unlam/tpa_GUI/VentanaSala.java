@@ -68,10 +68,13 @@ public class VentanaSala extends JFrame{
 		JButton btnIniciarJuego = new JButton("Iniciar Juego");
 		btnIniciarJuego.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
-				//Aparece la pantalla del juego
-//				setVisible(false);
-//				abrirVentanaJuego(configSala, nombreSala);
+				synchronized (cli) {
+					PaqueteSala paqueteSala = new PaqueteSala(nombreSala, cli.getPaqueteUsuario().getUsername());
+					cli.setPaqueteSala(paqueteSala);
+					cli.setAccion(Comando.ELIMINARSALA);
+					cli.notify();
+				}
+				dispose();
 			}
 		});
 		btnIniciarJuego.setFont(new Font("Times New Roman", Font.BOLD | Font.ITALIC, 13));

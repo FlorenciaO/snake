@@ -16,13 +16,11 @@ public class IniciarPartida extends ComandoEscuchaServer{
 		PaqueteSala paqueteSala = gson.fromJson(cadenaLeida, PaqueteSala.class);
 		cliente.setPaqueteSala(paqueteSala);
 		if (paqueteSala.getMsj().equals(Paquete.msjExito)) {
-			if (cliente.getSalasActivas().size() == 0) {				
-				VentanaJuego ventanaJuego = new VentanaJuego(cliente);
+			new VentanaJuego(cliente);
+			// cambiar estado salas
+			
 				
-				
-			} else {
-				JOptionPane.showMessageDialog(null, "Ya estas dentro de una partida");
-			} 
+			
 		} else {
 			JOptionPane.showMessageDialog(null, "Error al intentar entrar en la partida " + cliente.getPaqueteSala().getNombreSala());
 		}	
