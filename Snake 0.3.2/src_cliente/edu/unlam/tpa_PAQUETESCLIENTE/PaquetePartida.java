@@ -6,22 +6,46 @@ import java.util.List;
 import java.util.Map;
 
 import edu.unlam.tpa_PAINTER.Posicion;
+import edu.unlam.tpa_UTILES.Jugador;
 
 public class PaquetePartida extends Paquete implements Serializable, Cloneable {
 
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = -2167001524438225469L;
 	
+	private List<Jugador> jugadores;
 	private List<Posicion> frutas;
-	private Map<Color, Posicion> snakes;
+	private Map<Color,List<Posicion>> snakes;
+	private int row_column;
 	
 	public PaquetePartida() {
 	}
-
-	public PaquetePartida(List<Posicion> frutas, Map<Color, Posicion> snakes) {
+	
+	public PaquetePartida(List<Jugador> jugadores, List<Posicion> frutas, Map<Color, List<Posicion>> snakes,
+			int row_column) {
+		this.jugadores = jugadores;
 		this.frutas = frutas;
 		this.snakes = snakes;
+		this.row_column = row_column;
 	}
 	
+
+	public List<Posicion> getFrutas() {
+		return frutas;
+	}
+
+	public Map<Color, List<Posicion>> getSnakes() {
+		return snakes;
+	}
+
+	public int getRow_column() {
+		return row_column;
+	}
+
+	public List<Jugador> getJugadores() {
+		return jugadores;
+	}
+
+
 	public Object clone() {
 		Object obj = null;
 		obj = super.clone();

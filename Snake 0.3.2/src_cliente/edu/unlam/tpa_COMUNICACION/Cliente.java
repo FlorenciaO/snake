@@ -13,6 +13,7 @@ import edu.unlam.tpa_COMANDOSCLIENTE.ComandoCliente;
 import edu.unlam.tpa_GUI.VentanaLogin;
 import edu.unlam.tpa_GUI.VentanaSala;
 import edu.unlam.tpa_PAQUETESCLIENTE.Paquete;
+import edu.unlam.tpa_PAQUETESCLIENTE.PaquetePartida;
 import edu.unlam.tpa_PAQUETESCLIENTE.PaqueteSala;
 import edu.unlam.tpa_PAQUETESCLIENTE.PaqueteUsuario;
 
@@ -25,6 +26,7 @@ public class Cliente extends Thread {
 	
 	private PaqueteUsuario paqueteUsuario = new PaqueteUsuario();
 	private PaqueteSala paqueteSala = new PaqueteSala();
+	private PaquetePartida paquetePartida = new PaquetePartida();
 
 	private Map<String, VentanaSala> salasActivas = new HashMap<>();
 
@@ -133,6 +135,10 @@ public class Cliente extends Thread {
 
 	public void setPaqueteSala(PaqueteSala paqueteSala) {
 		this.paqueteSala = paqueteSala;
+	}
+	
+	public PaquetePartida getPaquetePartida() {
+		return paquetePartida;
 	}
 
 	public static void main(String args[]) {

@@ -11,6 +11,9 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.border.Border;
 
+import edu.unlam.tpa_COMUNICACION.Cliente;
+import edu.unlam.tpa_PAQUETESCLIENTE.PaquetePartida;
+
 public class PanelDePuntajes extends JPanel{
 	/**
 	 * 
@@ -27,8 +30,8 @@ public class PanelDePuntajes extends JPanel{
 	private int height = 500;
 	
 	
-	public PanelDePuntajes(final PanelJuego panel){
-		this.panelJuego = panel;
+	public PanelDePuntajes(Cliente cliente){
+
 		setBounds(500, 0, width, height);
 		this.setBackground(Color.DARK_GRAY);
 		Border raisedbevel = BorderFactory.createRaisedBevelBorder();
@@ -68,16 +71,7 @@ public class PanelDePuntajes extends JPanel{
 		snake2ScoreLabel.setBounds(140, 130, 46, 20);
 		this.add(snake2ScoreLabel);
 		
-		btnJugar.setBounds(50, 250, 100, 40);
-		btnJugar.setText("Jugar");
-		btnJugar.setRequestFocusEnabled(false);		//Cuando se agrega un boton sin esto no anda
-		btnJugar.addActionListener(new ActionListener(){
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				panelJuego.init();
-			}
-		});
-		this.add(btnJugar);
+
 	}
 	
 	

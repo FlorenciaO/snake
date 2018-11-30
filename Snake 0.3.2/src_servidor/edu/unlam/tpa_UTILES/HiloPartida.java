@@ -123,12 +123,14 @@ public class HiloPartida extends Thread {
 		while (masDeUnaEstaViva()) {
 			actualizarDirecciones();
 			partida.actualizarPartida();
+			actualizarPuntos();
 			try {
 				Thread.sleep(1000 / speed.getValor());
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}
 			// enviarDatos
+			
 
 		}
 		this.enJuego = false;
