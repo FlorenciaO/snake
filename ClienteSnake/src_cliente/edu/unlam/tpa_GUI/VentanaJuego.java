@@ -11,13 +11,18 @@ package edu.unlam.tpa_GUI;
 
 
 import java.awt.Color;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.util.HashMap;
 import java.util.Map;
 
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.WindowConstants;
 
 import edu.unlam.tpa_COMUNICACION.Cliente;
+import edu.unlam.tpa_PAQUETESCLIENTE.Comando;
+import edu.unlam.tpa_PAQUETESCLIENTE.PaqueteSala;
 
 public class VentanaJuego extends JFrame 
 {
@@ -47,6 +52,21 @@ public class VentanaJuego extends JFrame
 		setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 		setVisible(true);
 		panelJuego.requestFocus();
+		
+		addWindowListener(new WindowAdapter() {
+			@Override
+			public void windowClosing(WindowEvent arg0) {
+				if (abrirVentanaConfirmaSalir()) {
+					synchronized (cliente) {
+						PaqueteSala paqueteSala = new PaqueteSala(cliente.getPaqueteSala().getNombreSala(), cliente.getPaqueteUsuario().getUsername());
+						cliente.setPaqueteSala(paqueteSala);
+						cliente.setAccion(Comando.DESCONECTARDESALA);
+						cliente.notify();
+					}
+					dispose();
+				}
+			}
+		});
 		
 		setVisible(true);
 	}
@@ -78,5 +98,14 @@ public class VentanaJuego extends JFrame
 	
 	public static Map<Integer, Color> obtenerColores() {
 		return colores;
+	}
+	
+	private boolean abrirVentanaConfirmaSalir() {
+		int opcion = JOptionPane.showConfirmDialog(this, "¿Desea salir de la sala?", "Confirmación",
+				JOptionPane.YES_NO_OPTION);
+		if (opcion == JOptionPane.YES_OPTION) {
+			return true;
+		}
+		return false;
 	}
 }

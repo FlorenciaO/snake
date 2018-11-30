@@ -37,7 +37,7 @@ public class HiloPartida extends Thread {
 		this.jugadores = jugadores;
 		this.clientes = clientesJugando;
 		frutas.add(new Fruta(9, 9));
-		mapa = new Mapa(20, 20);
+		mapa = new Mapa(19, 19);
 		partida = new Partida(mapa);
 		cargarSnakes();
 		for (int i = 0; i < jugadores.size(); i++) {
