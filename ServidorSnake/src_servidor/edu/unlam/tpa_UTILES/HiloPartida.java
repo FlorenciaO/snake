@@ -156,6 +156,16 @@ public class HiloPartida extends Thread {
 	public ArrayList<Posicion> obtenerFrutas() {
 		return ObtenedorDePuntos.obtenerPuntosFrutas(this.mapa.getFrutas());
 	}
+	
+	public boolean buscarJugadorYcambiarTecla(String userName, int tecla) {
+		for(Jugador jugador: jugadores) {
+			if(jugador.getNombreUsuario().equalsIgnoreCase(userName)) {
+				jugador.setUltimaTeclaPresionada(tecla);
+				return true;
+			}
+		}
+		return false;
+	}
 
 	public Map<Integer, ArrayList<Posicion>> obtenerSnakes() {
 		Map<Integer, ArrayList<Posicion>> map = new HashMap<>();
