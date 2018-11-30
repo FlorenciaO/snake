@@ -14,7 +14,7 @@ public class EnviarTecla extends ComandoServer {
 		try
 		{
 			for(HiloPartida partida: Servidor.partidas) {
-				if(partida.buscarJugadorYcambiarTecla(paqueteTecla.getNombreJugador(), paqueteTecla.getTeclaPresionada()) {
+				if(partida.buscarJugadorYcambiarTecla(paqueteTecla.getNombreJugador(), paqueteTecla.getTeclaPresionada())) {
 					encontreJugador = true;
 					break;
 				}		
