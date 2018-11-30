@@ -15,6 +15,7 @@ import edu.unlam.tpa_PAINTER.MapaPainter;
 import edu.unlam.tpa_PAINTER.SnakePainter;
 import edu.unlam.tpa_PAQUETESCLIENTE.Comando;
 import edu.unlam.tpa_PAQUETESCLIENTE.PaqueteSala;
+import edu.unlam.tpa_PAQUETESCLIENTE.PaqueteTecla;
 
 public class PanelJuego extends JPanel {
 	/**
@@ -73,10 +74,10 @@ public class PanelJuego extends JPanel {
 		case KeyEvent.VK_D:
 		case KeyEvent.VK_W:
 			synchronized (cliente) {
-//				PaqueteSala paqueteSala = new PaqueteSala(nombreSala, cli.getPaqueteUsuario().getUsername());
-//				cli.setPaqueteSala(paqueteSala);
-//				cli.setAccion(Comando.INICIARPARTIDA);
-//				cli.notify();
+				PaqueteTecla paqueteTecla = new PaqueteTecla(aux, cliente.getPaqueteUsuario().getUsername());
+				cliente.setPaqueteTecla(paqueteTecla);
+				cliente.setAccion(Comando.ENVIARTECLA);
+				cliente.notify();
 			}
 			
 			break;

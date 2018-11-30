@@ -10,11 +10,15 @@ public class PaqueteTecla extends Paquete implements Serializable, Cloneable {
 	private static final long serialVersionUID = 4122811576509221833L;
 	
 	private int teclaPresionada;
-	private int idJugador;
+	private String nombreJugador;
 	
-	public PaqueteTecla(int tecla, int jugador) {
+	public PaqueteTecla() {
+		
+	}
+	
+	public PaqueteTecla(int tecla, String jugador) {
 		this.teclaPresionada = tecla;
-		this.idJugador = jugador;
+		this.nombreJugador = jugador;
 	}
 
 	public int getTeclaPresionada() {
@@ -25,13 +29,15 @@ public class PaqueteTecla extends Paquete implements Serializable, Cloneable {
 		this.teclaPresionada = teclaPresionada;
 	}
 
-	public int getIdJugador() {
-		return idJugador;
+	public String getNombreJugador() {
+		return nombreJugador;
 	}
 
-	public void setIdJugador(int idJugador) {
-		this.idJugador = idJugador;
-	} 
+	public void setNombreJugador(String nombreJugador) {
+		this.nombreJugador = nombreJugador;
+	}
+
+
 	
 
 }

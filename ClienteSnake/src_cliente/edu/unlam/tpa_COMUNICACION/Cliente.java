@@ -16,6 +16,7 @@ import edu.unlam.tpa_GUI.VentanaSala;
 import edu.unlam.tpa_PAQUETESCLIENTE.Paquete;
 import edu.unlam.tpa_PAQUETESCLIENTE.PaquetePartida;
 import edu.unlam.tpa_PAQUETESCLIENTE.PaqueteSala;
+import edu.unlam.tpa_PAQUETESCLIENTE.PaqueteTecla;
 import edu.unlam.tpa_PAQUETESCLIENTE.PaqueteUsuario;
 
 public class Cliente extends Thread {
@@ -28,6 +29,7 @@ public class Cliente extends Thread {
 	private PaqueteUsuario paqueteUsuario = new PaqueteUsuario();
 	private PaqueteSala paqueteSala = new PaqueteSala();
 	private PaquetePartida paquetePartida = new PaquetePartida();
+	private PaqueteTecla paqueteTecla = new PaqueteTecla();
 
 	private Map<String, VentanaSala> salasActivas = new HashMap<>();
 	private VentanaJuego ventanaJuego;
@@ -167,4 +169,13 @@ public class Cliente extends Thread {
 		ventanaJuego.getControlsPanel().actualizarPuntajes();
 	}
 
+	public PaqueteTecla getPaqueteTecla() {
+		return paqueteTecla;
+	}
+
+	public void setPaqueteTecla(PaqueteTecla paqueteTecla) {
+		this.paqueteTecla = paqueteTecla;
+	}
+
+	
 }
