@@ -1,11 +1,10 @@
 package edu.unlam.tpa_UTILES;
 
-import java.awt.Color;
+
 import java.awt.event.KeyEvent;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ThreadLocalRandom;
 
@@ -29,13 +28,31 @@ public class HiloPartida extends Thread {
 	private ArrayList<Jugador> jugadores;
 	private ArrayList<Fruta> frutas = new ArrayList<>();
 	private ArrayList<Snake> listaSnakes;
-	public static ArrayList<Color> colores;
 	private Velocidad speed = Velocidad.NORMAL;
 	private PaquetePartida paquetePartida;
 
 
 	private ArrayList<EscuchaCliente> clientes;
 
+	public HiloPartida(ArrayList<Jugador> jugadores, ArrayList<EscuchaCliente> clientesJugando) {
+		this.jugadores = jugadores;
+		this.clientes = clientesJugando;
+		frutas.add(new Fruta(9, 9));
+		mapa = new Mapa(20, 20);
+		partida = new Partida(mapa);
+		cargarSnakes();
+		for (int i = 0; i < jugadores.size(); i++) {
+			Snake s = obtenerSnakeEnPosRandom();
+			partida.addSnake(s);
+		}
+		for (Fruta fruta : frutas) {
+			partida.addFruta(fruta);
+		}
+
+		paquetePartida = new PaquetePartida(jugadores, obtenerFrutas(), obtenerSnakes(), 20);
+	}
+	
+	
 	public void cargarSnakes() {
 		/**
 		 * Hasta 12 snakes para dividir bien el mapa, arrancarian 3 en cada borde. Si
@@ -59,21 +76,6 @@ public class HiloPartida extends Thread {
 		listaSnakes.add(new Snake(15, 18, Direccion.ARRIBA));
 	}
 
-	public static void cargarColores() {
-		colores = new ArrayList<>();
-		colores.add(Color.ORANGE);
-		colores.add(Color.BLUE);
-		colores.add(Color.RED);
-		colores.add(Color.YELLOW);
-		colores.add(Color.CYAN);
-		colores.add(Color.MAGENTA);
-		colores.add(Color.PINK);
-		colores.add(new Color(120, 40, 140));// Violeta
-		colores.add(new Color(182, 149, 192));// Lila
-		colores.add(new Color(234, 190, 63));// Dorado
-		colores.add(Color.WHITE);
-		colores.add(Color.LIGHT_GRAY);
-	}
 
 	public Snake obtenerSnakeEnPosRandom() {
 		int randomNum = ThreadLocalRandom.current().nextInt(0, listaSnakes.size());
@@ -82,33 +84,10 @@ public class HiloPartida extends Thread {
 		return snakeAux;
 	}
 
-	public HiloPartida(ArrayList<Jugador> jugadores, ArrayList<EscuchaCliente> clientesJugando) {
-		this.jugadores = jugadores;
-		this.clientes = clientesJugando;
-		frutas.add(new Fruta(9, 9));
-		mapa = new Mapa(20, 20);
-		partida = new Partida(mapa);
-		cargarSnakes();
-		cargarColores();
-		int i = 0;
-		for (Jugador jugador : jugadores) {
-			Snake s = obtenerSnakeEnPosRandom();
-			// Setear color random tambien
-			jugador.setSnake(s);
-			jugador.setColor(colores.get(i++));
-			partida.addSnake(s);
-		}
-		for (Fruta fruta : frutas) {
-			partida.addFruta(fruta);
-		}
-
-		paquetePartida = new PaquetePartida(jugadores, obtenerFrutas(), obtenerSnakes(), 20);
-	}
-
 	public boolean masDeUnaEstaViva() {
 		int i = 0;
-		for (Jugador jugador : jugadores) {
-			if (jugador.getSnake().estaViva())
+		for (Snake snake : this.partida.getSnakes()) {
+			if(snake.estaViva())
 				i++;
 			if (i > 1)
 				return true;
@@ -132,7 +111,7 @@ public class HiloPartida extends Thread {
 
 	public void actualizarDirecciones() {
 		for (Jugador jugador : jugadores) {
-			Snake s = jugador.getSnake();
+			Snake s = this.partida.getSnakes().get(jugador.getIdSnake());
 			Direccion dirAux;
 			if ((dirAux = teclaAdireccion(jugador.getUltimaTeclaPresionada())) != null)
 				s.cambiarDireccion(dirAux);
@@ -141,7 +120,7 @@ public class HiloPartida extends Thread {
 
 	public void actualizarPuntos() {
 		for (Jugador jugador : jugadores) {
-			Snake s = jugador.getSnake();
+			Snake s = this.partida.getSnakes().get(jugador.getIdSnake());
 			if ("crecio".equalsIgnoreCase(s.getEstado())) {
 				jugador.sumarPuntos(10);
 			}
@@ -180,10 +159,10 @@ public class HiloPartida extends Thread {
 		return ObtenedorDePuntos.obtenerPuntosFrutas(this.mapa.getFrutas());
 	}
 
-	public Map<Color, ArrayList<Posicion>> obtenerSnakes() {
-		Map<Color, ArrayList<Posicion>> map = new HashMap<>();
+	public Map<Integer, ArrayList<Posicion>> obtenerSnakes() {
+		Map<Integer, ArrayList<Posicion>> map = new HashMap<>();
 		for (Jugador jugador : jugadores) {
-			map.put(jugador.getColor(), ObtenedorDePuntos.obtenedorDePuntosSnake(jugador.getSnake()));
+			map.put(jugador.getColor(), ObtenedorDePuntos.obtenedorDePuntosSnake(this.partida.getSnakes().get(jugador.getIdSnake())));
 		}
 		return map;
 	}

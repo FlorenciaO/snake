@@ -25,11 +25,10 @@ public class IniciarPartida extends ComandoServer{
 				ArrayList<EscuchaCliente> clientesJugando = new ArrayList<>();
 				
 				HiloPartida.cargarColores();
-				int i = 0;
 				for(EscuchaCliente cliente : Servidor.getClientesConectados()) {
 					if(Servidor.getSalas().get(paqueteSala.getNombreSala()).
 							getUsuariosConectados().contains(cliente.getPaqueteUsuario().getUsername())) {
-						jugadores.add(new Jugador(cliente.getPaqueteUsuario().getUsername(), HiloPartida.colores.get(i++)));
+						jugadores.add(new Jugador(cliente.getPaqueteUsuario().getUsername()));
 //						paqueteSala = Servidor.getSalas().get(paqueteSala.getNombreSala());	
 //						paqueteSala.setComando(Comando.INICIARPARTIDA);
 //						cliente.getSalida().writeObject(gson.toJson(paqueteSala));

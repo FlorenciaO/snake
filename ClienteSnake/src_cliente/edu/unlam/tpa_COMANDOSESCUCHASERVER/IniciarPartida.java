@@ -12,7 +12,6 @@ public class IniciarPartida extends ComandoEscuchaServer{
 	@Override
 	public void ejecutar() {
 		Cliente cliente = escuchaServer.getCliente();
-		System.out.println(cadenaLeida);
 		PaquetePartida paquetePartida = gson.fromJson(cadenaLeida, PaquetePartida.class);
 		cliente.setPaquetePartida(paquetePartida);
 		if (paquetePartida.getMsj().equals(Paquete.msjExito)) {

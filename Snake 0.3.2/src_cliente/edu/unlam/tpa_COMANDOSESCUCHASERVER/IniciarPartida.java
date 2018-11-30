@@ -13,15 +13,20 @@ public class IniciarPartida extends ComandoEscuchaServer{
 	public void ejecutar() {
 		Cliente cliente = escuchaServer.getCliente();
 		System.out.println(cadenaLeida);
-		PaquetePartida paquetePartida = gson.fromJson(cadenaLeida, PaquetePartida.class);
-		cliente.setPaquetePartida(paquetePartida);
-		if (paquetePartida.getMsj().equals(Paquete.msjExito)) {
-			new VentanaJuego(cliente);
-			// cambiar estado salas
+		try {
+			PaquetePartida paquetePartida = gson.fromJson(cadenaLeida, PaquetePartida.class);
+			cliente.setPaquetePartida(paquetePartida);
+			if (paquetePartida.getMsj().equals(Paquete.msjExito)) {
+				new VentanaJuego(cliente);
+				// cambiar estado salas
+				
+			} else {
+				JOptionPane.showMessageDialog(null, "Error al intentar entrar en la partida " + cliente.getPaqueteSala().getNombreSala());
+			}
+		} catch(IllegalStateException e) {
+			JOptionPane.showMessageDialog(null, "Error con el gson");
+		}
 			
-		} else {
-			JOptionPane.showMessageDialog(null, "Error al intentar entrar en la partida " + cliente.getPaqueteSala().getNombreSala());
-		}	
 		
 	}
 

@@ -1,10 +1,8 @@
 package edu.unlam.tpa_PAQUETESCLIENTE;
 
-import java.awt.Color;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import edu.unlam.tpa_JUEGO.Posicion;
@@ -16,13 +14,13 @@ public class PaquetePartida extends Paquete implements Serializable, Cloneable {
 
 	private ArrayList<Jugador> jugadores = new ArrayList<>();
 	private ArrayList<Posicion> frutas = new ArrayList<>();
-	private Map<Color, ArrayList<Posicion>> snakes = new HashMap<>();
+	private Map<Integer, ArrayList<Posicion>> snakes = new HashMap<>();
 	private int row_column = 0;
 
 	public PaquetePartida() {
 	}
 
-	public PaquetePartida(ArrayList<Jugador> jugadores, ArrayList<Posicion> frutas, Map<Color, ArrayList<Posicion>> snakes,
+	public PaquetePartida(ArrayList<Jugador> jugadores, ArrayList<Posicion> frutas, Map<Integer, ArrayList<Posicion>> snakes,
 			int row_column) {
 		this.jugadores = jugadores;
 		this.frutas = frutas;
@@ -34,7 +32,7 @@ public class PaquetePartida extends Paquete implements Serializable, Cloneable {
 		return frutas;
 	}
 
-	public Map<Color, ArrayList<Posicion>> getSnakes() {
+	public Map<Integer, ArrayList<Posicion>> getSnakes() {
 		return snakes;
 	}
 
@@ -52,7 +50,7 @@ public class PaquetePartida extends Paquete implements Serializable, Cloneable {
 		return obj;
 	}
 
-	public void setPaquete(ArrayList<Jugador> jugadores, ArrayList<Posicion> frutas, Map<Color, ArrayList<Posicion>> snakes) {
+	public void setPaquete(ArrayList<Jugador> jugadores, ArrayList<Posicion> frutas, Map<Integer, ArrayList<Posicion>> snakes) {
 		this.jugadores = jugadores;
 		this.frutas = frutas;
 		this.snakes = snakes;

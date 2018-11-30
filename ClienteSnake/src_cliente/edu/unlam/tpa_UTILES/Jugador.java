@@ -1,9 +1,6 @@
 package edu.unlam.tpa_UTILES;
 
-import java.awt.Color;
 import java.io.Serializable;
-
-import edu.unlam.tpa_JUEGO.Snake;
 
 public class Jugador implements Serializable, Cloneable {
 	
@@ -12,15 +9,10 @@ public class Jugador implements Serializable, Cloneable {
 	 */
 	private static final long serialVersionUID = 2576195759529993579L;
 	private String userName;
-	private Color color;
-	private Snake snake;
+	private Integer idColor;
+	private Integer idSnake;
 	private int puntos;
 	private int ultimaTeclaPresionada;
-	
-	@Override
-	public String toString() {	
-		return userName + " " + color + " " + puntos;
-	}
 	
 	public Jugador(String userName) {
 		this.userName = userName;
@@ -30,8 +22,8 @@ public class Jugador implements Serializable, Cloneable {
 		this.userName = userName;
 	}
 
-	public void setColor(Color color) {
-		this.color = color;
+	public void setColor(Integer color) {
+		this.idColor = color;
 	}
 
 	public void setPuntos(int puntos) {
@@ -58,26 +50,20 @@ public class Jugador implements Serializable, Cloneable {
 		this.puntos += puntos;
 	}
 
-	public Jugador(String nombreUsuario, Color color) {
+	public Jugador(String nombreUsuario, Integer color, Integer idSnake) {
 		this.userName = nombreUsuario;
-		this.color = color;
+		this.idColor = color;
 		this.puntos = 0;
+		this.idSnake = idSnake;
 	}
 	
-	public void setSnake(Snake snake) {
-		this.snake = snake;
-	}
 	
 	public String getNombreUsuario() {
 		return userName;
 	}
 
-	public Color getColor() {
-		return color;
-	}
-
-	public Snake getSnake() {
-		return snake;
+	public Integer getColor() {
+		return idColor;
 	}
 	
 	public Object clone() {
@@ -89,5 +75,14 @@ public class Jugador implements Serializable, Cloneable {
 		}
 		return obj;
 	}
+
+	public Integer getIdSnake() {
+		return idSnake;
+	}
+
+	public void setIdSnake(Integer idSnake) {
+		this.idSnake = idSnake;
+	}
 	
+
 }

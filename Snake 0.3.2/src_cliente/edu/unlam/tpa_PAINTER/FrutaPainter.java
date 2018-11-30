@@ -19,7 +19,7 @@ public class FrutaPainter {
 		this.color = color;
 	}
 
-	public FrutaPainter(List<Posicion> frutas, int tileSize, Color color) {
+	public FrutaPainter(ArrayList<Posicion> frutas, int tileSize, Color color) {
 		this.frutas = frutas;
 		this.tileSize = tileSize;
 		this.color = color;

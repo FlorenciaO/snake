@@ -2,7 +2,7 @@ package edu.unlam.tpa_JUEGO;
 
 import java.io.Serializable;
 
-public class Posicion implements Serializable, Cloneable{
+public class Posicion {
 	/**
 	 * 
 	 */

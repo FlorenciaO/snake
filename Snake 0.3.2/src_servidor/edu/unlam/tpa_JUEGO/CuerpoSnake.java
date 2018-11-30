@@ -5,7 +5,7 @@ import java.awt.Graphics2D;
 import java.io.Serializable;
 import java.util.ArrayList;
 
-public class CuerpoSnake implements Serializable, Cloneable{
+public class CuerpoSnake {
 
 	/**
 	 * 

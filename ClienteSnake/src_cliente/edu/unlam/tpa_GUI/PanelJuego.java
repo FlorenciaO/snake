@@ -6,14 +6,12 @@ import java.awt.Graphics2D;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
-import java.util.ArrayList;
-import java.util.Map;
 
 import javax.swing.JPanel;
 
+import edu.unlam.tpa_COMUNICACION.Cliente;
 import edu.unlam.tpa_PAINTER.FrutaPainter;
 import edu.unlam.tpa_PAINTER.MapaPainter;
-import edu.unlam.tpa_PAINTER.Posicion;
 import edu.unlam.tpa_PAINTER.SnakePainter;
 
 public class PanelJuego extends JPanel {
@@ -23,7 +21,7 @@ public class PanelJuego extends JPanel {
 	private static final long serialVersionUID = -4351177139576585872L;
 	private BufferedImage buffer;
 
-	private VentanaJuego ventanaJuego;
+	
 	private int width_height;
 	private int tileSize;
 	
@@ -32,10 +30,9 @@ public class PanelJuego extends JPanel {
 	private FrutaPainter frutaPainter;
 	private SnakePainter snakePainter;
 	
-	private ArrayList<Posicion> frutas;
-	private Map<Color, Posicion> snakes;
+	private Cliente cliente;
 
-	public PanelJuego() {
+	public PanelJuego(Cliente cliente) {
 
 		/**
 		 * Tengo que recibir info del servidor ya
@@ -43,7 +40,7 @@ public class PanelJuego extends JPanel {
 		 * snakes
 		 * frutas
 		 */
-
+		this.cliente = cliente;
 		width_height = 500;
 		setBounds(0, 0, width_height, width_height);
 		
@@ -84,8 +81,8 @@ public class PanelJuego extends JPanel {
 
 		Graphics2D g2 = (Graphics2D) buffer.createGraphics();
 		mapaPainter.paint(g2);		
-		frutaPainter.paint(g2);
-		snakePainter.paint(g2);
+		frutaPainter.paint(g2, cliente.getPaquetePartida().getFrutas());
+		snakePainter.paint(g2, cliente.getPaquetePartida().getSnakes());
 		g.drawImage(buffer, 0, 0, this);
 	}
 

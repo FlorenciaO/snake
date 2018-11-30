@@ -50,7 +50,7 @@ public class PanelDePuntajes extends JPanel{
 		for(Jugador jugador: cliente.getPaquetePartida().getJugadores()) {
 			labelsPuntajes.add(new JLabel(jugador.getUserName() + " " + jugador.getPuntos()));
 			labelsPuntajes.get(indice).setFont(font);
-			labelsPuntajes.get(indice).setForeground(jugador.getColor());
+			labelsPuntajes.get(indice).setForeground(VentanaJuego.obtenerColores().get(jugador.getColor()));
 			labelsPuntajes.get(indice).setBounds(30, y, 100, 20);
 			this.add(labelsPuntajes.get(indice));
 			indice++;

@@ -1,30 +1,20 @@
 package edu.unlam.tpa_JUEGO;
 
-import java.awt.Color;
 import java.io.Serializable;
 import java.util.ArrayList;
 
-public class Snake implements Serializable, Cloneable{
+public class Snake {
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 6734444690353883589L;
 
-	private Color color;
 
 	private CuerpoSnake cuerpo;
 	private Direccion dir;
 
 	private boolean sinConflictos;
 	private String estado;
-
-	public Snake(int x, int y, Direccion dir, Color color) {
-		this.cuerpo = new CuerpoSnake(x, y);
-		this.dir = dir;
-		this.color = color;
-		crecer();
-		this.estado = "viva";
-	}
 	
 	public Snake(int x, int y, Direccion dir) {
 		this.cuerpo = new CuerpoSnake(x, y);
@@ -172,9 +162,6 @@ public class Snake implements Serializable, Cloneable{
 //			return false;
 		return true;
 	}
-	
-	public Color getColor() {
-		return this.color;
-	}
+
 
 }

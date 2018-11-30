@@ -4,6 +4,8 @@ import java.awt.Color;
 import java.awt.Graphics2D;
 import java.util.ArrayList;
 
+import edu.unlam.tpa_JUEGO.Posicion;
+
 public class FrutaPainter {
 	private ArrayList<Posicion> frutas;
 	private int tileSize;
@@ -26,7 +28,8 @@ public class FrutaPainter {
 		this.frutas = frutas;
 	}
 
-	public void paint(Graphics2D g2) {
+	public void paint(Graphics2D g2, ArrayList<Posicion> frutas) {
+		this.frutas = frutas;
 		for (Posicion fruta: this.frutas) {
 			g2.setColor(this.color);
 			g2.fillRect(fruta.getX() * tileSize, fruta.getY() * tileSize, tileSize, tileSize);

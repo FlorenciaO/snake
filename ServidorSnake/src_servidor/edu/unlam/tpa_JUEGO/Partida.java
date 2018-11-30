@@ -78,4 +78,8 @@ public class Partida {
 			}
 		}
 	}
+
+	public ArrayList<Snake> getSnakes() {
+		return this.snakes;
+	}
 }
