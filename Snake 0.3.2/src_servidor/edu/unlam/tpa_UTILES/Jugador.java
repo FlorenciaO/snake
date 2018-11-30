@@ -1,11 +1,16 @@
 package edu.unlam.tpa_UTILES;
 
 import java.awt.Color;
+import java.io.Serializable;
 
 import edu.unlam.tpa_JUEGO.Snake;
 
-public class Jugador {
+public class Jugador implements Serializable, Cloneable {
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 2576195759529993579L;
 	private String userName;
 	private Color color;
 	private Snake snake;
@@ -69,6 +74,15 @@ public class Jugador {
 	public Snake getSnake() {
 		return snake;
 	}
-
+	
+	public Object clone() {
+		Object obj = null;
+		try {
+			obj = super.clone();
+		} catch (CloneNotSupportedException e) {
+			e.printStackTrace();
+		}
+		return obj;
+	}
 	
 }

@@ -26,13 +26,15 @@ public class HiloPartida extends Thread {
 
 	private Mapa mapa;
 	private Partida partida;
-	private List<Jugador> jugadores;
-	private List<Fruta> frutas = new ArrayList<>();
-	private List<Snake> listaSnakes;
-	private List<Color> colores;
+	private ArrayList<Jugador> jugadores;
+	private ArrayList<Fruta> frutas = new ArrayList<>();
+	private ArrayList<Snake> listaSnakes;
+	public static ArrayList<Color> colores;
 	private Velocidad speed = Velocidad.NORMAL;
 	private PaquetePartida paquetePartida;
-	private List<EscuchaCliente> clientes;
+
+
+	private ArrayList<EscuchaCliente> clientes;
 
 	public void cargarSnakes() {
 		/**
@@ -57,7 +59,7 @@ public class HiloPartida extends Thread {
 		listaSnakes.add(new Snake(15, 18, Direccion.ARRIBA));
 	}
 
-	public void cargarColores() {
+	public static void cargarColores() {
 		colores = new ArrayList<>();
 		colores.add(Color.ORANGE);
 		colores.add(Color.BLUE);
@@ -80,13 +82,14 @@ public class HiloPartida extends Thread {
 		return snakeAux;
 	}
 
-	public HiloPartida(List<Jugador> jugadores, List<EscuchaCliente> clientesJugando) {
+	public HiloPartida(ArrayList<Jugador> jugadores, ArrayList<EscuchaCliente> clientesJugando) {
 		this.jugadores = jugadores;
 		this.clientes = clientesJugando;
 		frutas.add(new Fruta(9, 9));
 		mapa = new Mapa(20, 20);
 		partida = new Partida(mapa);
 		cargarSnakes();
+		cargarColores();
 		int i = 0;
 		for (Jugador jugador : jugadores) {
 			Snake s = obtenerSnakeEnPosRandom();
@@ -148,17 +151,7 @@ public class HiloPartida extends Thread {
 	@Override
 	public void run() {
 		synchronized (this) {
-
 			Gson gson = new Gson();
-			paquetePartida.setComando(Comando.PAINT);
-			for (EscuchaCliente conectado : clientes) {
-				try {
-					conectado.getSalida().writeObject(gson.toJson(paquetePartida));
-				} catch (IOException e) {
-					e.printStackTrace();
-				}
-			}
-
 			while (masDeUnaEstaViva()) {
 				actualizarDirecciones();
 				partida.actualizarPartida();
@@ -183,16 +176,20 @@ public class HiloPartida extends Thread {
 		}
 	}
 
-	public List<Posicion> obtenerFrutas() {
+	public ArrayList<Posicion> obtenerFrutas() {
 		return ObtenedorDePuntos.obtenerPuntosFrutas(this.mapa.getFrutas());
 	}
 
-	public Map<Color, List<Posicion>> obtenerSnakes() {
-		Map<Color, List<Posicion>> map = new HashMap<>();
+	public Map<Color, ArrayList<Posicion>> obtenerSnakes() {
+		Map<Color, ArrayList<Posicion>> map = new HashMap<>();
 		for (Jugador jugador : jugadores) {
 			map.put(jugador.getColor(), ObtenedorDePuntos.obtenedorDePuntosSnake(jugador.getSnake()));
 		}
 		return map;
+	}
+	
+	public PaquetePartida getPaquetePartida() {
+		return paquetePartida;
 	}
 
 }

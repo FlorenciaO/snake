@@ -2,6 +2,7 @@ package edu.unlam.tpa_PAINTER;
 
 import java.awt.Color;
 import java.awt.Graphics2D;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -9,10 +10,10 @@ import edu.unlam.tpa_JUEGO.Posicion;
 
 public class SnakePainter {
 
-	private Map<Color, List<Posicion>> viboras;
+	private Map<Color, ArrayList<Posicion>> viboras;
 	private int tileSize;
 
-	public SnakePainter(Map<Color, List<Posicion>> viboras, int tileSize) {
+	public SnakePainter(Map<Color, ArrayList<Posicion>> viboras, int tileSize) {
 		this.viboras = viboras;
 		this.tileSize = tileSize;
 	}
@@ -23,14 +24,14 @@ public class SnakePainter {
 
 	public void paint(Graphics2D g2) {
 		
-		for (Map.Entry<Color, List<Posicion>> entry : viboras.entrySet()) {
+		for (Map.Entry<Color, ArrayList<Posicion>> entry : viboras.entrySet()) {
 			g2.setColor(entry.getKey());
 			for(Posicion parte : entry.getValue())
 				g2.fillRect(parte.getX() * tileSize, parte.getY() * this.tileSize, this.tileSize, this.tileSize);
 		}		
 	}
 	
-	public void setSnakes(Map<Color, List<Posicion>> viboras) {
+	public void setSnakes(Map<Color, ArrayList<Posicion>> viboras) {
 		this.viboras = viboras;
 	}
 }

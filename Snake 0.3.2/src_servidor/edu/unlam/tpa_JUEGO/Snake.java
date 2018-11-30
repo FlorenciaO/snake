@@ -1,9 +1,15 @@
 package edu.unlam.tpa_JUEGO;
 
 import java.awt.Color;
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class Snake {
+public class Snake implements Serializable, Cloneable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 6734444690353883589L;
+
 	private Color color;
 
 	private CuerpoSnake cuerpo;

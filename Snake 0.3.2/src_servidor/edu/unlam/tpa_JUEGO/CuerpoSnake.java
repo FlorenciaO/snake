@@ -2,10 +2,15 @@ package edu.unlam.tpa_JUEGO;
 
 import java.awt.Color;
 import java.awt.Graphics2D;
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class CuerpoSnake {
+public class CuerpoSnake implements Serializable, Cloneable{
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1992972558005892808L;
 	private ArrayList<Posicion> cuerpo;
 
 	public CuerpoSnake(int x, int y) {

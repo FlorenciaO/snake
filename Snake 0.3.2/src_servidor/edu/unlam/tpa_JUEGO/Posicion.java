@@ -1,6 +1,12 @@
 package edu.unlam.tpa_JUEGO;
 
-public class Posicion {
+import java.io.Serializable;
+
+public class Posicion implements Serializable, Cloneable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -3606621185354737632L;
 	int x;
 	int y;
 	
@@ -37,7 +43,15 @@ public class Posicion {
 		return "" + this.x + " " + this.y; 
 	}
 	
-	
+	public Object clone() {
+		Object obj = null;
+		try {
+			obj = super.clone();
+		} catch (CloneNotSupportedException e) {
+			e.printStackTrace();
+		}
+		return obj;
+	}
 
 	@Override
 	public boolean equals(Object obj) {

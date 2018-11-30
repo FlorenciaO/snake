@@ -71,7 +71,7 @@ public class VentanaSala extends JFrame{
 				synchronized (cli) {
 					PaqueteSala paqueteSala = new PaqueteSala(nombreSala, cli.getPaqueteUsuario().getUsername());
 					cli.setPaqueteSala(paqueteSala);
-					cli.setAccion(Comando.ELIMINARSALA);
+					cli.setAccion(Comando.INICIARPARTIDA);
 					cli.notify();
 				}
 				dispose();

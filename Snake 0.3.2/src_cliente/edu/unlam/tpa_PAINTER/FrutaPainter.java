@@ -8,7 +8,7 @@ import java.util.List;
 import edu.unlam.tpa_JUEGO.Posicion;
 
 public class FrutaPainter {
-	private List<Posicion> frutas;
+	private ArrayList<Posicion> frutas;
 	private int tileSize;
 	private Color color;
 	

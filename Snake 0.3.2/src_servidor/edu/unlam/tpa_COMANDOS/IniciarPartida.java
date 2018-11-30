@@ -8,6 +8,7 @@ import edu.unlam.tpa_COMUNICACION.EscuchaCliente;
 import edu.unlam.tpa_COMUNICACION.Servidor;
 import edu.unlam.tpa_PAQUETESCLIENTE.Comando;
 import edu.unlam.tpa_PAQUETESCLIENTE.Paquete;
+import edu.unlam.tpa_PAQUETESCLIENTE.PaquetePartida;
 import edu.unlam.tpa_PAQUETESCLIENTE.PaqueteSala;
 import edu.unlam.tpa_UTILES.HiloPartida;
 import edu.unlam.tpa_UTILES.Jugador;
@@ -20,21 +21,35 @@ public class IniciarPartida extends ComandoServer{
 		try {
 			if(Servidor.getNombresSalasDisponibles().contains(paqueteSala.getNombreSala()) 
 					&& Servidor.getSalas().get(paqueteSala.getNombreSala()).getUsuariosConectados().contains(paqueteSala.getCliente())) {
-				List<Jugador> jugadores = new ArrayList<>();
-				List<EscuchaCliente> clientesJugando = new ArrayList<>();
+				ArrayList<Jugador> jugadores = new ArrayList<>();
+				ArrayList<EscuchaCliente> clientesJugando = new ArrayList<>();
 				
+				HiloPartida.cargarColores();
+				int i = 0;
 				for(EscuchaCliente cliente : Servidor.getClientesConectados()) {
 					if(Servidor.getSalas().get(paqueteSala.getNombreSala()).
 							getUsuariosConectados().contains(cliente.getPaqueteUsuario().getUsername())) {
-						jugadores.add(new Jugador(cliente.getPaqueteUsuario().getUsername()));
-						paqueteSala = Servidor.getSalas().get(paqueteSala.getNombreSala());	
-						paqueteSala.setComando(Comando.INICIARPARTIDA);
-						cliente.getSalida().writeObject(gson.toJson(paqueteSala));
+						jugadores.add(new Jugador(cliente.getPaqueteUsuario().getUsername(), HiloPartida.colores.get(i++)));
+//						paqueteSala = Servidor.getSalas().get(paqueteSala.getNombreSala());	
+//						paqueteSala.setComando(Comando.INICIARPARTIDA);
+//						cliente.getSalida().writeObject(gson.toJson(paqueteSala));
 						clientesJugando.add(cliente);
 					}
 				}				
 				HiloPartida partida = new HiloPartida(jugadores, clientesJugando);
+				PaquetePartida paquetePartida = (PaquetePartida) partida.getPaquetePartida().clone();
+				paquetePartida.setComando(Comando.INICIARPARTIDA);
+				for (EscuchaCliente conectado : clientesJugando) {
+					try {
+						String s = gson.toJson(paquetePartida);
+						conectado.getSalida().writeObject(s);
+//						System.out.println(gson.toJson(paquetePartida));
+					} catch (IOException e) {
+						e.printStackTrace();
+					}
+				}
 				Servidor.addPartida(partida);
+				
 				partida.start();
 				
 			} else {

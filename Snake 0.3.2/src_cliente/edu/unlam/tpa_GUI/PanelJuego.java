@@ -1,13 +1,12 @@
 package edu.unlam.tpa_GUI;
 
 import java.awt.Color;
-import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
-import java.util.List;
+import java.util.ArrayList;
 import java.util.Map;
 
 import javax.swing.JPanel;
@@ -36,7 +35,7 @@ public class PanelJuego extends JPanel {
 	private FrutaPainter frutaPainter;
 	private SnakePainter snakePainter;
 	
-	private List<Posicion> frutas;
+	private ArrayList<Posicion> frutas;
 	private Map<Color, Posicion> snakes;
 
 	public PanelJuego() {

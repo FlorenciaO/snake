@@ -1,5 +1,7 @@
 package edu.unlam.tpa_JUEGO;
 
-public enum Direccion {
+import java.io.Serializable;
+
+public enum Direccion implements Serializable, Cloneable{
 	ARRIBA, ABAJO, IZQUIERDA, DERECHA
 }
