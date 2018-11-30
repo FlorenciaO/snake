@@ -78,8 +78,7 @@ public class PanelJuego extends JPanel {
 				cliente.setPaqueteTecla(paqueteTecla);
 				cliente.setAccion(Comando.ENVIARTECLA);
 				cliente.notify();
-			}
-			
+			}			
 			break;
 		}
 
