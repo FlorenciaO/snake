@@ -12,6 +12,10 @@ public class Jugador {
 	private int puntos;
 	private int ultimaTeclaPresionada;
 	
+	public Jugador(String userName) {
+		this.userName = userName;
+	}
+
 	public void setUserName(String userName) {
 		this.userName = userName;
 	}

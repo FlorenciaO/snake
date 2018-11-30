@@ -30,7 +30,7 @@ public class ChatSala extends ComandoServer{
 //		} catch (IOException e) {
 //			Servidor.getLog().append("Error al enviar el mensaje de " + paqueteMensaje.getUserEmisor() + " para la sala "+ paqueteMensaje.getNombreSala() + System.lineSeparator());
 //		}
-		
+//		
 	}
 
 }

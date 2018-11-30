@@ -10,6 +10,7 @@ import java.util.Map;
 import javax.swing.JOptionPane;
 
 import edu.unlam.tpa_COMANDOSCLIENTE.ComandoCliente;
+import edu.unlam.tpa_GUI.VentanaJuego;
 import edu.unlam.tpa_GUI.VentanaLogin;
 import edu.unlam.tpa_GUI.VentanaSala;
 import edu.unlam.tpa_PAQUETESCLIENTE.Paquete;
@@ -29,8 +30,11 @@ public class Cliente extends Thread {
 	private PaquetePartida paquetePartida = new PaquetePartida();
 
 	private Map<String, VentanaSala> salasActivas = new HashMap<>();
+	private VentanaJuego ventanaJuego;
+
 
 	private int accion; 
+	
 
 	public Cliente(String newIp, int newPort) {
 
@@ -144,9 +148,23 @@ public class Cliente extends Thread {
 	public void setPaquetePartida(PaquetePartida paquetePartida) {
 		this.paquetePartida = paquetePartida;
 	}
+	
+
+	public VentanaJuego getVentanaJuego() {
+		return ventanaJuego;
+	}
+
+	public void setVentanaJuego(VentanaJuego ventanaJuego) {
+		this.ventanaJuego = ventanaJuego;
+	}
 
 	public static void main(String args[]) {
 		new Cliente("localHost", 1234).start();
+	}
+
+	public void actualizarVentanaJuego() {
+		ventanaJuego.getPanelJuego().repaint();
+		ventanaJuego.getControlsPanel().actualizarPuntajes();
 	}
 
 }

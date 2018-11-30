@@ -2,12 +2,16 @@ package edu.unlam.tpa_UTILES;
 
 import java.awt.Color;
 import java.awt.event.KeyEvent;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ThreadLocalRandom;
 
+import com.google.gson.Gson;
+
+import edu.unlam.tpa_COMUNICACION.EscuchaCliente;
 import edu.unlam.tpa_ENUMS.Velocidad;
 import edu.unlam.tpa_JUEGO.Direccion;
 import edu.unlam.tpa_JUEGO.Fruta;
@@ -15,6 +19,8 @@ import edu.unlam.tpa_JUEGO.Mapa;
 import edu.unlam.tpa_JUEGO.Partida;
 import edu.unlam.tpa_JUEGO.Posicion;
 import edu.unlam.tpa_JUEGO.Snake;
+import edu.unlam.tpa_PAQUETESCLIENTE.Comando;
+import edu.unlam.tpa_PAQUETESCLIENTE.PaquetePartida;
 
 public class HiloPartida extends Thread {
 
@@ -22,56 +28,78 @@ public class HiloPartida extends Thread {
 	private Partida partida;
 	private List<Jugador> jugadores;
 	private List<Fruta> frutas = new ArrayList<>();
-	private Map<Integer, Snake> hashSnakes;
+	private List<Snake> listaSnakes;
+	private List<Color> colores;
 	private Velocidad speed = Velocidad.NORMAL;
-	private boolean enJuego = false;
-	
+	private PaquetePartida paquetePartida;
+	private List<EscuchaCliente> clientes;
 
 	public void cargarSnakes() {
 		/**
-		 * Hasta 12 snakes para dividir bien el mapa,  arrancarian 3 en cada borde.
-		 * Si son menos se le elige una posicion random de estas.
+		 * Hasta 12 snakes para dividir bien el mapa, arrancarian 3 en cada borde. Si
+		 * son menos se le elige una posicion random de estas.
 		 */
-		hashSnakes = new HashMap<>();
-		int i = 0;
-		hashSnakes.put(i++, new Snake(2, 5, Direccion.DERECHA));
-		hashSnakes.put(i++, new Snake(2, 10, Direccion.DERECHA));
-		hashSnakes.put(i++, new Snake(2, 15, Direccion.DERECHA));
+		listaSnakes = new ArrayList<>();
+		listaSnakes.add(new Snake(2, 5, Direccion.DERECHA));
+		listaSnakes.add(new Snake(2, 10, Direccion.DERECHA));
+		listaSnakes.add(new Snake(2, 15, Direccion.DERECHA));
 
-		hashSnakes.put(i++, new Snake(5, 2, Direccion.ABAJO));
-		hashSnakes.put(i++, new Snake(10, 2, Direccion.ABAJO));
-		hashSnakes.put(i++, new Snake(15, 2, Direccion.ABAJO));
+		listaSnakes.add(new Snake(5, 2, Direccion.ABAJO));
+		listaSnakes.add(new Snake(10, 2, Direccion.ABAJO));
+		listaSnakes.add(new Snake(15, 2, Direccion.ABAJO));
 
-		hashSnakes.put(i++, new Snake(18, 5, Direccion.IZQUIERDA));
-		hashSnakes.put(i++, new Snake(18, 10, Direccion.IZQUIERDA));
-		hashSnakes.put(i++, new Snake(18, 15, Direccion.IZQUIERDA));
+		listaSnakes.add(new Snake(18, 5, Direccion.IZQUIERDA));
+		listaSnakes.add(new Snake(18, 10, Direccion.IZQUIERDA));
+		listaSnakes.add(new Snake(18, 15, Direccion.IZQUIERDA));
 
-		hashSnakes.put(i++, new Snake(5, 18, Direccion.ARRIBA));
-		hashSnakes.put(i++, new Snake(10, 18, Direccion.ARRIBA));
-		hashSnakes.put(i++, new Snake(15, 18, Direccion.ARRIBA));
+		listaSnakes.add(new Snake(5, 18, Direccion.ARRIBA));
+		listaSnakes.add(new Snake(10, 18, Direccion.ARRIBA));
+		listaSnakes.add(new Snake(15, 18, Direccion.ARRIBA));
+	}
+
+	public void cargarColores() {
+		colores = new ArrayList<>();
+		colores.add(Color.ORANGE);
+		colores.add(Color.BLUE);
+		colores.add(Color.RED);
+		colores.add(Color.YELLOW);
+		colores.add(Color.CYAN);
+		colores.add(Color.MAGENTA);
+		colores.add(Color.PINK);
+		colores.add(new Color(120, 40, 140));// Violeta
+		colores.add(new Color(182, 149, 192));// Lila
+		colores.add(new Color(234, 190, 63));// Dorado
+		colores.add(Color.WHITE);
+		colores.add(Color.LIGHT_GRAY);
 	}
 
 	public Snake obtenerSnakeEnPosRandom() {
-		int randomNum = ThreadLocalRandom.current().nextInt(0, hashSnakes.size());
-		Snake snakeAux = hashSnakes.get(randomNum);
-		hashSnakes.remove(randomNum);
+		int randomNum = ThreadLocalRandom.current().nextInt(0, listaSnakes.size());
+		Snake snakeAux = listaSnakes.get(randomNum);
+		listaSnakes.remove(randomNum);
 		return snakeAux;
 	}
 
-	public HiloPartida(List<Jugador> jugadores) {
+	public HiloPartida(List<Jugador> jugadores, List<EscuchaCliente> clientesJugando) {
 		this.jugadores = jugadores;
+		this.clientes = clientesJugando;
 		frutas.add(new Fruta(9, 9));
 		mapa = new Mapa(20, 20);
 		partida = new Partida(mapa);
 		cargarSnakes();
+		int i = 0;
 		for (Jugador jugador : jugadores) {
 			Snake s = obtenerSnakeEnPosRandom();
+			// Setear color random tambien
 			jugador.setSnake(s);
+			jugador.setColor(colores.get(i++));
 			partida.addSnake(s);
 		}
 		for (Fruta fruta : frutas) {
 			partida.addFruta(fruta);
 		}
+
+		paquetePartida = new PaquetePartida(jugadores, obtenerFrutas(), obtenerSnakes(), 20);
 	}
 
 	public boolean masDeUnaEstaViva() {
@@ -119,21 +147,40 @@ public class HiloPartida extends Thread {
 
 	@Override
 	public void run() {
-		this.enJuego = true;
-		while (masDeUnaEstaViva()) {
-			actualizarDirecciones();
-			partida.actualizarPartida();
-			actualizarPuntos();
-			try {
-				Thread.sleep(1000 / speed.getValor());
-			} catch (InterruptedException e) {
-				e.printStackTrace();
-			}
-			// enviarDatos
-			
+		synchronized (this) {
 
+			Gson gson = new Gson();
+			paquetePartida.setComando(Comando.PAINT);
+			for (EscuchaCliente conectado : clientes) {
+				try {
+					conectado.getSalida().writeObject(gson.toJson(paquetePartida));
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			}
+
+			while (masDeUnaEstaViva()) {
+				actualizarDirecciones();
+				partida.actualizarPartida();
+				actualizarPuntos();
+				try {
+					Thread.sleep(1000 / speed.getValor());
+				} catch (InterruptedException e) {
+					e.printStackTrace();
+				}
+				paquetePartida.setPaquete(jugadores, obtenerFrutas(), obtenerSnakes());
+				paquetePartida.setComando(Comando.PAINT);
+
+				for (EscuchaCliente conectado : clientes) {
+					try {
+						conectado.getSalida().writeObject(gson.toJson(paquetePartida));
+					} catch (IOException e) {
+						e.printStackTrace();
+					}
+				}
+			}
+			// Avisaar que termino
 		}
-		this.enJuego = false;
 	}
 
 	public List<Posicion> obtenerFrutas() {

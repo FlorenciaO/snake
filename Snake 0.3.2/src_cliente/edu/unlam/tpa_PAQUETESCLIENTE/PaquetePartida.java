@@ -5,7 +5,7 @@ import java.io.Serializable;
 import java.util.List;
 import java.util.Map;
 
-import edu.unlam.tpa_PAINTER.Posicion;
+import edu.unlam.tpa_JUEGO.Posicion;
 import edu.unlam.tpa_UTILES.Jugador;
 
 public class PaquetePartida extends Paquete implements Serializable, Cloneable {
@@ -27,7 +27,6 @@ public class PaquetePartida extends Paquete implements Serializable, Cloneable {
 		this.snakes = snakes;
 		this.row_column = row_column;
 	}
-	
 
 	public List<Posicion> getFrutas() {
 		return frutas;
@@ -50,6 +49,13 @@ public class PaquetePartida extends Paquete implements Serializable, Cloneable {
 		Object obj = null;
 		obj = super.clone();
 		return obj;
+	}
+
+	public void setPaquete(List<Jugador> jugadores, List<Posicion> frutas,
+			Map<Color, List<Posicion>> snakes) {
+		this.jugadores = jugadores;
+		this.frutas = frutas;
+		this.snakes = snakes;		
 	}
 
 }

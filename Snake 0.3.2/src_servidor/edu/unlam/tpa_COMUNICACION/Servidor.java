@@ -21,6 +21,7 @@ import javax.swing.JFrame;
 import javax.swing.JScrollPane;
 
 import edu.unlam.tpa_PAQUETESCLIENTE.PaqueteSala;
+import edu.unlam.tpa_UTILES.HiloPartida;
 
 
 
@@ -31,9 +32,10 @@ public class Servidor extends Thread {
 	public static ArrayList<String> UsuariosConectados = new ArrayList<String>();
 	private static ArrayList<EscuchaCliente> clientesConectados = new ArrayList<>();
 	public static Map<String, Socket> mapConectados = new HashMap<>();
-
+	public static ArrayList<HiloPartida> partidas = new ArrayList<>();
 	public static ArrayList<String> salasNombresDisponibles = new ArrayList<String>();
 	public static ArrayList<String> salasPrivadasNombresDisponibles = new ArrayList<String>();
+	
 	
 	public static ArrayList<String> getSalasPrivadasNombresDisponibles() {
 		return salasPrivadasNombresDisponibles;
@@ -384,5 +386,9 @@ public class Servidor extends Thread {
 		mapConectados.remove(username);
 		UsuariosConectados.remove(username);
 		clientesConectados.remove(escuchaCliente);
+	}
+
+	public static void addPartida(HiloPartida hiloPartida) {
+		partidas.add(hiloPartida);
 	}
 }

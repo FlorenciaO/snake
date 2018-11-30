@@ -27,14 +27,12 @@ public class VentanaJuego extends JFrame
 	private static final long serialVersionUID = 5465548797480954343L;
 	private PanelJuego panelJuego;
 	private PanelDePuntajes panelPuntajes;
-	private HiloPartida servidor;
 
 	public VentanaJuego(Cliente cliente) {
-//		this.servidor  = new HiloPartida(this,cliente);
 		
 		panelJuego = new PanelJuego();
 		panelPuntajes = new PanelDePuntajes(cliente);
-
+		cliente.setVentanaJuego(this);
 		getContentPane().setLayout(null);
 		getContentPane().add(panelPuntajes);
 		getContentPane().add(panelJuego);
