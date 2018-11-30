@@ -87,7 +87,7 @@ public class HiloPartida extends Thread {
 		for (Snake snake : this.snakesEnJuego) {
 			if (snake.estaViva())
 				i++;
-			if (i > 1)
+			if (i >= 1)
 				return true;
 		}
 		return false;

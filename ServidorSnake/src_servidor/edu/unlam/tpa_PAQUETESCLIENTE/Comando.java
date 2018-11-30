@@ -6,7 +6,7 @@ public abstract class Comando {
 	
 	public static final String[] NOMBRES = {"Conexion","Registro","InicioSesion","Desconectar",
 			"ChatAll","MP","NewSala","EntrarSala","ConexionSala","ChatSala","MencionSala","DesconectarDeSala",
-			"EliminarSala","IniciarPartida","Paint"};
+			"EliminarSala","IniciarPartida","Paint","EnviarTecla"};
 
 	public static final int CONEXION = 0;
 	public static final int REGISTRO = 1;
@@ -22,7 +22,8 @@ public abstract class Comando {
 	public static final int DESCONECTARDESALA = 11;
 	public static final int ELIMINARSALA = 12;
 	public static final int INICIARPARTIDA = 13;
-	public static final int PAINT = 14; 
+	public static final int PAINT = 14;
+	public static final int ENVIARTECLA = 15; 
 	
 	protected final Gson gson = new Gson();
 	protected String cadenaLeida;
