@@ -1,6 +1,5 @@
 package edu.unlam.tpa_UTILES;
 
-
 import java.awt.event.KeyEvent;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -27,10 +26,10 @@ public class HiloPartida extends Thread {
 	private Partida partida;
 	private ArrayList<Jugador> jugadores;
 	private ArrayList<Fruta> frutas = new ArrayList<>();
-	private ArrayList<Snake> listaSnakes;
+	private ArrayList<Snake> defaultSnakes;
+	private ArrayList<Snake> snakesEnJuego = new ArrayList<>();
 	private Velocidad speed = Velocidad.NORMAL;
 	private PaquetePartida paquetePartida;
-
 
 	private ArrayList<EscuchaCliente> clientes;
 
@@ -43,6 +42,7 @@ public class HiloPartida extends Thread {
 		cargarSnakes();
 		for (int i = 0; i < jugadores.size(); i++) {
 			Snake s = obtenerSnakeEnPosRandom();
+			snakesEnJuego.add(s);
 			partida.addSnake(s);
 		}
 		for (Fruta fruta : frutas) {
@@ -51,43 +51,41 @@ public class HiloPartida extends Thread {
 
 		paquetePartida = new PaquetePartida(jugadores, obtenerFrutas(), obtenerSnakes(), 20);
 	}
-	
-	
+
 	public void cargarSnakes() {
 		/**
 		 * Hasta 12 snakes para dividir bien el mapa, arrancarian 3 en cada borde. Si
 		 * son menos se le elige una posicion random de estas.
 		 */
-		listaSnakes = new ArrayList<>();
-		listaSnakes.add(new Snake(2, 5, Direccion.DERECHA));
-		listaSnakes.add(new Snake(2, 10, Direccion.DERECHA));
-		listaSnakes.add(new Snake(2, 15, Direccion.DERECHA));
+		defaultSnakes = new ArrayList<>();
+		defaultSnakes.add(new Snake(2, 5, Direccion.DERECHA));
+		defaultSnakes.add(new Snake(2, 10, Direccion.DERECHA));
+		defaultSnakes.add(new Snake(2, 15, Direccion.DERECHA));
 
-		listaSnakes.add(new Snake(5, 2, Direccion.ABAJO));
-		listaSnakes.add(new Snake(10, 2, Direccion.ABAJO));
-		listaSnakes.add(new Snake(15, 2, Direccion.ABAJO));
+		defaultSnakes.add(new Snake(5, 2, Direccion.ABAJO));
+		defaultSnakes.add(new Snake(10, 2, Direccion.ABAJO));
+		defaultSnakes.add(new Snake(15, 2, Direccion.ABAJO));
 
-		listaSnakes.add(new Snake(18, 5, Direccion.IZQUIERDA));
-		listaSnakes.add(new Snake(18, 10, Direccion.IZQUIERDA));
-		listaSnakes.add(new Snake(18, 15, Direccion.IZQUIERDA));
+		defaultSnakes.add(new Snake(18, 5, Direccion.IZQUIERDA));
+		defaultSnakes.add(new Snake(18, 10, Direccion.IZQUIERDA));
+		defaultSnakes.add(new Snake(18, 15, Direccion.IZQUIERDA));
 
-		listaSnakes.add(new Snake(5, 18, Direccion.ARRIBA));
-		listaSnakes.add(new Snake(10, 18, Direccion.ARRIBA));
-		listaSnakes.add(new Snake(15, 18, Direccion.ARRIBA));
+		defaultSnakes.add(new Snake(5, 18, Direccion.ARRIBA));
+		defaultSnakes.add(new Snake(10, 18, Direccion.ARRIBA));
+		defaultSnakes.add(new Snake(15, 18, Direccion.ARRIBA));
 	}
 
-
 	public Snake obtenerSnakeEnPosRandom() {
-		int randomNum = ThreadLocalRandom.current().nextInt(0, listaSnakes.size());
-		Snake snakeAux = listaSnakes.get(randomNum);
-		listaSnakes.remove(randomNum);
+		int randomNum = ThreadLocalRandom.current().nextInt(0, defaultSnakes.size());
+		Snake snakeAux = defaultSnakes.get(randomNum);
+		defaultSnakes.remove(randomNum);
 		return snakeAux;
 	}
 
 	public boolean masDeUnaEstaViva() {
 		int i = 0;
-		for (Snake snake : this.partida.getSnakes()) {
-			if(snake.estaViva())
+		for (Snake snake : this.snakesEnJuego) {
+			if (snake.estaViva())
 				i++;
 			if (i > 1)
 				return true;
@@ -111,7 +109,7 @@ public class HiloPartida extends Thread {
 
 	public void actualizarDirecciones() {
 		for (Jugador jugador : jugadores) {
-			Snake s = this.partida.getSnakes().get(jugador.getIdSnake());
+			Snake s = this.snakesEnJuego.get(jugador.getIdSnake());
 			Direccion dirAux;
 			if ((dirAux = teclaAdireccion(jugador.getUltimaTeclaPresionada())) != null)
 				s.cambiarDireccion(dirAux);
@@ -120,7 +118,7 @@ public class HiloPartida extends Thread {
 
 	public void actualizarPuntos() {
 		for (Jugador jugador : jugadores) {
-			Snake s = this.partida.getSnakes().get(jugador.getIdSnake());
+			Snake s = this.snakesEnJuego.get(jugador.getIdSnake());
 			if ("crecio".equalsIgnoreCase(s.getEstado())) {
 				jugador.sumarPuntos(10);
 			}
@@ -162,11 +160,12 @@ public class HiloPartida extends Thread {
 	public Map<Integer, ArrayList<Posicion>> obtenerSnakes() {
 		Map<Integer, ArrayList<Posicion>> map = new HashMap<>();
 		for (Jugador jugador : jugadores) {
-			map.put(jugador.getColor(), ObtenedorDePuntos.obtenedorDePuntosSnake(this.partida.getSnakes().get(jugador.getIdSnake())));
+			map.put(jugador.getColor(),
+					ObtenedorDePuntos.obtenedorDePuntosSnake(this.snakesEnJuego.get(jugador.getIdSnake())));
 		}
 		return map;
 	}
-	
+
 	public PaquetePartida getPaquetePartida() {
 		return paquetePartida;
 	}
