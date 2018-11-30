@@ -19,7 +19,7 @@ public class EnviarTecla extends ComandoServer {
 					break;
 				}		
 			}
-			if(encontreJugador) {
+			if(!encontreJugador) {
 				throw new Exception("No existe jugador en ninguna partida");
 			}
 			
