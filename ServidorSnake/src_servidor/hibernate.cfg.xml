@@ -8,8 +8,8 @@
 		<property name="hibernate.connection.driver_class">org.sqlite.JDBC</property>
 		<property name="hibernate.connection.url">jdbc:sqlite:./BaseDeDatos.sqlite</property>
 		<property name="hibernate.dialect">com.enigmabridge.hibernate.dialect.SQLiteDialect</property>
-		<property name="show_sql">true</property>
-		<property name="format_sql">true</property>
+		<property name="show_sql">false</property>
+		<property name="format_sql">false</property>
 		<mapping resource="edu/unlam/tpa_UTILES/ABM.hbm.xml"/>
 	</session-factory>
 </hibernate-configuration>
