@@ -70,7 +70,6 @@ public class VentanaLogin extends JFrame {
 			}
 		});
 		getContentPane().add(pwdContraseña);
-//		pwdContraseña.setEnabled(false);
 		
 		addWindowListener(new WindowAdapter() {
 			@Override

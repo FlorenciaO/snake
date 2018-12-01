@@ -45,7 +45,6 @@ public class EscuchaCliente extends Thread {
 
 			while (!((paquete = gson.fromJson(cadenaLeida, Paquete.class)).getComando() == Comando.DESCONECTAR)) {							
 
-//				comando = (ComandoServer) paquete.getObjeto("comandos");
 				comando = (ComandoServer) paquete.getObjeto("edu.unlam.tpa_COMANDOS");
 				comando.setCadena(cadenaLeida);
 				comando.setEscuchaCliente(this);

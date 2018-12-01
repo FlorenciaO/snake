@@ -13,6 +13,7 @@ public class Jugador implements Serializable, Cloneable {
 	private Integer idSnake;
 	private int puntos;
 	private int ultimaTeclaPresionada;
+	private boolean enJuego = true;
 	
 	public Jugador(String userName) {
 		this.userName = userName;
@@ -83,6 +84,15 @@ public class Jugador implements Serializable, Cloneable {
 	public void setIdSnake(Integer idSnake) {
 		this.idSnake = idSnake;
 	}
+
+	public boolean isEnJuego() {
+		return enJuego;
+	}
+
+	public void setEnJuego(boolean enJuego) {
+		this.enJuego = enJuego;
+	}
+	
 	
 
 }

@@ -123,6 +123,9 @@ public class HiloPartida extends Thread {
 			if ("crecio".equalsIgnoreCase(s.getEstado())) {
 				jugador.sumarPuntos(10);
 			}
+			if(!s.estaViva()) {
+				jugador.setEnJuego(false);
+			}
 		}
 	}
 
@@ -179,7 +182,7 @@ public class HiloPartida extends Thread {
 		return false;
 	}
 	
-	public synchronized boolean buscarJugadorYeliminarLo(String userName) {
+	public boolean buscarJugadorYeliminarLo(String userName) {
 		Iterator<Jugador> it = jugadores.iterator();
 		while(it.hasNext()) {
 			Jugador j = it.next();
@@ -203,8 +206,11 @@ public class HiloPartida extends Thread {
 	public Map<Integer, ArrayList<Posicion>> obtenerSnakes() {
 		Map<Integer, ArrayList<Posicion>> map = new HashMap<>();
 		for (Jugador jugador : jugadores) {
-			map.put(jugador.getColor(),
-					ObtenedorDePuntos.obtenedorDePuntosSnake(this.snakesEnJuego.get(jugador.getIdSnake())));
+			if(jugador.isEnJuego()) {
+				map.put(jugador.getColor(),
+						ObtenedorDePuntos.obtenedorDePuntosSnake(this.snakesEnJuego.get(jugador.getIdSnake())));
+			}
+			
 		}
 		return map;
 	}

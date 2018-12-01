@@ -14,11 +14,10 @@ public class AbandonarPartida extends ComandoServer {
 		PaqueteSala paqueteSala = (PaqueteSala) (gson.fromJson(cadenaLeida, PaqueteSala.class));
 		
 		try {
+			
 			Servidor.getSalas().get(paqueteSala.getNombreSala()).eliminarUsuario(paqueteSala.getCliente());
 			paqueteSala = Servidor.getSalas().get(paqueteSala.getNombreSala());
 			paqueteSala.setComando(Comando.DESCONECTARDESALA);
-			
-			escuchaCliente.getSalida().writeObject(gson.toJson(paqueteSala));
 			
 			synchronized(Servidor.getAtencionConexionesSalas()){
 				Servidor.getAtencionConexionesSalas().setNombreSala(paqueteSala.getNombreSala());
@@ -27,15 +26,20 @@ public class AbandonarPartida extends ComandoServer {
 			
 			boolean elimineJugador = false;
 			for(HiloPartida partida: Servidor.partidas) {
-				if(partida.buscarJugadorYeliminarLo(escuchaCliente.getPaqueteUsuario().getUsername())) {
-					elimineJugador = true;
-					break;
+				synchronized (partida) {
+					if(partida.buscarJugadorYeliminarLo(escuchaCliente.getPaqueteUsuario().getUsername())) {
+						elimineJugador = true;
+						break;
+					}
 				}		
 			}
 			
 			if(!elimineJugador) {
 				throw new Exception("No existe jugador en ninguna partida");
 			}
+			
+			escuchaCliente.getSalida().writeObject(gson.toJson(paqueteSala));
+			
 		} catch (IOException e) {
 			Servidor.getLog().append("Error del usuario " + escuchaCliente.getPaqueteUsuario().getUsername() + " al abandonar partida");
 		} catch (Exception e2) {
