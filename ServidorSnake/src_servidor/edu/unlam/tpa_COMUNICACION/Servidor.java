@@ -14,6 +14,7 @@ import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Map;
 
 import javax.swing.JButton;
@@ -369,5 +370,14 @@ public class Servidor extends Thread {
 
 	public static void addPartida(HiloPartida hiloPartida) {
 		partidas.add(hiloPartida);
+	}
+
+	public static void modificarSalaDisponible(String nombreSala) {
+				
+		salas.get(nombreSala).setNombreSala(nombreSala + " ( En Juego)");
+		int i = salasNombresDisponibles.indexOf(nombreSala);
+		salasNombresDisponibles.set(i, nombreSala + " ( En Juego)");
+		System.out.println(salasNombresDisponibles.get(0));
+			
 	}
 }
