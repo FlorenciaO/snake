@@ -185,7 +185,7 @@ public class Cliente extends Thread {
 		int max = - 1;
 		int indiceMax = -1;
 		ArrayList<Jugador> jugadores = paquetePartida.getJugadores(); 
-		for(int i = 0; i < jugadores.size() - 1; i++) {
+		for(int i = 0; i < jugadores.size(); i++) {
 			if(jugadores.get(i).getPuntos() > max) {
 				max = jugadores.get(i).getPuntos();
 				indiceMax = i;

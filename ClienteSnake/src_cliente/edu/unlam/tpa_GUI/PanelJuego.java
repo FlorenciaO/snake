@@ -47,7 +47,7 @@ public class PanelJuego extends JPanel {
 		width_height = 500;
 		setBounds(0, 0, width_height, width_height);
 		
-		int row_column = 20;
+		int row_column = 50;
 		tileSize = width_height / row_column;
 		
 		

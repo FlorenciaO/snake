@@ -22,6 +22,8 @@ public class VentanaPartidaFinalizada extends JFrame {
 	private static final long serialVersionUID = -5528586680251020865L;
 	
 	public VentanaPartidaFinalizada(Jugador ganador, Cliente cliente) {
+		setTitle("Partida Finalizada");
+		setResizable(false);
 		getContentPane().setLayout(null);
 		
 		JLabel lblGanador = new JLabel("GANADOR");
@@ -43,7 +45,7 @@ public class VentanaPartidaFinalizada extends JFrame {
 					synchronized (cliente) {
 						PaqueteSala paqueteSala = new PaqueteSala(cliente.getPaqueteSala().getNombreSala(), cliente.getPaqueteUsuario().getUsername());
 						cliente.setPaqueteSala(paqueteSala);
-						cliente.setAccion(Comando.DESCONECTARDESALA);
+						cliente.setAccion(Comando.ELIMINARSALA);
 						cliente.notify();
 					}
 					dispose();
@@ -51,6 +53,8 @@ public class VentanaPartidaFinalizada extends JFrame {
 			}
 		});
 		
+		setBounds(0, 0, 319, 193);
+		setLocationRelativeTo(null);
 		setVisible(true);
 	}
 }
