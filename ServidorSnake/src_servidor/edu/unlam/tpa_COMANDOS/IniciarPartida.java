@@ -28,7 +28,6 @@ public class IniciarPartida extends ComandoServer {
 				int color = 0;
 				int snake = 0;
 				
-//				Servidor.modificarSalaDisponible(paqueteSala.getNombreSala());
 			
 				for (EscuchaCliente cliente : Servidor.getClientesConectados()) {
 					if (Servidor.getSalas().get(paqueteSala.getNombreSala()).getUsuariosConectados()

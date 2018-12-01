@@ -9,6 +9,7 @@ import edu.unlam.tpa_PAQUETESCLIENTE.Comando;
 import edu.unlam.tpa_PAQUETESCLIENTE.Paquete;
 import edu.unlam.tpa_PAQUETESCLIENTE.PaqueteDeUsuariosYSalas;
 import edu.unlam.tpa_PAQUETESCLIENTE.PaqueteUsuario;
+import edu.unlam.tpa_UTILES.ABM;
 
 
 public class InicioSesion extends ComandoServer {
@@ -22,30 +23,33 @@ public class InicioSesion extends ComandoServer {
 		try {
 
 			if(!Servidor.getUsuariosConectados().contains(paqueteUsuario.getUsername())) {
-//				if (Servidor.getConector().loguearUser(paqueteUsuario)) {
-				if(true) {
-					escuchaCliente.setPaqueteUsuario(paqueteUsuario);
-					PaqueteDeUsuariosYSalas pus = new PaqueteDeUsuariosYSalas(Servidor.getUsuariosConectados(),
-							Servidor.getNombresSalasDisponibles(),Servidor.getSalasPrivadasNombresDisponibles());//VER
-					pus.setComando(Comando.INICIOSESION);
-					pus.setMsj(Paquete.msjExito);
+				if (Servidor.getConector().habilitarConexion(new ABM(paqueteUsuario.getUsername(), paqueteUsuario.getPassword()))) {
 
-					Servidor.conectarUsuario(paqueteUsuario.getUsername());
-					
-					escuchaCliente.getSalida().writeObject(gson.toJson(pus));
-
-					synchronized (Servidor.getAtencionConexiones()) {
-						Servidor.getAtencionConexiones().notify();
-					}
-
+						escuchaCliente.setPaqueteUsuario(paqueteUsuario);
+						PaqueteDeUsuariosYSalas pus = new PaqueteDeUsuariosYSalas(Servidor.getUsuariosConectados(),
+								Servidor.getNombresSalasDisponibles());
+						pus.setComando(Comando.INICIOSESION);
+						pus.setMsj(Paquete.msjExito);
+	
+						Servidor.conectarUsuario(paqueteUsuario.getUsername());
+						
+						escuchaCliente.getSalida().writeObject(gson.toJson(pus));
+	
+						synchronized (Servidor.getAtencionConexiones()) {
+							Servidor.getAtencionConexiones().notify();
+						}
+	
+					} else {
+						paqueteUsuario.setMsj(Paquete.msjFracaso);
+						escuchaCliente.getSalida().writeObject(gson.toJson(paqueteUsuario));
+					} 
+				
 				} else {
-					paqueteUsuario.setMsj(Paquete.msjFracaso);
+					paqueteUsuario.setMsj(Paquete.msjFallo);
 					escuchaCliente.getSalida().writeObject(gson.toJson(paqueteUsuario));
-				} 
-			} else {
-				paqueteUsuario.setMsj(Paquete.msjFallo);
-				escuchaCliente.getSalida().writeObject(gson.toJson(paqueteUsuario));
-			}
+				}
+			
+				
 		} catch (JsonSyntaxException | IOException e) {
 			Servidor.getLog().append("Fallo al intentar informar al usuario "+ paqueteUsuario.getUsername() + " sobre su intento de inicio de sesion." + System.lineSeparator());
 		} 

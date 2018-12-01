@@ -14,7 +14,6 @@ import edu.unlam.tpa_PAINTER.FrutaPainter;
 import edu.unlam.tpa_PAINTER.MapaPainter;
 import edu.unlam.tpa_PAINTER.SnakePainter;
 import edu.unlam.tpa_PAQUETESCLIENTE.Comando;
-import edu.unlam.tpa_PAQUETESCLIENTE.PaqueteSala;
 import edu.unlam.tpa_PAQUETESCLIENTE.PaqueteTecla;
 
 public class PanelJuego extends JPanel {

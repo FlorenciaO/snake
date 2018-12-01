@@ -21,8 +21,6 @@ public class InicioSesion extends ComandoEscuchaServer {
 
 			ArrayList<String> salas = paqueteUS.getSalas();
 			escuchaServer.getCliente().getPaqueteUsuario().setListaDeSalas(salas);
-			ArrayList<String> salasp = paqueteUS.getSalasprivadas();//VER
-			escuchaServer.getCliente().getPaqueteUsuario().setListaDeSalasPrivadas(salasp);//VER
 			escuchaServer.getCliente().setVentanaLobby(new VentanaLobby(escuchaServer.getCliente()));
 			escuchaServer.actualizarListaSalas();			
 

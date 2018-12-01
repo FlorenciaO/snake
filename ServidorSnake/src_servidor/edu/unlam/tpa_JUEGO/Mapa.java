@@ -15,41 +15,6 @@ public class Mapa {
 		this.frutas = new ArrayList<>();
 	}
 
-	public void mostrarMapa() {
-		boolean cabeza = false;
-		System.out.println("\n");
-		for (int j = 0; j < cantFil - 1; j++) {
-			for (int i = 0; i < cantCol; i++) {
-				if (hayViboraParaMostrar(new Posicion(i, j))) {
-					for (Snake snake : snakes) {
-						if (snake.laCabezaEstaAhi(new Posicion(i, j))) {
-							System.out.print("| O |");
-							cabeza = true;
-						}
-					}
-					if (!cabeza) {
-						System.out.print("| X |");						
-					}
-					cabeza = false;
-				} else if (hayFruta(new Posicion(i, j)) != null)
-					System.out.print("| * |");
-				else
-					System.out.print("|   |");
-			}
-			System.out.print("\n");
-		}
-		System.out.print("--------------------------------------------------\n");
-	}
-
-	private boolean hayViboraParaMostrar(Posicion posicion) {
-		for (Snake snake : snakes) {
-			if (snake.estasAhi(posicion)) {
-				return true;
-			}
-		}
-		return false;
-	}
-
 	public void addSnake(Snake snake) {
 		this.snakes.add(snake);
 	}

@@ -22,7 +22,6 @@ public class EliminarSala extends ComandoEscuchaServer {
 				if(paqueteSala.enJuego()) {
 					cliente.getVentanaJuego().dispose();
 				}
-//				cliente.getSalasActivas().remove(paqueteSala.getNombreSala());
 			}
 			cliente.getSalasActivas().remove(paqueteSala.getNombreSala());
 			cliente.getPaqueteUsuario().eliminarSala(paqueteSala.getNombreSala());

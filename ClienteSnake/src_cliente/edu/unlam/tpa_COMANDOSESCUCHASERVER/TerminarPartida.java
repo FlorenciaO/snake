@@ -31,10 +31,6 @@ public class TerminarPartida extends ComandoEscuchaServer {
 			e.printStackTrace();
 		}
 
-//		cliente.getVentanaJuego().dispose(); // Cierra la ventana de juego
-//		cliente.setPaquetePartida(paquetePartida);
-//		Jugador ganador = cliente.obtenerGanador(); // Busca el ganador en la lista de jugadores de paquete partida y lo retorna
-//		new VentanaPartidaFinalizada(ganador, cliente);
 	}
 
 }

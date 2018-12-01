@@ -56,28 +56,6 @@ public class Partida {
 			}
 		}
 	}
-	
-	public void actualizarPartida(boolean mostrar) {
-		if(mostrar)
-			mapa.mostrarMapa();
-		Iterator<Snake> snakesIterator = this.snakes.iterator();
-		while(snakesIterator.hasNext()) {
-			colisionador.resolverConflicto(this.mapa, snakesIterator.next());
-		}
-		
-		snakesIterator = this.snakes.iterator();
-		while(snakesIterator.hasNext()) {
-			Snake snake = snakesIterator.next();
-			if(snake.estaViva()) {
-				if(snake.verSiNoTieneConflictos()) {
-					snake.moverse();
-				}
-			}
-			else {
-				snakesIterator.remove();
-			}
-		}
-	}
 
 	public ArrayList<Snake> getSnakes() {
 		return this.snakes;

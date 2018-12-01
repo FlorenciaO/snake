@@ -11,8 +11,6 @@ import java.util.concurrent.ThreadLocalRandom;
 import com.google.gson.Gson;
 
 import edu.unlam.tpa_COMUNICACION.EscuchaCliente;
-import edu.unlam.tpa_COMUNICACION.Servidor;
-import edu.unlam.tpa_ENUMS.Velocidad;
 import edu.unlam.tpa_JUEGO.Direccion;
 import edu.unlam.tpa_JUEGO.Fruta;
 import edu.unlam.tpa_JUEGO.Mapa;
@@ -30,7 +28,6 @@ public class HiloPartida extends Thread {
 	private ArrayList<Fruta> frutas = new ArrayList<>();
 	private ArrayList<Snake> defaultSnakes;
 	private ArrayList<Snake> snakesEnJuego = new ArrayList<>();
-	private Velocidad speed = Velocidad.LENTO;
 	private PaquetePartida paquetePartida;
 
 	private ArrayList<EscuchaCliente> clientes;
@@ -39,6 +36,7 @@ public class HiloPartida extends Thread {
 		this.jugadores = jugadores;
 		this.clientes = clientesJugando;
 		frutas.add(new Fruta(9, 9));
+		frutas.add(new Fruta(15,15));
 		mapa = new Mapa(50 - 1, 50 - 1);
 		partida = new Partida(mapa);
 		cargarSnakes();
@@ -140,7 +138,7 @@ public class HiloPartida extends Thread {
 				partida.actualizarPartida();
 				actualizarPuntos();
 				try {
-					Thread.sleep(1000 / speed.getValor());
+					Thread.sleep(1000 / 10);
 				} catch (InterruptedException e) {
 					e.printStackTrace();
 				}
@@ -159,7 +157,6 @@ public class HiloPartida extends Thread {
 			paquetePartida.setPaquete((ArrayList<Jugador>)jugadores.clone(), obtenerFrutas(), obtenerSnakes());
 			paquetePartida.setComando(Comando.TERMINARPARTIDA);
 			//Llama al terminar partida del escucha server
-//			jugadores.clear();
 			for (EscuchaCliente conectado : clientes) {
 				try {
 					conectado.getSalida().writeObject(gson.toJson(paquetePartida));
@@ -168,7 +165,6 @@ public class HiloPartida extends Thread {
 				}
 			}
 			
-//		Servidor.partidas.remove(this);
 	}
 
 	public ArrayList<Posicion> obtenerFrutas() {

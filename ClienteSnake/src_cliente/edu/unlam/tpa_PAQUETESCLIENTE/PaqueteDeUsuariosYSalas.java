@@ -10,7 +10,6 @@ public class PaqueteDeUsuariosYSalas extends Paquete implements Serializable, Cl
 	private static final long serialVersionUID = 1L;
 	private ArrayList<String> usuarios;
 	private ArrayList<String> salas;
-	private ArrayList<String> salasprivadas;
 	private Map<String, PaqueteUsuario> usuariosConectados;
 
 	public PaqueteDeUsuariosYSalas() {
@@ -20,18 +19,9 @@ public class PaqueteDeUsuariosYSalas extends Paquete implements Serializable, Cl
 		return usuariosConectados;
 	}
 
-	public PaqueteDeUsuariosYSalas(ArrayList<String> usuarios, ArrayList<String> salas, ArrayList<String> salasprivadas) {
+	public PaqueteDeUsuariosYSalas(ArrayList<String> usuarios, ArrayList<String> salas) {
 		this.usuarios = usuarios;
 		this.salas = salas;
-		this.salasprivadas= salasprivadas;
-	}
-
-	public ArrayList<String> getSalasprivadas() {
-		return salasprivadas;
-	}
-
-	public void setSalasprivadas(ArrayList<String> salasprivadas) {
-		this.salasprivadas = salasprivadas;
 	}
 
 	public PaqueteDeUsuariosYSalas(ArrayList<String> usuarios) {

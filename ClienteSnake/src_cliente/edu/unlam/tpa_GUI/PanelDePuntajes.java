@@ -59,9 +59,6 @@ public class PanelDePuntajes extends JPanel{
 		
 	}
 	
-	
-	// Alguien va a tener que llamar a este metodo para actualizar cada label, luego de que se le setee
-	// un nuevo paquete partida a cliente
 	public void actualizarPuntajes() {
 		int indice = 0;
 		for(Jugador jugador: cliente.getPaquetePartida().getJugadores()) {

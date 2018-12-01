@@ -18,7 +18,6 @@ import java.util.Map;
 
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
-import javax.swing.WindowConstants;
 
 import edu.unlam.tpa_COMUNICACION.Cliente;
 import edu.unlam.tpa_PAQUETESCLIENTE.Comando;

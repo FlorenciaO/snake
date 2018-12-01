@@ -14,7 +14,6 @@ import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.Map;
 
 import javax.swing.JButton;
@@ -22,6 +21,7 @@ import javax.swing.JFrame;
 import javax.swing.JScrollPane;
 
 import edu.unlam.tpa_PAQUETESCLIENTE.PaqueteSala;
+import edu.unlam.tpa_UTILES.BaseDeDatos;
 import edu.unlam.tpa_UTILES.HiloPartida;
 
 
@@ -35,22 +35,13 @@ public class Servidor extends Thread {
 	public static Map<String, Socket> mapConectados = new HashMap<>();
 	public static ArrayList<HiloPartida> partidas = new ArrayList<>();
 	public static ArrayList<String> salasNombresDisponibles = new ArrayList<String>();
-	public static ArrayList<String> salasPrivadasNombresDisponibles = new ArrayList<String>();
 	
-	
-	public static ArrayList<String> getSalasPrivadasNombresDisponibles() {
-		return salasPrivadasNombresDisponibles;
-	}
-
-	public static void setSalasPrivadasNombresDisponibles(ArrayList<String> salasPrivadasNombresDisponibles) {
-		Servidor.salasPrivadasNombresDisponibles = salasPrivadasNombresDisponibles;
-	}
 
 	public static Map<String, PaqueteSala> salas = new HashMap<>();
 	
 	private static ServerSocket serverSocket;
 	private final int puerto = 1234;
-//	private static ConsultasDB conexionDB;
+	private static BaseDeDatos conexionDB;
 
 	private static Thread server;
 
@@ -59,7 +50,6 @@ public class Servidor extends Thread {
 
 	public static AtencionConexiones atencionConexiones;
 	public static AtencionNuevasSalas atencionNuevasSalas;
-	public static AtencionNuevasSalasPrivadas atencionNuevasSalasPrivadas;
 	public static AtencionConexionesSalas atencionConexionesSalas;
 
 	public static void main(String[] args) {
@@ -130,6 +120,7 @@ public class Servidor extends Thread {
 						cliente.getSocket().close();
 					}
 					serverSocket.close();
+					conexionDB.cerrarFactory();
 					getLog().append("El servidor se ha detenido." + System.lineSeparator());
 				} catch (Exception e1) {
 					getLog().append("Fallo al intentar detener el servidor." + System.lineSeparator());
@@ -160,6 +151,7 @@ public class Servidor extends Thread {
 							cliente.getSocket().close();
 						}
 						serverSocket.close();
+						conexionDB.cerrarFactory();
 					} catch (IOException e) {
 						getLog().append("Fallo al intentar detener el servidor." + System.lineSeparator());
 						e.printStackTrace();
@@ -177,8 +169,9 @@ public class Servidor extends Thread {
 	public void run() {
 		try {
 			getLog().append("Cargando Base de Datos..." + System.lineSeparator());
-			conexionDB = new ConsultasDB("cfg.xml");
-			conexionDB.connect();
+			conexionDB = new BaseDeDatos();
+			conexionDB.iniciarBd();
+			
 			estadoServer = true;
 			getLog().append("Iniciando el servidor..." + System.lineSeparator());			
 			serverSocket = new ServerSocket(puerto);
@@ -190,8 +183,6 @@ public class Servidor extends Thread {
 			atencionConexiones.start();
 			atencionNuevasSalas = new AtencionNuevasSalas();
 			atencionNuevasSalas.start();
-			atencionNuevasSalasPrivadas = new AtencionNuevasSalasPrivadas();
-			atencionNuevasSalasPrivadas.start();
 			atencionConexionesSalas = new AtencionConexionesSalas();
 			atencionConexionesSalas.start();
 
@@ -298,28 +289,14 @@ public class Servidor extends Thread {
 		Servidor.mapConectados = personajesConectados;
 	}
 
-//	public static ConsultasDB getConector() {
-//		return conexionDB;
-//	}
+	public static BaseDeDatos getConector() {
+		return conexionDB;
+	}
 
 	public static Map<String, PaqueteSala> getSalas() {
 		return salas;
 	}
 
-	public static boolean mensajeSala(int contador) {
-		boolean result = true;
-		if(UsuariosConectados.size() != contador+1) {
-			result = false;
-		}
-		if (result) {
-			Servidor.getLog().append("Se ha enviado un mensaje por sala" + System.lineSeparator());
-			return true;
-		} else {
-			Servidor.getLog().append("Se ha desconectado un usuario" + System.lineSeparator());
-			return false;
-		}
-
-	}
 
 	public static TextArea getLog() {
 		return log;
@@ -336,7 +313,6 @@ public class Servidor extends Thread {
 
 	public static void conectarUsuario(String username) {
 		UsuariosConectados.add(username);
-//		ConsultasDB.levantarSalasPrivadas(username);
 		int index = Servidor.getUsuariosConectados().indexOf(username);
 		mapConectados.put(username, SocketsConectados.get(index));
 	}

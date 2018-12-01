@@ -87,7 +87,8 @@ public class VentanaLogin extends JFrame {
 		btnIniciarSesion.addActionListener(new ActionListener() {
 			@SuppressWarnings("deprecation")
 			public void actionPerformed(ActionEvent e) {
-				if(!txtUsuario.getText().equals("") && !pwdContraseña.getText().equals("")){
+				if(!txtUsuario.getText().equals("") && !pwdContraseña.getText().equals("") && txtUsuario.getText().length() < 10){
+					
 					synchronized(cliente){
 						cliente.setAccion(Comando.INICIOSESION);
 						cliente.getPaqueteUsuario().setUsername(txtUsuario.getText());
@@ -109,16 +110,18 @@ public class VentanaLogin extends JFrame {
 		
 		JLabel lblRegistrate = new JLabel("Registrate");
 		lblRegistrate.addMouseListener(new MouseAdapter() {
+			@SuppressWarnings("deprecation")
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
-				synchronized(cliente){
-					cliente.getPaqueteUsuario().setUsername(txtUsuario.getText());
-					cliente.getPaqueteUsuario().setPassword(pwdContraseña.getText());
-					cliente.setAccion(Comando.REGISTRO);
-					cliente.notify();
-					dispose();
+				if(!txtUsuario.getText().equals("") && !pwdContraseña.getText().equals("") && txtUsuario.getText().length() < 10){
+					synchronized(cliente){
+						cliente.getPaqueteUsuario().setUsername(txtUsuario.getText());
+						cliente.getPaqueteUsuario().setPassword(pwdContraseña.getText());
+						cliente.setAccion(Comando.REGISTRO);
+						cliente.notify();
+						dispose();
+					}
 				}
-				
 			}
 		});
 		lblRegistrate.setHorizontalAlignment(SwingConstants.CENTER);

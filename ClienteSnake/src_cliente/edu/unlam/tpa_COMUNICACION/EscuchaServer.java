@@ -79,24 +79,6 @@ public class EscuchaServer extends Thread {
 		}
 	}
 
-//	public void actualizarLista() {
-//		DefaultListModel<String> modelo = new DefaultListModel<String>();
-//		synchronized (cliente) {
-//
-//			VentanaPrincipal.eliminarConectados();
-//
-//			if (cliente.getPaqueteUsuario().getListaDeConectados() != null) {
-//				cliente.getPaqueteUsuario().eliminarUsuario(cliente.getPaqueteUsuario().getUsername());
-//
-//				for (String cad : cliente.getPaqueteUsuario().getListaDeConectados()) {
-//					modelo.addElement(cad);
-//				}
-//				
-//				VentanaPrincipal.cambiarModelo(modelo);
-//			}
-//		}
-//	}
-//
 	public void actualizarListaSalas() {
 		DefaultListModel<String> modelo = new DefaultListModel<String>();
 		synchronized (cliente) {

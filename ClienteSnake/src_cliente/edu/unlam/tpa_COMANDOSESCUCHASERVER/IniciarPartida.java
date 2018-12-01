@@ -16,7 +16,6 @@ public class IniciarPartida extends ComandoEscuchaServer{
 		cliente.setPaquetePartida(paquetePartida);
 		if (paquetePartida.getMsj().equals(Paquete.msjExito)) {
 			cliente.getSalasActivas().get(cliente.getPaqueteSala().getNombreSala()).dispose();
-			System.out.println("llego a ventana juego");
 			new VentanaJuego(cliente);		
 		} else {
 			JOptionPane.showMessageDialog(null, "Error al intentar entrar en la partida " + cliente.getPaqueteSala().getNombreSala());

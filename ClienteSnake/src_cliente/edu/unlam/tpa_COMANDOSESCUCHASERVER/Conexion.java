@@ -14,7 +14,6 @@ public class Conexion extends ComandoEscuchaServer {
 
 		usuariosConectados.remove(escuchaServer.getCliente().getPaqueteUsuario().getUsername());
 		escuchaServer.getCliente().getPaqueteUsuario().setListaDeConectados(usuariosConectados);
-//		escuchaServer.actualizarLista();
 	}
 
 }

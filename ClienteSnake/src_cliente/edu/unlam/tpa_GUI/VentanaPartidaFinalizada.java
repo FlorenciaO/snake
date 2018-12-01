@@ -9,8 +9,6 @@ import java.awt.event.WindowEvent;
 import javax.swing.SwingConstants;
 
 import edu.unlam.tpa_COMUNICACION.Cliente;
-import edu.unlam.tpa_PAQUETESCLIENTE.Comando;
-import edu.unlam.tpa_PAQUETESCLIENTE.PaqueteSala;
 import edu.unlam.tpa_UTILES.Jugador;
 
 public class VentanaPartidaFinalizada extends JFrame {

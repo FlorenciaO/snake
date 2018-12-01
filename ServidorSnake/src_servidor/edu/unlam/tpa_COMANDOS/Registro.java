@@ -19,28 +19,25 @@ public class Registro extends ComandoServer {
 	public void ejecutar() {
 		PaqueteUsuario paqueteUsuario = (PaqueteUsuario) (gson.fromJson(cadenaLeida, PaqueteUsuario.class));
 		try {
-//			Servidor.getConector();
 				
-//				if (ConsultasDB.registrarUser(paqueteUsuario)){
-			if(true) {
-
-					PaqueteDeUsuariosYSalas pus = new PaqueteDeUsuariosYSalas(Servidor.getUsuariosConectados(),
-							Servidor.getNombresSalasDisponibles(),Servidor.getSalasPrivadasNombresDisponibles());
-					pus.setComando(Comando.REGISTRO);
-					pus.setMsj(Paquete.msjExito);
-
-					Servidor.conectarUsuario(paqueteUsuario.getUsername());
-					
-					escuchaCliente.getSalida().writeObject(gson.toJson(pus));
-
-					synchronized (Servidor.getAtencionConexiones()) {
-						Servidor.getAtencionConexiones().notify();
-					}
-				} else {
-					paqueteUsuario.setMsj(Paquete.msjFracaso);
-					escuchaCliente.getSalida().writeObject(gson.toJson(paqueteUsuario));
-				} 
-			
+				if (Servidor.getConector().registrarUsuarioEnBD(paqueteUsuario.getUsername(), paqueteUsuario.getPassword())){
+		
+							PaqueteDeUsuariosYSalas pus = new PaqueteDeUsuariosYSalas(Servidor.getUsuariosConectados(),
+									Servidor.getNombresSalasDisponibles());
+							pus.setComando(Comando.REGISTRO);
+							pus.setMsj(Paquete.msjExito);
+		
+							Servidor.conectarUsuario(paqueteUsuario.getUsername());
+							
+							escuchaCliente.getSalida().writeObject(gson.toJson(pus));
+		
+							synchronized (Servidor.getAtencionConexiones()) {
+								Servidor.getAtencionConexiones().notify();
+							}
+						} else {
+							paqueteUsuario.setMsj(Paquete.msjFracaso);
+							escuchaCliente.getSalida().writeObject(gson.toJson(paqueteUsuario));
+						} 
 		} catch (JsonSyntaxException | IOException  e) {
 			Servidor.getLog().append("Fallo al intentar informar al usuario "+ paqueteUsuario.getUsername() + " sobre su intento de registro." + System.lineSeparator());
 		}	
