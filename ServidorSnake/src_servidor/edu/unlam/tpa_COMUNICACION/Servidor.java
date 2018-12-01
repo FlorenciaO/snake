@@ -176,13 +176,9 @@ public class Servidor extends Thread {
 	@Override
 	public void run() {
 		try {
-//			getLog().append("Cargando Base de Datos..." + System.lineSeparator());
-//			conexionDB = new ConsultasDB("cfg.xml");
-			//conexionDB.connect();
-//			jenkins = new AsistenteVirtual();
-//			ConsultasDB.levantarSalas();
-//			getLog().append("Se cargo el asistente..." + System.lineSeparator());
-//			getLog().append("Se cargo las salas..." + System.lineSeparator());
+			getLog().append("Cargando Base de Datos..." + System.lineSeparator());
+			conexionDB = new ConsultasDB("cfg.xml");
+			conexionDB.connect();
 			estadoServer = true;
 			getLog().append("Iniciando el servidor..." + System.lineSeparator());			
 			serverSocket = new ServerSocket(puerto);

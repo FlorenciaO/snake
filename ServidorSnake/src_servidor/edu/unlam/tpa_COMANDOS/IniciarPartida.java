@@ -24,11 +24,11 @@ public class IniciarPartida extends ComandoServer {
 					.get(paqueteSala.getNombreSala()).getUsuariosConectados().contains(paqueteSala.getCliente())) {
 				ArrayList<Jugador> jugadores = new ArrayList<>();
 				ArrayList<EscuchaCliente> clientesJugando = new ArrayList<>();
-
+				System.out.println("Creando partida");
 				int color = 0;
 				int snake = 0;
 				
-				Servidor.modificarSalaDisponible(paqueteSala.getNombreSala());
+//				Servidor.modificarSalaDisponible(paqueteSala.getNombreSala());
 			
 				for (EscuchaCliente cliente : Servidor.getClientesConectados()) {
 					if (Servidor.getSalas().get(paqueteSala.getNombreSala()).getUsuariosConectados()
@@ -38,6 +38,7 @@ public class IniciarPartida extends ComandoServer {
 					}
 					
 				}
+				Servidor.modificarSalaDisponible(paqueteSala.getNombreSala());
 
 				HiloPartida partida = new HiloPartida(jugadores, clientesJugando);
 				PaquetePartida paquetePartida = partida.getPaquetePartida();

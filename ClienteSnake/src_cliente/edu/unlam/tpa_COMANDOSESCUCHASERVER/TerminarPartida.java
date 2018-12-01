@@ -18,6 +18,7 @@ public class TerminarPartida extends ComandoEscuchaServer {
 		
 		PaqueteSala paqueteSala = cliente.getPaqueteSala();
 		paqueteSala.setComando(Comando.ABANDONARPARTIDA);
+		
 		// Llama al abandonar partida de comando servidor
 		try {
 			cliente.getVentanaJuego().dispose(); // Cierra la ventana de juego

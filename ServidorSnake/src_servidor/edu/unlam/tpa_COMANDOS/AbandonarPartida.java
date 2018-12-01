@@ -15,7 +15,6 @@ public class AbandonarPartida extends ComandoServer {
 		PaqueteSala paqueteSala = (PaqueteSala) (gson.fromJson(cadenaLeida, PaqueteSala.class));
 		
 		try {
-			
 			Servidor.getSalas().get(paqueteSala.getNombreSala()).eliminarUsuario(paqueteSala.getCliente());
 			paqueteSala = Servidor.getSalas().get(paqueteSala.getNombreSala());
 
@@ -34,10 +33,9 @@ public class AbandonarPartida extends ComandoServer {
 									cliente.getSalida().writeObject(gson.toJson(paqueteSala));
 							}
 							partidaTermino = true;
+							
 						}
 						break;
-					} else {
-						System.out.println("No encunetra");
 					}
 					
 			}
@@ -52,6 +50,7 @@ public class AbandonarPartida extends ComandoServer {
 				System.out.println("temrino la partida");
 				paqueteSala.setComando(Comando.ELIMINARSALA);
 				escuchaCliente.getSalida().writeObject(gson.toJson(paqueteSala));
+				
 			}
 		} catch (IOException e) {
 			Servidor.getLog().append("Error del usuario " + escuchaCliente.getPaqueteUsuario().getUsername() + " al abandonar partida");

@@ -130,6 +130,7 @@ public class HiloPartida extends Thread {
 		}
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public void run() {
 		
@@ -155,10 +156,10 @@ public class HiloPartida extends Thread {
 				}				
 			}
 			
-			paquetePartida.setPaquete(jugadores, obtenerFrutas(), obtenerSnakes());
+			paquetePartida.setPaquete((ArrayList<Jugador>)jugadores.clone(), obtenerFrutas(), obtenerSnakes());
 			paquetePartida.setComando(Comando.TERMINARPARTIDA);
 			//Llama al terminar partida del escucha server
-
+//			jugadores.clear();
 			for (EscuchaCliente conectado : clientes) {
 				try {
 					conectado.getSalida().writeObject(gson.toJson(paquetePartida));
@@ -167,7 +168,7 @@ public class HiloPartida extends Thread {
 				}
 			}
 			
-		Servidor.partidas.remove(this);
+//		Servidor.partidas.remove(this);
 	}
 
 	public ArrayList<Posicion> obtenerFrutas() {
@@ -185,7 +186,7 @@ public class HiloPartida extends Thread {
 	}
 	
 	public synchronized boolean buscarJugadorYeliminarLo(String userName) {
-		Iterator<Jugador> it = jugadores.iterator();		
+		Iterator<Jugador> it = jugadores.iterator();
 		while(it.hasNext()) {
 			Jugador j = it.next();
 			if(j.getNombreUsuario().equalsIgnoreCase(userName)) {
