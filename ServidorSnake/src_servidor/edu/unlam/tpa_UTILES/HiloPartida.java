@@ -59,21 +59,21 @@ public class HiloPartida extends Thread {
 		 * son menos se le elige una posicion random de estas.
 		 */
 		defaultSnakes = new ArrayList<>();
-		defaultSnakes.add(new Snake(2, 5, Direccion.DERECHA));
-		defaultSnakes.add(new Snake(2, 10, Direccion.DERECHA));
-		defaultSnakes.add(new Snake(2, 15, Direccion.DERECHA));
+		defaultSnakes.add(new Snake(2, 13, Direccion.DERECHA));
+		defaultSnakes.add(new Snake(2, 26, Direccion.DERECHA));
+		defaultSnakes.add(new Snake(2, 39, Direccion.DERECHA));
 
-		defaultSnakes.add(new Snake(5, 2, Direccion.ABAJO));
-		defaultSnakes.add(new Snake(10, 2, Direccion.ABAJO));
-		defaultSnakes.add(new Snake(15, 2, Direccion.ABAJO));
+		defaultSnakes.add(new Snake(13, 2, Direccion.ABAJO));
+		defaultSnakes.add(new Snake(26, 2, Direccion.ABAJO));
+		defaultSnakes.add(new Snake(39, 2, Direccion.ABAJO));
 
-		defaultSnakes.add(new Snake(18, 5, Direccion.IZQUIERDA));
-		defaultSnakes.add(new Snake(18, 10, Direccion.IZQUIERDA));
-		defaultSnakes.add(new Snake(18, 15, Direccion.IZQUIERDA));
+		defaultSnakes.add(new Snake(47, 13, Direccion.IZQUIERDA));
+		defaultSnakes.add(new Snake(47, 26, Direccion.IZQUIERDA));
+		defaultSnakes.add(new Snake(47, 39, Direccion.IZQUIERDA));
 
-		defaultSnakes.add(new Snake(5, 18, Direccion.ARRIBA));
-		defaultSnakes.add(new Snake(10, 18, Direccion.ARRIBA));
-		defaultSnakes.add(new Snake(15, 18, Direccion.ARRIBA));
+		defaultSnakes.add(new Snake(13, 47, Direccion.ARRIBA));
+		defaultSnakes.add(new Snake(26, 47, Direccion.ARRIBA));
+		defaultSnakes.add(new Snake(39, 47, Direccion.ARRIBA));
 	}
 
 	public Snake obtenerSnakeEnPosRandom() {
@@ -179,7 +179,7 @@ public class HiloPartida extends Thread {
 		return false;
 	}
 	
-	public boolean buscarJugadorYeliminarLo(String userName) {
+	public synchronized boolean buscarJugadorYeliminarLo(String userName) {
 		Iterator<Jugador> it = jugadores.iterator();
 		while(it.hasNext()) {
 			Jugador j = it.next();
@@ -187,6 +187,12 @@ public class HiloPartida extends Thread {
 				Snake s = this.snakesEnJuego.get(j.getIdSnake());				
 				this.mapa.getSnakes().remove(s);
 				this.snakesEnJuego.remove(s);
+				for(EscuchaCliente cliente: clientes) {
+					if(cliente.getPaqueteUsuario().getUsername().equals(userName)) {
+						clientes.remove(cliente);
+						break;
+					}
+				}
 				it.remove();
 				return true;
 			}				

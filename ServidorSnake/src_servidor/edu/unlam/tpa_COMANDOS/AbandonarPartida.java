@@ -27,7 +27,7 @@ public class AbandonarPartida extends ComandoServer {
 			
 			boolean elimineJugador = false;
 			for(HiloPartida partida: Servidor.partidas) {
-				if(partida.buscarJugadorYeliminarlo(escuchaCliente.getPaqueteUsuario().getUsername())) {
+				if(partida.buscarJugadorYeliminarLo(escuchaCliente.getPaqueteUsuario().getUsername())) {
 					elimineJugador = true;
 					break;
 				}		

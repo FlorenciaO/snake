@@ -221,27 +221,6 @@ public class Servidor extends Thread {
 		}
 	}
 
-	
-//	@SuppressWarnings("unused")
-//	private JSONObject getJSONFromURL(String dir) {
-//		   try {
-//				URL url = null;
-//				url = new URL(dir);
-//				Scanner scan = null;
-//				scan = new Scanner(url.openStream(), "UTF-8");
-//				String str = new String();
-//				while (scan.hasNext()) {
-//				    str += scan.nextLine();
-//				}
-//				scan.close();
-//				return new JSONObject(str);
-//			} catch (IOException e) {
-//				return null;
-//			} 
-//	}
-
-	
-
 	public static Map<String, Socket> getMapConectados() {
 		return mapConectados;
 	}
