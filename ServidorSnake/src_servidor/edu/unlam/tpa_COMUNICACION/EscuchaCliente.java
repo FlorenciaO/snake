@@ -68,7 +68,7 @@ public class EscuchaCliente extends Thread {
 				Servidor.desconectarUsuario(paqueteUsuario.getUsername(),this);
 				
 				for (EscuchaCliente conectado : Servidor.getClientesConectados()) {
-					System.out.println("No se desconecta");
+					
 					paqueteDeUsuarios = new PaqueteDeUsuariosYSalas(Servidor.getUsuariosConectados());
 					paqueteDeUsuarios.setComando(Comando.CONEXION);
 					conectado.salida.writeObject(gson.toJson(paqueteDeUsuarios, PaqueteDeUsuariosYSalas.class));

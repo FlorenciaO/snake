@@ -47,7 +47,6 @@ public class AbandonarPartida extends ComandoServer {
 			paqueteSala.setComando(Comando.DESCONECTARDESALA);
 			escuchaCliente.getSalida().writeObject(gson.toJson(paqueteSala));
 			if(partidaTermino) {
-				System.out.println("temrino la partida");
 				paqueteSala.setComando(Comando.ELIMINARSALA);
 				escuchaCliente.getSalida().writeObject(gson.toJson(paqueteSala));
 				

@@ -52,7 +52,6 @@ public class VentanaSala extends JFrame{
 						cli.setAccion(Comando.DESCONECTARDESALA);
 						cli.notify();
 					}
-//					dispose();
 				}
 			}
 		});
@@ -96,6 +95,7 @@ public class VentanaSala extends JFrame{
 		btnEliminarSala.setFont(new Font("Times New Roman", Font.BOLD | Font.ITALIC, 13));
 		btnEliminarSala.setBounds(67, 148, 123, 35);
 		if(!ownerSala.equals(cli.getPaqueteUsuario().getUsername())) {
+			btnIniciarJuego.setEnabled(false);
 			btnEliminarSala.setEnabled(false);
 		}
 		getContentPane().add(btnEliminarSala);

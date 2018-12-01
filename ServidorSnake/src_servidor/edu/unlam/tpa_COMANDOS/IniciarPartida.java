@@ -24,7 +24,7 @@ public class IniciarPartida extends ComandoServer {
 					.get(paqueteSala.getNombreSala()).getUsuariosConectados().contains(paqueteSala.getCliente())) {
 				ArrayList<Jugador> jugadores = new ArrayList<>();
 				ArrayList<EscuchaCliente> clientesJugando = new ArrayList<>();
-				System.out.println("Creando partida");
+				
 				int color = 0;
 				int snake = 0;
 				
