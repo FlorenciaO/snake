@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -179,9 +180,16 @@ public class Cliente extends Thread {
 	}
 
 	public Jugador obtenerGanador() {
-		
-		// implementar
-		return null;
+		int max = - 1;
+		int indiceMax = -1;
+		ArrayList<Jugador> jugadores = paquetePartida.getJugadores(); 
+		for(int i = 0; i < jugadores.size() - 1; i++) {
+			if(jugadores.get(i).getPuntos() > max) {
+				max = jugadores.get(i).getPuntos();
+				indiceMax = i;
+			}				
+		}
+		return jugadores.get(indiceMax);
 	}
 
 	
