@@ -60,7 +60,7 @@ public class VentanaJuego extends JFrame
 					synchronized (cliente) {
 						PaqueteSala paqueteSala = new PaqueteSala(cliente.getPaqueteSala().getNombreSala(), cliente.getPaqueteUsuario().getUsername());
 						cliente.setPaqueteSala(paqueteSala);
-						cliente.setAccion(Comando.DESCONECTARDESALA);
+						cliente.setAccion(Comando.ABANDONARPARTIDA);
 						cliente.notify();
 					}
 					dispose();
