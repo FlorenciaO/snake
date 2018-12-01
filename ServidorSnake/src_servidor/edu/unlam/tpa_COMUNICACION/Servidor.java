@@ -189,15 +189,13 @@ public class Servidor extends Thread {
 			getLog().append("Servidor esperando conexiones..." + System.lineSeparator());
 			String ipRemota;		
 			
-			
-//			jenkins.start();  
+
 			atencionConexiones = new AtencionConexiones();
 			atencionConexiones.start();
 			atencionNuevasSalas = new AtencionNuevasSalas();
 			atencionNuevasSalas.start();
 			atencionNuevasSalasPrivadas = new AtencionNuevasSalasPrivadas();
 			atencionNuevasSalasPrivadas.start();
-			
 			atencionConexionesSalas = new AtencionConexionesSalas();
 			atencionConexionesSalas.start();
 
@@ -253,14 +251,6 @@ public class Servidor extends Thread {
 	public static void setAtencionConexionesSalas(AtencionConexionesSalas atencionConexionesSalas) {
 		Servidor.atencionConexionesSalas = atencionConexionesSalas;
 	}
-		
-//	public static AsistenteVirtual getJenkins() {
-//		return jenkins;
-//	}
-//
-//	public static void setJenkins(AsistenteVirtual jenkins) {
-//		Servidor.jenkins = jenkins;
-//	}
 
 	public static ArrayList<EscuchaCliente> getClientesConectados() {
 		return clientesConectados;

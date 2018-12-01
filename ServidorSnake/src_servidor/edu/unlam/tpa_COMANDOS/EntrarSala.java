@@ -25,7 +25,6 @@ public class EntrarSala extends ComandoServer {
 					paqueteSala = Servidor.getSalas().get(paqueteSala.getNombreSala());
 					paqueteSala.setMsj(Paquete.msjExito);
 					paqueteSala.setComando(Comando.ENTRARSALA);
-
 					escuchaCliente.getSalida().writeObject(gson.toJson(paqueteSala));
 
 					synchronized (Servidor.getAtencionConexionesSalas()) {

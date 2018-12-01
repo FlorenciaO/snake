@@ -45,7 +45,7 @@ public class VentanaJuego extends JFrame
 		getContentPane().add(panelPuntajes);
 		getContentPane().add(panelJuego);
 		setBounds(0, 0, 700, 525);
-		setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
+		setDefaultCloseOperation(DO_NOTHING_ON_CLOSE); // para que cuando pones que no, no se cierre ventana
 		setLocationRelativeTo(null);
 		setTitle("Snake");
 		setResizable(false);	
@@ -63,6 +63,7 @@ public class VentanaJuego extends JFrame
 						cliente.setAccion(Comando.ABANDONARPARTIDA);
 						cliente.notify();
 					}
+					dispose();
 				}
 			}
 		});

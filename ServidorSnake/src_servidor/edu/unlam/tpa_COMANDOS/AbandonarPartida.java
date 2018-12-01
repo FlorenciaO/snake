@@ -2,6 +2,7 @@ package edu.unlam.tpa_COMANDOS;
 
 import java.io.IOException;
 
+import edu.unlam.tpa_COMUNICACION.EscuchaCliente;
 import edu.unlam.tpa_COMUNICACION.Servidor;
 import edu.unlam.tpa_PAQUETESCLIENTE.Comando;
 import edu.unlam.tpa_PAQUETESCLIENTE.PaqueteSala;
@@ -14,30 +15,44 @@ public class AbandonarPartida extends ComandoServer {
 		PaqueteSala paqueteSala = (PaqueteSala) (gson.fromJson(cadenaLeida, PaqueteSala.class));
 		
 		try {
+			
 			Servidor.getSalas().get(paqueteSala.getNombreSala()).eliminarUsuario(paqueteSala.getCliente());
 			paqueteSala = Servidor.getSalas().get(paqueteSala.getNombreSala());
-			paqueteSala.setComando(Comando.DESCONECTARDESALA);
 
-			synchronized(Servidor.getAtencionConexionesSalas()){
-				Servidor.getAtencionConexionesSalas().setNombreSala(paqueteSala.getNombreSala());
-				Servidor.getAtencionConexionesSalas().notify();
-			}
-			
+
+			boolean partidaTermino = false;
 			boolean elimineJugador = false;			
 			for(HiloPartida partida: Servidor.partidas) {
-//				synchronized (partida) {
 					if(partida.buscarJugadorYeliminarLo(escuchaCliente.getPaqueteUsuario().getUsername())) {
 						elimineJugador = true;
+						if(partida.getJugadores().isEmpty()) {
+							paqueteSala.setEnJuego();
+							Servidor.eliminarSalaDisponible(paqueteSala.getNombreSala());
+							paqueteSala.setComando(Comando.ELIMINARSALA);
+							for(EscuchaCliente cliente : Servidor.getClientesConectados()) {
+								if(!cliente.getPaqueteUsuario().getUsername().equals(escuchaCliente.getPaqueteUsuario().getUsername()))
+									cliente.getSalida().writeObject(gson.toJson(paqueteSala));
+							}
+							partidaTermino = true;
+						}
 						break;
+					} else {
+						System.out.println("No encunetra");
 					}
-//				}		
+					
 			}
 			
 			if(!elimineJugador) {
 				throw new Exception("No existe jugador en ninguna partida");
 			}
 			
+			paqueteSala.setComando(Comando.DESCONECTARDESALA);
 			escuchaCliente.getSalida().writeObject(gson.toJson(paqueteSala));
+			if(partidaTermino) {
+				System.out.println("temrino la partida");
+				paqueteSala.setComando(Comando.ELIMINARSALA);
+				escuchaCliente.getSalida().writeObject(gson.toJson(paqueteSala));
+			}
 		} catch (IOException e) {
 			Servidor.getLog().append("Error del usuario " + escuchaCliente.getPaqueteUsuario().getUsername() + " al abandonar partida");
 		} catch (Exception e2) {

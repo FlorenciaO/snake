@@ -14,12 +14,17 @@ public class EliminarSala extends ComandoEscuchaServer {
 
 		if(paqueteSala.getMsj().equals(Paquete.msjExito)) {
 			Cliente cliente = escuchaServer.getCliente();
-			if(cliente.getSalasActivas().containsKey(paqueteSala.getNombreSala()) ) {
+			if(cliente.getSalasActivas().containsKey(paqueteSala.getNombreSala())
+					&& paqueteSala.getUsuariosConectados().contains(cliente.getPaqueteUsuario().getUsername())) {
 				
 				JOptionPane.showMessageDialog(null, "La sala " + paqueteSala.getNombreSala() + " ha sido eliminada.");
 				cliente.getSalasActivas().get(paqueteSala.getNombreSala()).dispose();
-				cliente.getSalasActivas().remove(paqueteSala.getNombreSala());
+				if(paqueteSala.enJuego()) {
+					cliente.getVentanaJuego().dispose();
+				}
+//				cliente.getSalasActivas().remove(paqueteSala.getNombreSala());
 			}
+			cliente.getSalasActivas().remove(paqueteSala.getNombreSala());
 			cliente.getPaqueteUsuario().eliminarSala(paqueteSala.getNombreSala());
 			escuchaServer.actualizarListaSalas();
 			cliente.getVentanaLobby().setVisible(true);

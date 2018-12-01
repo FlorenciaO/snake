@@ -52,7 +52,7 @@ public class VentanaSala extends JFrame{
 						cli.setAccion(Comando.DESCONECTARDESALA);
 						cli.notify();
 					}
-					dispose();
+//					dispose();
 				}
 			}
 		});

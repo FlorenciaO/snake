@@ -38,7 +38,6 @@ public class Cliente extends Thread {
 	private VentanaJuego ventanaJuego;
 	private VentanaLobby ventanaLobby;
 
-
 	private int accion; 
 	
 

@@ -42,14 +42,15 @@ public class VentanaPartidaFinalizada extends JFrame {
 		addWindowListener(new WindowAdapter() {
 			@Override
 			public void windowClosing(WindowEvent arg0) {
-					synchronized (cliente) {
-						PaqueteSala paqueteSala = new PaqueteSala(cliente.getPaqueteSala().getNombreSala(), cliente.getPaqueteUsuario().getUsername());
-						cliente.setPaqueteSala(paqueteSala);
-						cliente.setAccion(Comando.ELIMINARSALA);
-						cliente.notify();
-					}
+				synchronized (cliente) {
+//					PaqueteSala paqueteSala = new PaqueteSala(cliente.getPaqueteSala().getNombreSala(), cliente.getPaqueteUsuario().getUsername());
+//					cliente.setPaqueteSala(paqueteSala);
+//					cliente.setAccion(Comando.ELIMINARSALA);
+//					cliente.notify();
+				}
+				
+					cliente.getVentanaLobby().setVisible(true);
 					dispose();
-					// Esto deberia llevarte al lobby, todavia no lo pense como
 			}
 		});
 		

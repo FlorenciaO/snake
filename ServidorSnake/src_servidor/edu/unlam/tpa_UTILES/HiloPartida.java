@@ -157,6 +157,7 @@ public class HiloPartida extends Thread {
 			
 			paquetePartida.setPaquete(jugadores, obtenerFrutas(), obtenerSnakes());
 			paquetePartida.setComando(Comando.TERMINARPARTIDA);
+			//Llama al terminar partida del escucha server
 
 			for (EscuchaCliente conectado : clientes) {
 				try {
@@ -164,7 +165,8 @@ public class HiloPartida extends Thread {
 				} catch (IOException e) {
 					e.printStackTrace();
 				}
-			}				
+			}
+			
 		Servidor.partidas.remove(this);
 	}
 
@@ -189,7 +191,6 @@ public class HiloPartida extends Thread {
 			if(j.getNombreUsuario().equalsIgnoreCase(userName)) {
 				Snake s = this.snakesEnJuego.get(j.getIdSnake());				
 				this.mapa.getSnakes().remove(s);
-//				this.snakesEnJuego.remove(s);
 				for(EscuchaCliente cliente: clientes) {
 					if(cliente.getPaqueteUsuario().getUsername().equals(userName)) {
 						clientes.remove(cliente);
@@ -220,4 +221,10 @@ public class HiloPartida extends Thread {
 		return paquetePartida;
 	}
 
+	public ArrayList<Jugador> getJugadores() {
+		return jugadores;
+	}
+
+	
+	
 }

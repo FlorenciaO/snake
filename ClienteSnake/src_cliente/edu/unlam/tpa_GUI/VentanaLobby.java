@@ -7,8 +7,6 @@ import javax.swing.JScrollPane;
 import javax.swing.ScrollPaneConstants;
 import javax.swing.JLabel;
 import javax.swing.SwingConstants;
-import javax.swing.text.SimpleAttributeSet;
-
 import edu.unlam.tpa_COMUNICACION.Cliente;
 import edu.unlam.tpa_PAQUETESCLIENTE.Comando;
 import edu.unlam.tpa_PAQUETESCLIENTE.PaqueteSala;
@@ -36,7 +34,6 @@ public class VentanaLobby extends JFrame{
 
 	private static JList<String> listaUsuariosChatGeneral = new JList<String>();
 	private static JList<String> listaSalas = new JList<String>();
-	private static SimpleAttributeSet attrs = new SimpleAttributeSet();
 
 	public VentanaLobby(Cliente cliente) {
 		
@@ -73,7 +70,7 @@ public class VentanaLobby extends JFrame{
 		listaSalas.setBackground(Color.WHITE);
 		getContentPane().add(scrollPane);
 		
-		getContentPane().add(this.listaSalas);
+		getContentPane().add(listaSalas);
 		
 
 		listaSalas.addMouseListener(new MouseAdapter() {

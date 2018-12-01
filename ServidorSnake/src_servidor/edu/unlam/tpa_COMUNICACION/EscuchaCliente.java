@@ -68,6 +68,7 @@ public class EscuchaCliente extends Thread {
 				Servidor.desconectarUsuario(paqueteUsuario.getUsername(),this);
 				
 				for (EscuchaCliente conectado : Servidor.getClientesConectados()) {
+					System.out.println("No se desconecta");
 					paqueteDeUsuarios = new PaqueteDeUsuariosYSalas(Servidor.getUsuariosConectados());
 					paqueteDeUsuarios.setComando(Comando.CONEXION);
 					conectado.salida.writeObject(gson.toJson(paqueteDeUsuarios, PaqueteDeUsuariosYSalas.class));
@@ -94,8 +95,18 @@ public class EscuchaCliente extends Thread {
 			Servidor.getLog().append(paquete.getIp() + " se ha desconectado " + System.lineSeparator());
 
 		} catch (IOException | ClassNotFoundException e) {
+			int index = Servidor.getSocketsConectados().indexOf(socket);
+			try {
+				entrada.close();
+				salida.close();
+				socket.close();
+			} catch (IOException e1) {
+				e1.printStackTrace();
+			}
+			
+			Servidor.getSocketsConectados().remove(index);
+			Servidor.getClientesConectados().remove(index);
 			Servidor.getLog().append("Hubo un error de conexion: " + e.getMessage() + System.lineSeparator());
-			e.printStackTrace();
 		} 
 	}
 
