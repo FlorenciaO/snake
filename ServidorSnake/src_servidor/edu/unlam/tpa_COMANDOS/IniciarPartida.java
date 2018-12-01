@@ -29,18 +29,14 @@ public class IniciarPartida extends ComandoServer {
 				int snake = 0;
 				
 				Servidor.modificarSalaDisponible(paqueteSala.getNombreSala());
-				PaqueteDeUsuariosYSalas psu = (PaqueteDeUsuariosYSalas) new PaqueteDeUsuariosYSalas(null,
-						Servidor.getNombresSalasDisponibles(), Servidor.getSalasPrivadasNombresDisponibles()).clone();
-
+			
 				for (EscuchaCliente cliente : Servidor.getClientesConectados()) {
 					if (Servidor.getSalas().get(paqueteSala.getNombreSala()).getUsuariosConectados()
 							.contains(cliente.getPaqueteUsuario().getUsername())) {
 						jugadores.add(new Jugador(cliente.getPaqueteUsuario().getUsername(), color++, snake++));
 						clientesJugando.add(cliente);
 					}
-					psu.setComando(Comando.INICIOUNAPARTIDA);
-					String s = gson.toJson(psu);
-					cliente.getSalida().writeObject(s);
+					
 				}
 
 				HiloPartida partida = new HiloPartida(jugadores, clientesJugando);

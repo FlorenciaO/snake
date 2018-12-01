@@ -14,6 +14,7 @@ public class PaqueteSala extends Paquete implements Serializable, Cloneable {
 	private int tipo;
 
 	private ArrayList<String> UsuariosConectados = new ArrayList<String>();
+	private boolean enJuego = false;
 
 	public PaqueteSala(String name, String cliente){
 		this.nombreSala = name;
@@ -85,6 +86,14 @@ public class PaqueteSala extends Paquete implements Serializable, Cloneable {
 
 	public void setTipo(int tipo) {
 		this.tipo = tipo;
+	}
+
+	public void setEnJuego() {
+		this.enJuego  = true;
+	}
+	
+	public boolean enJuego() {
+		return this.enJuego;
 	}
 
 }

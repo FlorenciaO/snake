@@ -15,6 +15,11 @@ public class Jugador implements Serializable, Cloneable {
 	private int ultimaTeclaPresionada;
 	private boolean enJuego = true;
 	
+	@Override
+	public String toString() {
+		return userName +  " " + idSnake + " " + enJuego;
+	}
+	
 	
 	public Jugador(String userName) {
 		this.userName = userName;

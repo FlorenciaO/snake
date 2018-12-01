@@ -374,10 +374,7 @@ public class Servidor extends Thread {
 
 	public static void modificarSalaDisponible(String nombreSala) {
 				
-		salas.get(nombreSala).setNombreSala(nombreSala + " ( En Juego)");
-		int i = salasNombresDisponibles.indexOf(nombreSala);
-		salasNombresDisponibles.set(i, nombreSala + " ( En Juego)");
-		System.out.println(salasNombresDisponibles.get(0));
+		salas.get(nombreSala).setEnJuego();;
 			
 	}
 }

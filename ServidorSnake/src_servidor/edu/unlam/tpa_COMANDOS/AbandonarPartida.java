@@ -23,15 +23,14 @@ public class AbandonarPartida extends ComandoServer {
 				Servidor.getAtencionConexionesSalas().notify();
 			}
 			
-			boolean elimineJugador = false;
-			
+			boolean elimineJugador = false;			
 			for(HiloPartida partida: Servidor.partidas) {
-				synchronized (partida) {
+//				synchronized (partida) {
 					if(partida.buscarJugadorYeliminarLo(escuchaCliente.getPaqueteUsuario().getUsername())) {
 						elimineJugador = true;
 						break;
 					}
-				}		
+//				}		
 			}
 			
 			if(!elimineJugador) {

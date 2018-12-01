@@ -132,7 +132,7 @@ public class HiloPartida extends Thread {
 
 	@Override
 	public void run() {
-		synchronized (this) {
+		
 			Gson gson = new Gson();
 			while (masDeUnaEstaViva() && jugadores.size() >= 1) {
 				actualizarDirecciones();
@@ -164,9 +164,7 @@ public class HiloPartida extends Thread {
 				} catch (IOException e) {
 					e.printStackTrace();
 				}
-			}
-			
-		}
+			}				
 		Servidor.partidas.remove(this);
 	}
 
@@ -184,15 +182,14 @@ public class HiloPartida extends Thread {
 		return false;
 	}
 	
-	public boolean buscarJugadorYeliminarLo(String userName) {
-		Iterator<Jugador> it = jugadores.iterator();
-		System.out.println("entra");
+	public synchronized boolean buscarJugadorYeliminarLo(String userName) {
+		Iterator<Jugador> it = jugadores.iterator();		
 		while(it.hasNext()) {
 			Jugador j = it.next();
 			if(j.getNombreUsuario().equalsIgnoreCase(userName)) {
 				Snake s = this.snakesEnJuego.get(j.getIdSnake());				
 				this.mapa.getSnakes().remove(s);
-				this.snakesEnJuego.remove(s);
+//				this.snakesEnJuego.remove(s);
 				for(EscuchaCliente cliente: clientes) {
 					if(cliente.getPaqueteUsuario().getUsername().equals(userName)) {
 						clientes.remove(cliente);
@@ -206,8 +203,9 @@ public class HiloPartida extends Thread {
 		return false;
 	}
 
-	public Map<Integer, ArrayList<Posicion>> obtenerSnakes() {
+	public synchronized Map<Integer, ArrayList<Posicion>> obtenerSnakes() {
 		Map<Integer, ArrayList<Posicion>> map = new HashMap<>();
+		
 		for (Jugador jugador : jugadores) {
 			if(jugador.isEnJuego()) {
 				map.put(jugador.getColor(),

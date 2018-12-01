@@ -24,9 +24,11 @@ public class EntrarSala extends ComandoEscuchaServer {
 			} else {
 				JOptionPane.showMessageDialog(null, "Ya estas dentro de una sala");
 			} 
-		} else {
+		} else if(paqueteSala.getMsj().equals(Paquete.msjFallo)){
+			JOptionPane.showMessageDialog(null, "La sala esta en juego ");
+		}else {
 			JOptionPane.showMessageDialog(null, "Error al intentar entrar en la sala " + cliente.getPaqueteSala().getNombreSala());
-		}		
+		}
 	}
 
 }

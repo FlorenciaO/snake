@@ -45,7 +45,7 @@ public class VentanaJuego extends JFrame
 		getContentPane().add(panelPuntajes);
 		getContentPane().add(panelJuego);
 		setBounds(0, 0, 700, 525);
-		
+		setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
 		setLocationRelativeTo(null);
 		setTitle("Snake");
 		setResizable(false);	
