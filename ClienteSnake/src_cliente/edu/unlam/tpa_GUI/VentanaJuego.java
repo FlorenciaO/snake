@@ -49,7 +49,7 @@ public class VentanaJuego extends JFrame
 		setLocationRelativeTo(null);
 		setTitle("Snake");
 		setResizable(false);	
-		setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+		
 		setVisible(true);
 		panelJuego.requestFocus();
 		
@@ -63,7 +63,6 @@ public class VentanaJuego extends JFrame
 						cliente.setAccion(Comando.ABANDONARPARTIDA);
 						cliente.notify();
 					}
-					dispose();
 				}
 			}
 		});
