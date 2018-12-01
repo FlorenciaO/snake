@@ -133,7 +133,7 @@ public class HiloPartida extends Thread {
 	public void run() {
 		synchronized (this) {
 			Gson gson = new Gson();
-			while (masDeUnaEstaViva()) {
+			while (masDeUnaEstaViva() && jugadores.size() >= 1) {
 				actualizarDirecciones();
 				partida.actualizarPartida();
 				actualizarPuntos();
@@ -184,6 +184,7 @@ public class HiloPartida extends Thread {
 	
 	public boolean buscarJugadorYeliminarLo(String userName) {
 		Iterator<Jugador> it = jugadores.iterator();
+		System.out.println("entra");
 		while(it.hasNext()) {
 			Jugador j = it.next();
 			if(j.getNombreUsuario().equalsIgnoreCase(userName)) {
