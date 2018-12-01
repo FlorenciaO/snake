@@ -74,7 +74,7 @@ public class PanelJuego extends JPanel {
 		case KeyEvent.VK_S:
 		case KeyEvent.VK_D:
 		case KeyEvent.VK_W:
-			synchronized (cliente) {
+			synchronized (cliente) {				
 				PaqueteTecla paqueteTecla = new PaqueteTecla(aux, cliente.getPaqueteUsuario().getUsername());
 				cliente.setPaqueteTecla(paqueteTecla);
 				cliente.setAccion(Comando.ENVIARTECLA);

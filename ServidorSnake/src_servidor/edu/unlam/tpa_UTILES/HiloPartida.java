@@ -11,6 +11,7 @@ import java.util.concurrent.ThreadLocalRandom;
 import com.google.gson.Gson;
 
 import edu.unlam.tpa_COMUNICACION.EscuchaCliente;
+import edu.unlam.tpa_COMUNICACION.Servidor;
 import edu.unlam.tpa_ENUMS.Velocidad;
 import edu.unlam.tpa_JUEGO.Direccion;
 import edu.unlam.tpa_JUEGO.Fruta;
@@ -29,7 +30,7 @@ public class HiloPartida extends Thread {
 	private ArrayList<Fruta> frutas = new ArrayList<>();
 	private ArrayList<Snake> defaultSnakes;
 	private ArrayList<Snake> snakesEnJuego = new ArrayList<>();
-	private Velocidad speed = Velocidad.NORMAL;
+	private Velocidad speed = Velocidad.LENTO;
 	private PaquetePartida paquetePartida;
 
 	private ArrayList<EscuchaCliente> clientes;
@@ -166,6 +167,7 @@ public class HiloPartida extends Thread {
 			}
 			
 		}
+		Servidor.partidas.remove(this);
 	}
 
 	public ArrayList<Posicion> obtenerFrutas() {
