@@ -4,6 +4,7 @@ import java.awt.event.KeyEvent;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Map;
 import java.util.concurrent.ThreadLocalRandom;
 
@@ -174,6 +175,21 @@ public class HiloPartida extends Thread {
 				jugador.setUltimaTeclaPresionada(tecla);
 				return true;
 			}
+		}
+		return false;
+	}
+	
+	public boolean buscarJugadorYeliminarLo(String userName) {
+		Iterator<Jugador> it = jugadores.iterator();
+		while(it.hasNext()) {
+			Jugador j = it.next();
+			if(j.getNombreUsuario().equalsIgnoreCase(userName)) {
+				Snake s = this.snakesEnJuego.get(j.getIdSnake());				
+				this.mapa.getSnakes().remove(s);
+				this.snakesEnJuego.remove(s);
+				it.remove();
+				return true;
+			}				
 		}
 		return false;
 	}
