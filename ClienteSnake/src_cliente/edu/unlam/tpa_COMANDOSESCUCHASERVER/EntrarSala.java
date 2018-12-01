@@ -18,7 +18,7 @@ public class EntrarSala extends ComandoEscuchaServer {
 		if (paqueteSala.getMsj().equals(Paquete.msjExito)) {
 			if (cliente.getSalasActivas().size() == 0) {				
 				VentanaSala sala = new VentanaSala(cliente);
-				
+				cliente.getVentanaLobby().setVisible(false);
 				cliente.getSalasActivas().put(cliente.getPaqueteSala().getNombreSala(), sala);
 				escuchaServer.actualizarListaConectadosSala(paqueteSala);
 			} else {

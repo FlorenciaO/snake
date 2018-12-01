@@ -23,7 +23,7 @@ public class InicioSesion extends ComandoEscuchaServer {
 			escuchaServer.getCliente().getPaqueteUsuario().setListaDeSalas(salas);
 			ArrayList<String> salasp = paqueteUS.getSalasprivadas();//VER
 			escuchaServer.getCliente().getPaqueteUsuario().setListaDeSalasPrivadas(salasp);//VER
-			new VentanaLobby(escuchaServer.getCliente());
+			escuchaServer.getCliente().setVentanaLobby(new VentanaLobby(escuchaServer.getCliente()));
 			escuchaServer.actualizarListaSalas();			
 
 		} else {
@@ -32,8 +32,7 @@ public class InicioSesion extends ComandoEscuchaServer {
 				JOptionPane.showMessageDialog(null, "Error al iniciar sesion. Revise el usuario y la contraseña");
 			} else {
 				JOptionPane.showMessageDialog(null, "Ya existe una sesion iniciada con ese usuario.");
-			}
-//			escuchaServer.getCliente().getPaqueteUsuario().setUsername(null);
+			} 
 			new VentanaLogin(escuchaServer.getCliente());
 		}
 	}

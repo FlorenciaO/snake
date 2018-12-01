@@ -11,6 +11,7 @@ import javax.swing.JOptionPane;
 
 import edu.unlam.tpa_COMANDOSCLIENTE.ComandoCliente;
 import edu.unlam.tpa_GUI.VentanaJuego;
+import edu.unlam.tpa_GUI.VentanaLobby;
 import edu.unlam.tpa_GUI.VentanaLogin;
 import edu.unlam.tpa_GUI.VentanaSala;
 import edu.unlam.tpa_PAQUETESCLIENTE.Paquete;
@@ -34,6 +35,7 @@ public class Cliente extends Thread {
 
 	private Map<String, VentanaSala> salasActivas = new HashMap<>();
 	private VentanaJuego ventanaJuego;
+	private VentanaLobby ventanaLobby;
 
 
 	private int accion; 
@@ -184,5 +186,12 @@ public class Cliente extends Thread {
 		return null;
 	}
 
+	public VentanaLobby getVentanaLobby() {
+		return ventanaLobby;
+	}
+
+	public void setVentanaLobby(VentanaLobby ventanaLobby) {
+		this.ventanaLobby = ventanaLobby;
+	}
 	
 }

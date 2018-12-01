@@ -22,6 +22,7 @@ public class EliminarSala extends ComandoEscuchaServer {
 			}
 			cliente.getPaqueteUsuario().eliminarSala(paqueteSala.getNombreSala());
 			escuchaServer.actualizarListaSalas();
+			cliente.getVentanaLobby().setVisible(true);
 		} else if(paqueteSala.getMsj().equals(Paquete.msjFracaso)) {
 			JOptionPane.showMessageDialog(null, "Error al tratar de eliminar la sala.");
 		}

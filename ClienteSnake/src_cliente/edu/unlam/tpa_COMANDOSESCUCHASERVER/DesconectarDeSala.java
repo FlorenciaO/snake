@@ -12,6 +12,7 @@ public class DesconectarDeSala extends ComandoEscuchaServer {
 		if(cliente.getSalasActivas().containsKey(paqueteSala.getNombreSala())) {
 			cliente.getSalasActivas().remove(paqueteSala.getNombreSala());
 		}
+		cliente.getVentanaLobby().setVisible(true);
 	}
 
 }
